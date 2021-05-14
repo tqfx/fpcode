@@ -7,84 +7,115 @@ class fpcode:
     '''Flower Password generate
 
     Attributes:
-        code:
-        code1:
-        code2:
+        `code`: Calculate the password
     '''
 
+    # character table
     __table_char = "aAbBcCdDeEfFgGhHiIjJkKlLmM0123456789nNopPqQrRsStTuUvVwWxXyYzZ"
 
+    # Calculated rule
     __rule0 = None
     __rule1 = None
     __rule2 = None
     __rule3 = None
 
     def __init__(self, rule0, rule1, rule2, rule3) -> None:
+        '''Initialization of rules
+
+        Args:
+            `rule0`: The first rule
+            `rule1`: The second rule
+            `rule2`: The third rule
+            `rule3`: The fourth rule
+
+        Returns:
+            None
+        '''
         self.rule0 = str(rule0).strip().encode(encoding="utf-8")
         self.rule1 = str(rule1).strip().encode(encoding="utf-8")
         self.rule2 = str(rule2).strip().encode(encoding="utf-8")
         self.rule3 = str(rule3).strip().encode(encoding="utf-8")
 
-    def __code__(self, password, key):
-        '''
+    def __code__(self, password, key) -> None:
+        '''Calculation of rules
+
         Args:
-            password: the password
-            key: the key
+            `password`: A password to remember
+            `key`: The corresponding keyword
+
+        Returns:
+            `None`
         '''
 
+        # Remove the blank space
         password = str(password).strip()
         key = str(key).strip()
 
+        # Check the value
         if (1 > len(password)) or (1 > len(key)):
             raise ValueError
 
+        # Gets the initial value of the rule
         password = password.encode(encoding="utf-8")
         key = key.encode(encoding="utf-8")
-
         hmd5 = hmac.new(key, password, 'MD5').hexdigest()
         hmd5 = hmd5.encode(encoding="utf-8")
 
+        # Calculate by rule
         self.__rule0 = hmac.new(self.rule0, hmd5, 'MD5').hexdigest()
         self.__rule1 = hmac.new(self.rule1, hmd5, 'MD5').hexdigest()
         self.__rule2 = hmac.new(self.rule2, hmd5, 'MD5').hexdigest()
         self.__rule3 = hmac.new(self.rule3, hmd5, 'MD5').hexdigest()
 
-        return
+    def debug(self) -> None:
+        '''Output debugging information
 
-    def debug(self):
+        Args:
+            `None`
+
+        Returns:
+            `None`
+        '''
         print(self.__rule0)
         print(self.__rule1)
         print(self.__rule2)
         print(self.__rule3)
 
     def code(self, password, key, length=16, table="", digit=False):
-        '''
+        '''Calculate the password
+
         Args:
-            password: The password
-            key: The key
-            length: 1 ~ 32
-            table: The table
-            digit: The flag is digit
+            `password`: A password to remember
+            `key`: The corresponding keyword
+            `length`: The length of the computed password ( 1 ~ 32 )
+            `table`: New character table
+            `digit`: `True` Output pure number
+
         Returns:
-            str
+            character string
         '''
 
+        # Check the length
         length = int(length)
         if (1 > length) or (length > 32):
             return None
 
+        # Calculated rule
         self.__code__(password, key)
 
-        ret = ''
-        count = 0
+        ret = ''  # String returned
+        count = 0  # round
+        # The number of times a number appears
         mark = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         for i in range(length):
+            # String to number
             i0 = int(self.__rule0[i], 16)
             i1 = int(self.__rule1[i], 16)
             i2 = int(self.__rule2[i], 16)
             i3 = int(self.__rule3[i], 16)
             if digit:
                 j = i = (i0 + i1 + i2 + i3) % 10
+                # Do not repeat each round
                 while mark[i] > count:
                     i += 1
                     if i >= 10:
@@ -98,13 +129,14 @@ class fpcode:
                 ret += self.__table_char[i]
 
         if not digit:
+            # Add a new character
             for i in range(min(len(table), length)):
                 i0 = int(self.__rule0[i], 16)
                 i1 = int(self.__rule1[i], 16)
                 i2 = int(self.__rule2[i], 16)
                 i3 = int(self.__rule3[i], 16)
                 j = (i0 + i1 + i2 + i3) % length
-
+                # ret[j] = table[i]
                 ret = list(ret)
                 ret[j] = table[i]
                 ret = ''.join(ret)
@@ -112,26 +144,28 @@ class fpcode:
         return ret
 
 
-fp = fpcode("", "", "", "")
-table = "_"
-password = ""
-key = ""
-length = 16
-argc = len(sys.argv)
-if argc > 3:
-    length = int(sys.argv[3])
-if argc > 2:
-    password = sys.argv[1]
-    key = sys.argv[2]
-if argc == 2:
-    length = int(sys.argv[1])
-elif argc == 1:
-    length = int(input("length:"))
-if argc < 3:
-    password = input("passwd:")
-    key = input("key:")
+if __name__ == "__main__":
+    table = "_"
+    password = ""
+    key = ""
+    length = 16
 
-print(fp.code(password, key, length))
-print(fp.code(password, key, length, digit=True))
-print(fp.code(password, key, length, table))
-fp.debug()
+    argc = len(sys.argv)
+    if argc > 3:
+        length = int(sys.argv[3])
+    if argc > 2:
+        password = sys.argv[1]
+        key = sys.argv[2]
+    if argc == 2:
+        length = int(sys.argv[1])
+    elif argc == 1:
+        length = int(input("length:"))
+    if argc < 3:
+        password = input("passwd:")
+        key = input("key:")
+
+    fp = fpcode("0", "1", "2", "3")
+    print(fp.code(password, key, length))
+    print(fp.code(password, key, length, digit=True))
+    print(fp.code(password, key, length, table))
+    fp.debug()
