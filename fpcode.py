@@ -62,10 +62,10 @@ class fpcode:
         hmd5 = hmd5.encode(encoding="utf-8")
 
         # Calculate by rule
-        self.__rule0 = hmac.new(self.rule0, hmd5, 'MD5').hexdigest()
-        self.__rule1 = hmac.new(self.rule1, hmd5, 'MD5').hexdigest()
-        self.__rule2 = hmac.new(self.rule2, hmd5, 'MD5').hexdigest()
-        self.__rule3 = hmac.new(self.rule3, hmd5, 'MD5').hexdigest()
+        self.__rule0 = list(hmac.new(self.rule0, hmd5, 'MD5').hexdigest())
+        self.__rule1 = list(hmac.new(self.rule1, hmd5, 'MD5').hexdigest())
+        self.__rule2 = list(hmac.new(self.rule2, hmd5, 'MD5').hexdigest())
+        self.__rule3 = list(hmac.new(self.rule3, hmd5, 'MD5').hexdigest())
 
     def debug(self) -> None:
         '''Output debugging information
@@ -76,10 +76,10 @@ class fpcode:
         Returns:
             `None`
         '''
-        print(self.__rule0)
-        print(self.__rule1)
-        print(self.__rule2)
-        print(self.__rule3)
+        print(''.join(self.__rule0))
+        print(''.join(self.__rule1))
+        print(''.join(self.__rule2))
+        print(''.join(self.__rule3))
 
     def code(self, password, key, length=16, table="", digit=False):
         '''Calculate the password
@@ -103,18 +103,18 @@ class fpcode:
         # Calculated rule
         self.__code__(password, key)
 
-        ret = ''  # String returned
+        ret = []  # String returned
         count = 0  # round
-        # The number of times a number appears
-        mark = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        mark = [0] * 10  # The number of times a number appears
         for i in range(length):
             # String to number
             i0 = int(self.__rule0[i], 16)
             i1 = int(self.__rule1[i], 16)
             i2 = int(self.__rule2[i], 16)
             i3 = int(self.__rule3[i], 16)
+            i = i0 + i1 + i2 + i3
             if digit:
-                j = i = (i0 + i1 + i2 + i3) % 10
+                j = i = i % 10
                 # Do not repeat each round
                 while mark[i] > count:
                     i += 1
@@ -123,10 +123,10 @@ class fpcode:
                     if i == j:
                         count += 1
                 mark[i] += 1
-                ret += str(i)
+                i = str(i)
             else:
-                i = i0 + i1 + i2 + i3
-                ret += self.__table_char[i]
+                i = self.__table_char[i]
+            ret.append(i)
 
         if not digit:
             # Add a new character
@@ -136,10 +136,9 @@ class fpcode:
                 i2 = int(self.__rule2[i], 16)
                 i3 = int(self.__rule3[i], 16)
                 j = (i0 + i1 + i2 + i3) % length
-                # ret[j] = table[i]
-                ret = list(ret)
                 ret[j] = table[i]
-                ret = ''.join(ret)
+
+        ret = ''.join(ret)
 
         return ret
 
