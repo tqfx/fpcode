@@ -40,14 +40,34 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private types -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+
+/* The pointer for rules */
+static const char *prule0 = NULL;
+static const char *prule1 = NULL;
+static const char *prule2 = NULL;
+static const char *prule3 = NULL;
+
 /* Private function prototypes -----------------------------------------------*/
 
 /**
  * @brief          Hexadecimal to decimal
- * @param[in]      ch '0'-'9' 'A'-'F' 'a'-'f'
+ * @param[in]      ch: '0'-'9' 'a'-'f' 'A'-'F'
  * @return         int 0~15
 */
 static int xdigit(char ch);
+
+/**
+ * @brief          Set the rules
+ * @param[in]      s0: The first rule
+ * @param[in]      s0: The second rule
+ * @param[in]      s0: The third rule
+ * @param[in]      s0: The fourth rule
+ * @return         int 0(success) -1(parameter error)
+*/
+static int fpcode_rule(const char *s0,
+                       const char *s1,
+                       const char *s2,
+                       const char *s3);
 
 static int fpcode_cc(char **     dst,
                      const char *source,
@@ -106,6 +126,28 @@ static int xdigit(char ch)
     default:
         break;
     }
+
+    return ret;
+}
+
+static int fpcode_rule(const char *s0,
+                       const char *s1,
+                       const char *s2,
+                       const char *s3)
+{
+    int ret = -1;
+
+    /* Check the variable */
+    if (!s0 || !s1 || !s2 || !s3)
+    {
+        return ret;
+    }
+
+    /* Set the rules */
+    prule0 = s0;
+    prule1 = s1;
+    prule2 = s2;
+    prule3 = s3;
 
     return ret;
 }
