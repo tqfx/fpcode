@@ -155,6 +155,7 @@ int fpcode(char **     dst,
     {
         switch (t)
         {
+        case FPTYPE_NEW:
         case FPTYPE_EMAIL:
         {
             (*dst)[i] = pr1[i];
@@ -192,7 +193,6 @@ int fpcode(char **     dst,
             break;
         }
 
-        case FPTYPE_NEW:
         default:
             break;
         }
@@ -213,7 +213,7 @@ int fpcode(char **     dst,
         {
             uint32_t l_t = (uint32_t)strlen(table_new);
 
-            l_t = l < l_t ? l_t : l;
+            l_t = l > l_t ? l_t : l;
             for (uint8_t i = 0U; i != l_t; ++i)
             {
                 uint8_t x = (uint8_t)(table_x[i] % l);
