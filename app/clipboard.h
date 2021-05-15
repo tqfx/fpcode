@@ -1,23 +1,19 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
  * @file         clipboard.c/h
  * @brief        clipboard
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210515
+ * @version      1
+ * @copyright    Copyright (c) 2021
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-
 #ifndef __CLIPBOARD_H__
 #define __CLIPBOARD_H__
 
-/* Includes ------------------------------------------------------------------*/
-/* Private includes ----------------------------------------------------------*/
-/* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 
 #undef __BEGIN_DECLS
@@ -26,13 +22,13 @@
 #define __BEGIN_DECLS \
     extern "C"        \
     {
-#define __END_DECLS }
+#define __END_DECLS \
+    }
 #else
 #define __BEGIN_DECLS
 #define __END_DECLS
 #endif /* __cplusplus */
 
-/* Exported types ------------------------------------------------------------*/
 /* Exported functions prototypes ---------------------------------------------*/
 
 __BEGIN_DECLS
@@ -40,16 +36,16 @@ __BEGIN_DECLS
 #ifdef __WINNT__
 
 /**
- * @brief        set the clipboard of windows
- * @param[in]    str the data
- * @return       int the WINBOOL
+ * @brief          Set the clipboard of windows
+ * @param[in]      str: the data
+ * @return         int the WINBOOL
 */
 extern int clipboard_set(const char *str);
 
 /**
- * @brief        get the clipboard of windows
- * @param[out]   str the data
- * @return       int 0 sucess -1 failure
+ * @brief          Get the clipboard of windows
+ * @param[out]     str: the data
+ * @return         int 0(success) -1(failure)
 */
 extern int clipboard_get(char **dst);
 
@@ -57,8 +53,7 @@ extern int clipboard_get(char **dst);
 
 __END_DECLS
 
-/* Private defines -----------------------------------------------------------*/
-
+/* Terminate definition to prevent recursive inclusion -----------------------*/
 #endif /* __CLIPBOARD_H__ */
 
-/************************ (C) COPYRIGHT tqfx *******************END OF FILE****/
+/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
