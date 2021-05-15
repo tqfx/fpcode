@@ -1,12 +1,12 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
  * @file         fp_crypt.c/h
  * @brief        crypt fp
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210515
+ * @version      1
+ * @copyright    Copyright (C) 2021 tqfx
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
@@ -23,17 +23,13 @@
 
 #define LEN_CRYPT_CHAR 16U
 
-/* Private macro -------------------------------------------------------------*/
-/* Private typedef -----------------------------------------------------------*/
-/* Private types -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 
-static const char *table_encode = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq\
-rstuvwxyz0123456789+/";
+static const char *table_encode =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 static unsigned long srands_next = 1UL;
 
-/* Private function prototypes -----------------------------------------------*/
 /* Private user code ---------------------------------------------------------*/
 
 static void srands(unsigned long seed)
@@ -65,7 +61,7 @@ int fp_encrypt(const char *in, char **out, unsigned int len)
         return -1;
     }
 
-    for (unsigned int j = 0U; i < len * LEN_CRYPT_CHAR; i += LEN_CRYPT_CHAR)
+    for (unsigned int j = 0U; i != len * LEN_CRYPT_CHAR; i += LEN_CRYPT_CHAR)
     {
         char         ch   = '\0';
         unsigned int site = (unsigned int)-1;
@@ -115,7 +111,7 @@ int fp_dncrypt(const char *in, char **out, unsigned int len)
         return -1;
     }
 
-    for (unsigned int i = 0U; i < len * LEN_CRYPT_CHAR; i += LEN_CRYPT_CHAR)
+    for (unsigned int i = 0U; i != len * LEN_CRYPT_CHAR; i += LEN_CRYPT_CHAR)
     {
         char ch = '\0';
 
@@ -154,4 +150,4 @@ int fp_dncrypt(const char *in, char **out, unsigned int len)
     return 0;
 }
 
-/************************ (C) COPYRIGHT tqfx *******************END OF FILE****/
+/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
