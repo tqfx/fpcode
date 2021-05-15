@@ -1,12 +1,12 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
  * @file         app.c/h
  * @brief        application
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210515
+ * @version      1
+ * @copyright    Copyright (C) 2021 tqfx
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
@@ -27,10 +27,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private typedef -----------------------------------------------------------*/
-/* Private types -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 
 static const char const_format_log[]     = "%s  %s  %s\n";
@@ -41,6 +37,11 @@ static const char const_str_error[] = "error";
 static const char const_str_empty[] = "empty";
 
 /* Private function prototypes -----------------------------------------------*/
+
+#ifdef __clang__
+static int cmdout(const char *str);
+#endif /* __clang__ */
+
 /* Private user code ---------------------------------------------------------*/
 
 #ifdef __clang__
@@ -67,13 +68,23 @@ static int cmdout(const char *str)
 }
 #endif /* __clang__ */
 
-int app_fpcode(const char *password, const fp_t *fp)
+int app_fpcode(const char *password,
+               const fp_t *fp)
 {
     char *p = NULL;
 
-    if (fpcode(&p, password, fp->key, fp->len, fp->type))
+    if (fp->type == FPTYPE_NEW && !fp->new)
     {
-        (void)printf("%s  %s\n", const_str_empty, const_str_error);
+        (void)printf("%s  %s\n",
+                     const_str_n,
+                     const_str_empty);
+    }
+
+    if (fpcode(&p, fp->type, password, fp->key, fp->len, fp->new))
+    {
+        (void)printf("%s  %s\n",
+                     const_str_empty,
+                     const_str_error);
         return -1;
     }
 
@@ -112,17 +123,33 @@ int app_data_init(const char *filename)
     }
     else
     {
-        (void)printf(const_format_log, filename, "init", const_str_ok);
+        (void)printf(const_format_log,
+                     filename,
+                     "init",
+                     const_str_ok);
     }
 
     return ret;
 }
 
-int app_add_key(const char *filename, const fp_t *fp)
+int app_add_key(const char *filename,
+                const fp_t *fp)
 {
     if (!strlen(fp->key))
     {
-        (void)printf(const_format_log, filename, const_str_k, const_str_empty);
+        (void)printf(const_format_log,
+                     filename,
+                     const_str_k,
+                     const_str_empty);
+        return -1;
+    }
+
+    if (fp->type == FPTYPE_NEW && !fp->new)
+    {
+        (void)printf(const_format_log,
+                     filename,
+                     const_str_n,
+                     const_str_empty);
         return -1;
     }
 
@@ -134,7 +161,10 @@ int app_add_key(const char *filename, const fp_t *fp)
     }
     else
     {
-        (void)printf(const_format_log, filename, const_str_k, const_str_ok);
+        (void)printf(const_format_log,
+                     filename,
+                     const_str_k,
+                     const_str_ok);
 
         ret = app_get_key(filename, fp);
     }
@@ -142,11 +172,15 @@ int app_add_key(const char *filename, const fp_t *fp)
     return ret;
 }
 
-int app_add_password(const char *filename, const char *password)
+int app_add_password(const char *filename,
+                     const char *password)
 {
     if (!strlen(password))
     {
-        (void)printf(const_format_log, filename, const_str_p, const_str_empty);
+        (void)printf(const_format_log,
+                     filename,
+                     const_str_p,
+                     const_str_empty);
         return -1;
     }
 
@@ -158,13 +192,18 @@ int app_add_password(const char *filename, const char *password)
     }
     else
     {
-        (void)printf(const_format_log, filename, const_str_p, const_str_ok);
+        (void)printf(const_format_log,
+                     filename,
+                     const_str_p,
+                     const_str_ok);
     }
 
     return ret;
 }
 
-static int app_del_id(const char *filename, const char *string, unsigned int id)
+static int app_del_id(const char * filename,
+                      const char * string,
+                      unsigned int id)
 {
     int ret = -1;
 
@@ -174,7 +213,8 @@ static int app_del_id(const char *filename, const char *string, unsigned int id)
         if (!strcmp(string, const_str_p))
         {
             char **p = NULL;
-            ret      = fp_out_p(filename, &p, &n);
+
+            ret = fp_out_p(filename, &p, &n);
             if (ret)
             {
                 break;
@@ -188,7 +228,8 @@ static int app_del_id(const char *filename, const char *string, unsigned int id)
         else if (!strcmp(string, const_str_k))
         {
             fp_t **k = NULL;
-            ret      = fp_out_k(filename, &k, &n);
+
+            ret = fp_out_k(filename, &k, &n);
             if (ret)
             {
                 break;
@@ -212,7 +253,9 @@ static int app_del_id(const char *filename, const char *string, unsigned int id)
     return ret;
 }
 
-int app_del_key(const char *filename, const char *key, bool id)
+int app_del_key(const char *filename,
+                const char *key,
+                bool        id)
 {
     int ret = 0;
 
@@ -224,13 +267,18 @@ int app_del_key(const char *filename, const char *key, bool id)
     }
     else if (fp_del_k(filename, key) == 0)
     {
-        (void)printf(const_format_log, filename, const_str_k, const_str_ok);
+        (void)printf(const_format_log,
+                     filename,
+                     const_str_k,
+                     const_str_ok);
     }
 
     return ret;
 }
 
-int app_del_password(const char *filename, const char *password, bool id)
+int app_del_password(const char *filename,
+                     const char *password,
+                     bool        id)
 {
     int ret = 0;
 
@@ -242,13 +290,18 @@ int app_del_password(const char *filename, const char *password, bool id)
     }
     else if (fp_del_p(filename, password) == 0)
     {
-        (void)printf(const_format_log, filename, const_str_p, const_str_ok);
+        (void)printf(const_format_log,
+                     filename,
+                     const_str_p,
+                     const_str_ok);
     }
 
     return ret;
 }
 
-static int app_show_str(const char *filename, const char *string, const char *str)
+static int app_show_str(const char *filename,
+                        const char *string,
+                        const char *str)
 {
     int ret = -1;
 
@@ -263,7 +316,7 @@ static int app_show_str(const char *filename, const char *string, const char *st
                 break;
             }
             (void)printf("%4s      %s\n", const_str_i, const_str_p);
-            for (size_t i = 0; i < n; i++)
+            for (size_t i = 0; i != n; ++i)
             {
                 if (strstr(p[i], str))
                 {
@@ -279,8 +332,12 @@ static int app_show_str(const char *filename, const char *string, const char *st
             {
                 break;
             }
-            (void)printf("%4s %s %2s %s\n", const_str_i, const_str_t, const_str_l, const_str_k);
-            for (size_t i = 0; i < n; i++)
+            (void)printf("%4s %s %2s %s\n",
+                         const_str_i,
+                         const_str_t,
+                         const_str_l,
+                         const_str_k);
+            for (size_t i = 0; i != n; ++i)
             {
                 if (strstr(k[i]->key, str))
                 {
@@ -290,7 +347,11 @@ static int app_show_str(const char *filename, const char *string, const char *st
                     free(k[i]->key);
                     k[i]->key = tmp;
 #endif /* __WINNT__ */
-                    (void)printf("%04zu %u %2u %s\n", i, k[i]->type, k[i]->len, k[i]->key);
+                    (void)printf("%04zu %u %2u %s\n",
+                                 i,
+                                 k[i]->type,
+                                 k[i]->len,
+                                 k[i]->key);
                 }
             }
             fp_free_k(&k, &n);
@@ -300,17 +361,20 @@ static int app_show_str(const char *filename, const char *string, const char *st
     return ret;
 }
 
-int app_show_key(const char *filename, const char *key)
+int app_show_key(const char *filename,
+                 const char *key)
 {
     return app_show_str(filename, const_str_k, key);
 }
 
-int app_show_password(const char *filename, const char *password)
+int app_show_password(const char *filename,
+                      const char *password)
 {
     return app_show_str(filename, const_str_p, password);
 }
 
-int app_get_key(const char *filename, const fp_t *fp)
+int app_get_key(const char *filename,
+                const fp_t *fp)
 {
     int ret = -1;
 
@@ -332,7 +396,9 @@ int app_get_key(const char *filename, const fp_t *fp)
     return ret;
 }
 
-int app_get_id(const char *filename, unsigned int id_k, unsigned int id_p)
+int app_get_id(const char * filename,
+               unsigned int id_k,
+               unsigned int id_p)
 {
     int    ret = -1;
     char **p   = NULL;
@@ -348,12 +414,18 @@ int app_get_id(const char *filename, unsigned int id_k, unsigned int id_p)
         }
         if (!n)
         {
-            (void)printf(const_format_log, filename, const_str_p, const_str_empty);
+            (void)printf(const_format_log,
+                         filename,
+                         const_str_p,
+                         const_str_empty);
             break;
         }
         else if (id_p >= n)
         {
-            (void)printf(const_format_log, filename, const_str_p, const_str_error);
+            (void)printf(const_format_log,
+                         filename,
+                         const_str_p,
+                         const_str_error);
             break;
         }
 
@@ -363,12 +435,18 @@ int app_get_id(const char *filename, unsigned int id_k, unsigned int id_p)
         }
         if (!l)
         {
-            (void)printf(const_format_log, filename, const_str_k, const_str_empty);
+            (void)printf(const_format_log,
+                         filename,
+                         const_str_k,
+                         const_str_empty);
             break;
         }
         else if (id_k >= l)
         {
-            (void)printf(const_format_log, filename, const_str_k, const_str_error);
+            (void)printf(const_format_log,
+                         filename,
+                         const_str_k,
+                         const_str_error);
             break;
         }
 
@@ -386,18 +464,27 @@ int app_get_id(const char *filename, unsigned int id_k, unsigned int id_p)
     return ret;
 }
 
-int app_key_import(const char *filename, const char *dataname)
+int app_key_import(const char *filename,
+                   const char *dataname)
 {
     int ret = fp_import(filename, dataname);
 
     if (ret)
     {
-        printf("%s  %s  %i\n", filename, dataname, ret);
+        printf("%s  %s  %i\n",
+               filename,
+               dataname,
+               ret);
     }
     else
     {
-        printf(const_format_log, filename, "import", const_str_ok);
+        printf(const_format_log,
+               filename,
+               "import",
+               const_str_ok);
     }
 
     return ret;
 }
+
+/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/

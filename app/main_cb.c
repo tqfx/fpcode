@@ -1,12 +1,12 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
  * @file         main_cb.c
  * @brief        main call back
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210515
+ * @version      1
+ * @copyright    Copyright (C) 2021 tqfx
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
@@ -23,10 +23,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private typedef -----------------------------------------------------------*/
-/* Private types -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 
 static const char const_filename[] = ".fp.xml";
@@ -35,7 +31,7 @@ static char *filename = NULL;
 static char *dataname = NULL;
 static char *password = NULL;
 
-static fp_t code      = {NULL, 16U, 0U};
+static fp_t code      = {NULL, NULL, 16U, 0U};
 static bool bool_id   = false;
 static bool bool_show = false;
 static bool bool_add  = false;
@@ -142,20 +138,24 @@ void main_arg_cb(const char *argp, const char *args)
     {
         password = oc_strcpy(args);
     }
+    else if (!strcmp(argp, "-n") || !strcmp(argp, "--new"))
+    {
+        code.new = oc_strcpy(args);
+    }
     else if (!strcmp(argp, "-l") || !strcmp(argp, "--length"))
     {
-        sscanf(args, "%hhu", &code.len);
+        sscanf(args, "%u", &code.len);
         if (code.len > LEN_PASSWORD)
         {
-            code.len = (uint8_t)LEN_PASSWORD;
+            code.len = LEN_PASSWORD;
         }
     }
     else if (!strcmp(argp, "-t") || !strcmp(argp, "--type"))
     {
         sscanf(args, "%u", &code.type);
-        if (code.type > FP_TYPE_DIGITAL)
+        if (code.type > FPTYPE_NEW)
         {
-            code.type = FP_TYPE_DIGITAL;
+            code.type = FPTYPE_EMAIL;
         }
     }
     else if (!strcmp(argp, "--import"))
@@ -173,17 +173,18 @@ void main_arg_cb(const char *argp, const char *args)
 int main_cb(int argc, char *argv[])
 {
     int ret = 0;
+    (void)argc;
 
     if (!filename)
     {
         char *s = getenv("_");
         if (!s)
         {
-            s = argv[!argc];
+            s = *argv;
         }
 
         size_t n = strlen(s);
-        for (size_t i = n; i < n + 1U; i--)
+        for (size_t i = n; i < n + 1U; --i)
         {
             if (s[i] == '\\' || s[i] == '/')
             {
@@ -288,6 +289,10 @@ int main_cb(int argc, char *argv[])
     if (code.key)
     {
         PFREE(free, code.key);
+    }
+    if (code.new)
+    {
+        PFREE(free, code.new);
     }
 
     return ret;

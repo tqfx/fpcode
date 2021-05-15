@@ -1,12 +1,12 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
  * @file         main.c/h
  * @brief        main
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210515
+ * @version      1
+ * @copyright    Copyright (c) 2021
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
@@ -20,12 +20,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private typedef -----------------------------------------------------------*/
-/* Private types -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
-/* Private function prototypes -----------------------------------------------*/
 /* Private user code ---------------------------------------------------------*/
 
 int main(int argc, char *argv[])
@@ -50,8 +44,9 @@ int main(int argc, char *argv[])
         if (strstr(argv[i], "=")) /* -option=str */
         {
             size_t j = (size_t)(strchr(argv[i], '=') - argv[i]);
-            argp     = oc_strncpy(argv[i], j++);
-            args     = oc_strcpy(argv[i] + j);
+
+            argp = oc_strncpy(argv[i], j++);
+            args = oc_strcpy(argv[i] + j);
         }
         else if (strlen(argv[i]) > 2U &&
                  strchr(MAIN_ARG_STR, argv[i][1])) /* -pstr */
@@ -63,7 +58,8 @@ int main(int argc, char *argv[])
         {
             argp = oc_strcpy(argv[i]);
 
-            if ((strstr(argv[i], "--") || strlen(argv[i]) == 2U) &&
+            if ((strstr(argv[i], "--") ||
+                 strlen(argv[i]) == 2U) &&
                 i + 1 < argc &&
                 argv[i + 1][0] != '-') /* --option str | -p str */
             {

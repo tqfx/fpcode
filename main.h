@@ -1,21 +1,19 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
  * @file         main.c/h
  * @brief        main
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210515
+ * @version      1
+ * @copyright    Copyright (c) 2021
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-
 #ifndef __MAIN_H__
 #define __MAIN_H__
 
-/* Includes ------------------------------------------------------------------*/
 /* Private includes ----------------------------------------------------------*/
 
 #include <stdio.h>
@@ -35,10 +33,11 @@ parameter:\n\
 -p --password \tthe password\n\
 -l --length \tthe length {1,32}\n\
 -t --type \tthe type of password {0,1}\n\
+-n --new \tthe new table\n\
 -f --filename \tfilename of data\n\
    --import \tfilename of data"
 
-#define MAIN_ARG_STR "fpklt"
+#define MAIN_ARG_STR "fpkltn"
 
 /* Exported macro ------------------------------------------------------------*/
 
@@ -54,7 +53,6 @@ parameter:\n\
 #define __END_DECLS
 #endif /* __cplusplus */
 
-/* Exported types ------------------------------------------------------------*/
 /* Exported functions prototypes ---------------------------------------------*/
 
 __BEGIN_DECLS
@@ -70,8 +68,7 @@ extern int main_cb(int argc, char **argv);
 
 __END_DECLS
 
-/* Private defines -----------------------------------------------------------*/
-
+/* Terminate definition to prevent recursive inclusion -----------------------*/
 #endif /* __MAIN_H__ */
 
-/************************ (C) COPYRIGHT tqfx *******************END OF FILE****/
+/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
