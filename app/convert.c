@@ -1,12 +1,12 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
  * @file         convert.c/h
  * @brief        code conversion 
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210515
+ * @version      1
+ * @copyright    Copyright (c) 2021
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
@@ -30,15 +30,13 @@
 #define CHARSET_GBK  "zh_CN.gbk"
 #endif
 
-/* Private macro -------------------------------------------------------------*/
-/* Private typedef -----------------------------------------------------------*/
-/* Private types -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
-/* Private function prototypes -----------------------------------------------*/
 /* Private user code ---------------------------------------------------------*/
 
 #ifdef __WINNT__
-int code_convert(char **dst, unsigned int dst_charset, const char *src, unsigned int src_charset)
+int code_convert(char **      dst,
+                 unsigned int dst_charset,
+                 const char * src,
+                 unsigned int src_charset)
 {
     if (!dst || !src)
     {
@@ -73,7 +71,10 @@ int code_convert(char **dst, unsigned int dst_charset, const char *src, unsigned
     return n;
 }
 #else
-int code_convert(char **dst, const char *dst_charset, const char *src, const char *src_charset)
+int code_convert(char **     dst,
+                 const char *dst_charset,
+                 const char *src,
+                 const char *src_charset)
 {
     if (!dst || !src)
     {
@@ -107,7 +108,9 @@ int code_convert(char **dst, const char *dst_charset, const char *src, const cha
         {
             break;
         }
-        *dst      = (char *)malloc(sizeof(char) * (n + 1U));
+
+        *dst = (char *)malloc(sizeof(char) * (n + 1U));
+
         (*dst)[n] = '\0';
         (void)wcstombs(*dst, str, n);
 
@@ -139,4 +142,4 @@ int gbk_utf8(char **dst, const char *src)
 #endif
 }
 
-/************************ (C) COPYRIGHT tqfx *******************END OF FILE****/
+/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
