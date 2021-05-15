@@ -11,6 +11,7 @@ class fpcode:
     '''
 
     # Calculated rule
+    __x = None
     __rule0 = None
     __rule1 = None
 
@@ -57,6 +58,12 @@ class fpcode:
         # Calculate by rule
         self.__rule0 = list(hmac.new(self.rule0, hmd5, 'MD5').hexdigest())
         self.__rule1 = list(hmac.new(self.rule1, hmd5, 'MD5').hexdigest())
+        self.__x = []
+        for i in range(len(self.__rule0)):
+            i0 = int(self.__rule0[i], 16)
+            i1 = int(self.__rule1[i], 16)
+            i = i0 + i1
+            self.__x.append(i)
 
     def debug(self) -> None:
         '''Output debugging information
@@ -67,8 +74,8 @@ class fpcode:
         Returns:
             `None`
         '''
-        # print(''.join(self.__rule0))
-        # print(''.join(self.__rule1))
+        print(''.join(self.__rule0))
+        print(''.join(self.__rule1))
 
     def code(self, password, key, length=16, table="", digit=False):
         '''Calculate the password
@@ -96,11 +103,8 @@ class fpcode:
         count = 0  # round
         mark = [0] * 10  # The number of times a number appears
         for i in range(length):
-            # String to number
-            i0 = int(self.__rule0[i], 16)
-            i1 = int(self.__rule1[i], 16)
             if digit:
-                j = i = (i0 + i1) % 10
+                j = i = self.__x[i] % 10
                 # Do not repeat each round
                 while mark[i] > count:
                     i += 1
@@ -123,10 +127,7 @@ class fpcode:
                 ret[0] = 'K'
             # Add a new character
             for i in range(min(len(table), length)):
-                i0 = int(self.__rule0[i], 16)
-                i1 = int(self.__rule1[i], 16)
-                j = (i0 + i1) % length
-                ret[j] = table[i]
+                ret[self.__x[i] % length] = table[i]
 
         ret = ''.join(ret)
 

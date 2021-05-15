@@ -15,6 +15,7 @@ class fpcode:
     __table_len = len(__table_char)
 
     # Calculated rule
+    __x = None
     __rule0 = None
     __rule1 = None
     __rule2 = None
@@ -67,6 +68,14 @@ class fpcode:
         self.__rule1 = list(hmac.new(self.rule1, hmd5, 'MD5').hexdigest())
         self.__rule2 = list(hmac.new(self.rule2, hmd5, 'MD5').hexdigest())
         self.__rule3 = list(hmac.new(self.rule3, hmd5, 'MD5').hexdigest())
+        self.__x = []
+        for i in range(len(self.__rule0)):
+            i0 = int(self.__rule0[i], 16)
+            i1 = int(self.__rule1[i], 16)
+            i2 = int(self.__rule2[i], 16)
+            i3 = int(self.__rule3[i], 16)
+            i = i0 + i1 + i2 + i3
+            self.__x.append(i)
 
     def debug(self) -> None:
         '''Output debugging information
@@ -112,12 +121,7 @@ class fpcode:
         else:
             mark = [0] * self.__table_len
         for i in range(length):
-            # String to number
-            i0 = int(self.__rule0[i], 16)
-            i1 = int(self.__rule1[i], 16)
-            i2 = int(self.__rule2[i], 16)
-            i3 = int(self.__rule3[i], 16)
-            i = i0 + i1 + i2 + i3
+            i = self.__x[i]
             if digit:
                 j = i = i % 10
                 # Do not repeat each round
@@ -141,12 +145,7 @@ class fpcode:
         if not digit:
             # Add a new character
             for i in range(min(len(table), length)):
-                i0 = int(self.__rule0[i], 16)
-                i1 = int(self.__rule1[i], 16)
-                i2 = int(self.__rule2[i], 16)
-                i3 = int(self.__rule3[i], 16)
-                j = (i0 + i1 + i2 + i3) % length
-                ret[j] = table[i]
+                ret[self.__x[i] % length] = table[i]
 
         ret = ''.join(ret)
 
