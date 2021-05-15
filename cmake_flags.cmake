@@ -40,3 +40,11 @@ set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_C_STANDARD 11)
 
 endif (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+
+# compiler is msvc
+if (MSVC)
+
+# Remove unsafe warnings
+add_definitions (/D _CRT_SECURE_NO_WARNINGS)
+
+endif (MSVC)
