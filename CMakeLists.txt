@@ -39,8 +39,8 @@ if (MINGW AND HAVE_PTHREAD_H)
 target_link_libraries (key -static winpthread)
 endif (MINGW AND HAVE_PTHREAD_H)
 
-add_executable (smf main.c)
-target_link_libraries (smf
+add_executable (tqfx main.c)
+target_link_libraries (tqfx
     app
     fpcode
     fp
@@ -49,12 +49,12 @@ target_link_libraries (smf
     klib
 )
 if (MINGW AND HAVE_PTHREAD_H)
-target_link_libraries (smf -static winpthread)
+target_link_libraries (tqfx -static winpthread)
 endif (MINGW AND HAVE_PTHREAD_H)
 
 if (WIN32 OR ANDROID)
 install (TARGETS key RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
-install (TARGETS smf RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+install (TARGETS tqfx RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif (WIN32 OR ANDROID)
 
 # termux

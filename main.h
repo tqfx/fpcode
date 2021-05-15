@@ -22,7 +22,7 @@
 /* Exported constants --------------------------------------------------------*/
 
 #define HELP \
-    "\tCopyright tqfx 2020~2021\n\
+    "\tCopyright (C) 2021 tqfx\n\
 option:\n\
 -i --id \tget password by id\n\
 -a --add \tadd key or password\n\
@@ -31,8 +31,8 @@ option:\n\
 parameter:\n\
 -k --key \tthe key\n\
 -p --password \tthe password\n\
--l --length \tthe length {1,32}\n\
--t --type \tthe type of password {0,1}\n\
+-l --length \tthe length {1, 32}\n\
+-t --type \tthe type {0 email, 1 pay, 2 new}\n\
 -n --new \tthe new table\n\
 -f --filename \tfilename of data\n\
    --import \tfilename of data"

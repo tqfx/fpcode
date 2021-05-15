@@ -25,13 +25,16 @@
 
 /* Private variables ---------------------------------------------------------*/
 
-static const char const_filename[] = ".fp.xml";
-
 static char *filename = NULL;
 static char *dataname = NULL;
 static char *password = NULL;
 
-static fp_t code      = {NULL, NULL, 16U, 0U};
+static fp_t code = {
+    .key  = NULL,
+    .new  = NULL,
+    .len  = 16U,
+    .type = FPTYPE_EMAIL,
+};
 static bool bool_id   = false;
 static bool bool_show = false;
 static bool bool_add  = false;
@@ -183,21 +186,13 @@ int main_cb(int argc, char *argv[])
             s = *argv;
         }
 
-        size_t n = strlen(s);
-        for (size_t i = n; i < n + 1U; --i)
+        if (strstr(s, ".exe"))
         {
-            if (s[i] == '\\' || s[i] == '/')
-            {
-                break;
-            }
-            else
-            {
-                s[i] = 0;
-            }
+            s[strlen(s) - 4U] = 0;
         }
 
         kstring_t *ks = ks_init();
-        ksprintf(ks, "%s%s", s, const_filename);
+        ksprintf(ks, "%s%s", s, ".xml");
         filename = ks_release(ks);
         PFREE(ks_free, ks);
     }
