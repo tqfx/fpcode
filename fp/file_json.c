@@ -1,12 +1,12 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
  * @file         file_json.c/h
  * @brief        some funtion of json file
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210515
+ * @version      1
+ * @copyright    Copyright (C) 2021 tqfx
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
@@ -19,12 +19,6 @@
 #include "cJSON.h"
 #include "file.h"
 
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private typedef -----------------------------------------------------------*/
-/* Private types -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
-/* Private function prototypes -----------------------------------------------*/
 /* Private user code ---------------------------------------------------------*/
 
 int cjson_r(const char *filename, cJSON **const dst)
@@ -35,8 +29,9 @@ int cjson_r(const char *filename, cJSON **const dst)
         return -1;
     }
 #endif /* DEBUG */
-    char *s   = NULL;
-    int   ret = file_tr(filename, &s);
+    char *s = NULL;
+
+    int ret = file_tr(filename, &s);
     if (ret)
     {
         return ret;
@@ -56,8 +51,9 @@ int cjson_w(const char *filename, const cJSON *cjson)
         return -1;
     }
 #endif /* DEBUG */
-    int   ret = -1;
-    char *s   = cJSON_PrintUnformatted(cjson);
+    int ret = -1;
+
+    char *s = cJSON_PrintUnformatted(cjson);
     if (s)
     {
         ret = file_tw(filename, s);
@@ -67,7 +63,10 @@ int cjson_w(const char *filename, const cJSON *cjson)
     return ret;
 }
 
-int cjson_array_item_s(char **dst, const cJSON *cjson, const char *string, int index)
+int cjson_array_item_s(char **      dst,
+                       const cJSON *cjson,
+                       const char * string,
+                       int          index)
 {
 #ifdef DEBUG
     if (!dst || !cjson || !string || index < 0)
@@ -102,7 +101,9 @@ int cjson_array_item_s(char **dst, const cJSON *cjson, const char *string, int i
     return ret;
 }
 
-int cjson_array_s(char **dst, const cJSON *cjson, int index)
+int cjson_array_s(char **      dst,
+                  const cJSON *cjson,
+                  int          index)
 {
 #ifdef DEBUG
     if (!dst || !cjson || index < 0)
@@ -131,4 +132,4 @@ int cjson_array_s(char **dst, const cJSON *cjson, int index)
     return ret;
 }
 
-/************************ (C) COPYRIGHT tqfx *******************END OF FILE****/
+/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
