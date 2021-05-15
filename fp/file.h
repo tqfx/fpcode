@@ -1,28 +1,25 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
  * @file         file.c/h
  * @brief        some function of the file
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210515
+ * @version      1
+ * @copyright    Copyright (C) 2021 tqfx
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-
 #ifndef __FILE_H__
 #define __FILE_H__
 
-/* Includes ------------------------------------------------------------------*/
 /* Private includes ----------------------------------------------------------*/
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-/* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 
 #undef __BEGIN_DECLS
@@ -31,7 +28,8 @@
 #define __BEGIN_DECLS \
     extern "C"        \
     {
-#define __END_DECLS }
+#define __END_DECLS \
+    }
 #else
 #define __BEGIN_DECLS
 #define __END_DECLS
@@ -45,7 +43,6 @@
         _ = NULL;       \
     } while (0)
 
-/* Exported types ------------------------------------------------------------*/
 /* Exported functions prototypes ---------------------------------------------*/
 
 __BEGIN_DECLS
@@ -60,8 +57,7 @@ extern int file_exist(const char *filename);
 
 __END_DECLS
 
-/* Private defines -----------------------------------------------------------*/
-
+/* Terminate definition to prevent recursive inclusion -----------------------*/
 #endif /* __FILE_H__ */
 
-/************************ (C) COPYRIGHT tqfx *******************END OF FILE****/
+/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/

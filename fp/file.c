@@ -1,12 +1,12 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
  * @file         file.c/h
  * @brief        some function of the file
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210515
+ * @version      1
+ * @copyright    Copyright (C) 2021 tqfx
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
@@ -20,7 +20,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 
 #undef FCLOSE
@@ -34,10 +33,6 @@
         _FILE_ = NULL;        \
     } while (0)
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private types -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
-/* Private function prototypes -----------------------------------------------*/
 /* Private user code ---------------------------------------------------------*/
 
 int file_br(const char *filename, void **dst, size_t *sz)
@@ -48,7 +43,7 @@ int file_br(const char *filename, void **dst, size_t *sz)
         return -1;
     }
 #endif /* DEBUG */
-    static unsigned char buf[BUFSIZ] = {0};
+    char buf[BUFSIZ] = {0};
 
     FILE *fp = fopen(filename, "rb");
     if (!fp)
@@ -56,28 +51,29 @@ int file_br(const char *filename, void **dst, size_t *sz)
         return -1;
     }
 
-    size_t i = fread(buf, sizeof(unsigned char), BUFSIZ, fp);
+    size_t i = fread(buf, sizeof(char), BUFSIZ, fp);
 
     if (i)
     {
-        *dst = malloc(sizeof(unsigned char) * i);
+        *dst = malloc(sizeof(char) * i);
     }
 
     *sz = 0U;
 
     while (i)
     {
-        memcpy((unsigned char *)(*dst) + *sz, buf, i);
+        memcpy((char *)(*dst) + *sz, buf, i);
         *sz += i;
 
-        i = fread(buf, sizeof(unsigned char), BUFSIZ, fp);
+        i = fread(buf, sizeof(char), BUFSIZ, fp);
         if (i)
         {
-            *dst = realloc(*dst, sizeof(unsigned char) * (*sz + i));
+            *dst = realloc(*dst, sizeof(char) * (*sz + i));
         }
     }
 
     FCLOSE(fp);
+
     return 0;
 }
 
@@ -99,11 +95,11 @@ int file_bw(const char *filename, void *src, size_t sz)
 
     do
     {
-        i +=
-            fwrite((unsigned char *)src + i, sizeof(unsigned char), sz - i, fp);
+        i += fwrite((char *)src + i, sizeof(char), sz - i, fp);
     } while (i < sz);
 
     FCLOSE(fp);
+
     return 0;
 }
 
@@ -115,7 +111,7 @@ int file_tr(const char *filename, char **dst)
         return -1;
     }
 #endif /* DEBUG */
-    static char buf[BUFSIZ] = {0};
+    char buf[BUFSIZ] = {0};
 
     FILE *fp = fopen(filename, "rt");
     if (!fp)
@@ -149,6 +145,7 @@ int file_tr(const char *filename, char **dst)
     }
 
     FCLOSE(fp);
+
     return 0;
 }
 
@@ -175,6 +172,7 @@ int file_tw(const char *filename, char *src)
     } while (i < n);
 
     FCLOSE(fp);
+
     return 0;
 }
 
@@ -192,10 +190,11 @@ int file_exist(const char *filename)
     if (fp)
     {
         FCLOSE(fp);
+
         ret = !ret;
     }
 
     return ret;
 }
 
-/************************ (C) COPYRIGHT tqfx *******************END OF FILE****/
+/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
