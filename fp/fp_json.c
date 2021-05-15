@@ -102,7 +102,7 @@ int fp_json_fp2json(const fp_t *fp, cJSON **dst)
 
 int fp_json_json2fp(const cJSON *cjson, fp_t **fp)
 {
-    *fp = (fp_t *)malloc(sizeof(fp_t));
+    *fp = (fp_t *)calloc(1, sizeof(fp_t));
     if (!*fp)
     {
         return -1;
@@ -161,10 +161,6 @@ int fp_json_json2fp(const cJSON *cjson, fp_t **fp)
                 break;
             }
             (void)strcpy((*fp)->key, str);
-        }
-        else
-        {
-            (*fp)->new = NULL;
         }
 
         ret = 0;

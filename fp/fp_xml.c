@@ -55,7 +55,7 @@ int fp_xml_xml2fp(mxml_node_t *xml, fp_t **fp)
         return -1;
     }
 #endif /* DEBUG */
-    *fp = (fp_t *)malloc(sizeof(fp_t));
+    *fp = (fp_t *)calloc(1, sizeof(fp_t));
     if (!*fp)
     {
         return -1;
@@ -107,7 +107,9 @@ int fp_xml_xml2fp(mxml_node_t *xml, fp_t **fp)
 
         if ((*fp)->type == FPTYPE_NEW)
         {
-            s = mxmlGetCDATA(xml);
+            mxml_node_t *new = mxmlGetLastChild(xml);
+
+            s = mxmlGetCDATA(new);
             if (!s)
             {
                 break;
@@ -118,10 +120,6 @@ int fp_xml_xml2fp(mxml_node_t *xml, fp_t **fp)
                 break;
             }
             (void)strcpy((*fp)->new, s);
-        }
-        else
-        {
-            (*fp)->new = NULL;
         }
 
         ret = 0;
