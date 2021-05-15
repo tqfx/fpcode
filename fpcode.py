@@ -12,6 +12,7 @@ class fpcode:
 
     # character table
     __table_char = "aAbBcCdDeEfFgGhHiIjJkKlLmM0123456789nNopPqQrRsStTuUvVwWxXyYzZ"
+    __table_len = len(__table_char)
 
     # Calculated rule
     __rule0 = None
@@ -105,7 +106,11 @@ class fpcode:
 
         ret = []  # String returned
         count = 0  # round
-        mark = [0] * 10  # The number of times a number appears
+        mark = None  # The number of times a number appears
+        if digit:
+            mark = [0] * 10
+        else:
+            mark = [0] * self.__table_len
         for i in range(length):
             # String to number
             i0 = int(self.__rule0[i], 16)
@@ -125,6 +130,11 @@ class fpcode:
                 mark[i] += 1
                 i = str(i)
             else:
+                while mark[i]:
+                    i += 1
+                    if i == self.__table_len:
+                        i = 0
+                mark[i] = 1
                 i = self.__table_char[i]
             ret.append(i)
 
