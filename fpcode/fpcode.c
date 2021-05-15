@@ -16,14 +16,12 @@
 
 /* Private includes ----------------------------------------------------------*/
 
-#include <ctype.h>
 #include <stdint.h>
+#include <string.h>
 
 /* Private define ------------------------------------------------------------*/
 
-#define FP_LEN_HMD5   32U
-#define FP_RULE_STR   "qwertyuiop"
-#define FP_SOURCE_STR "asdfghjkl"
+#define FP_LEN_HMD5 32U
 #define FP_TABLE_CHAR \
     "aAbBcCdDeEfFgGhHiIjJkKlLmM0123456789nNopPqQrRsStTuUvVwWxXyYzZ"
 
@@ -37,8 +35,6 @@
         _ = NULL;       \
     } while (0)
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private types -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 
 /* The pointer for rules */
@@ -46,6 +42,21 @@ static const char *prule0 = NULL;
 static const char *prule1 = NULL;
 static const char *prule2 = NULL;
 static const char *prule3 = NULL;
+
+/* The length of rule string */
+static uint32_t lrule0 = 0U;
+static uint32_t lrule1 = 0U;
+static uint32_t lrule2 = 0U;
+static uint32_t lrule3 = 0U;
+
+/* character table */
+static const char table_char[] = FP_TABLE_CHAR;
+
+/* numeration table */
+static uint8_t table_x[FP_LEN_HMD5] = {0};
+
+/* mark table */
+static uint8_t table_mark[sizeof(FP_TABLE_CHAR) - 1U] = {0};
 
 /* Private function prototypes -----------------------------------------------*/
 
@@ -55,25 +66,6 @@ static const char *prule3 = NULL;
  * @return         int 0~15
 */
 static int xdigit(char ch);
-
-/**
- * @brief          Set the rules
- * @param[in]      s0: The first rule
- * @param[in]      s0: The second rule
- * @param[in]      s0: The third rule
- * @param[in]      s0: The fourth rule
- * @return         int 0(success) -1(parameter error)
-*/
-static int fpcode_rule(const char *s0,
-                       const char *s1,
-                       const char *s2,
-                       const char *s3);
-
-static int fpcode_cc(char **     dst,
-                     const char *source,
-                     const char *rule,
-                     uint32_t    len,
-                     uint32_t    type);
 
 /* Private user code ---------------------------------------------------------*/
 
@@ -130,10 +122,10 @@ static int xdigit(char ch)
     return ret;
 }
 
-static int fpcode_rule(const char *s0,
-                       const char *s1,
-                       const char *s2,
-                       const char *s3)
+int fpcode_rule(const char *s0,
+                const char *s1,
+                const char *s2,
+                const char *s3)
 {
     int ret = -1;
 
@@ -149,122 +141,134 @@ static int fpcode_rule(const char *s0,
     prule2 = s2;
     prule3 = s3;
 
+    /* Set the rule length */
+    lrule0 = (uint32_t)strlen(s0);
+    lrule1 = (uint32_t)strlen(s1);
+    lrule2 = (uint32_t)strlen(s2);
+    lrule3 = (uint32_t)strlen(s3);
+
     return ret;
 }
 
-static int fpcode_cc(char **dst, const char *source, const char *rule, uint32_t len, uint32_t type)
+int fpcode(char **     dst,
+           fptype_e    t,
+           const char *p,
+           const char *k,
+           uint32_t    l,
+           const char *table_new)
 {
-    if (len > 64 || type > 1)
+    /* Check the variable */
+    if (!dst || !p || !k || (t == FPTYPE_NEW && !table_new))
     {
         return -1;
     }
 
-    *dst = (char *)calloc(len + 1U, sizeof(char));
-    if (!*dst)
+    /* Gets the length of the string */
+    uint32_t l_p = (uint32_t)strlen(p);
+    uint32_t l_k = (uint32_t)strlen(k);
+
+    /* Check the length */
+    if (!l_p || !l_k || !l)
     {
         return -1;
     }
 
-    switch (type)
-    {
-    case 0U:
-    {
-        const char table_char[] = FP_TABLE_CHAR;
+    /* Restrict the output password length */
+    l = FP_LEN_HMD5 > l ? l : FP_LEN_HMD5;
 
-        uint8_t *mark =
-            (uint8_t *)calloc(sizeof(table_char) - 1U, sizeof(uint8_t));
+    /* Get the initial value */
+    char *phmd5 = hmac_md5(p, l_p, k, l_k);
 
-        for (uint32_t i = 0U; i < len; i++)
+    /* Calculation by rule */
+    char *pr0 = hmac_md5(phmd5, FP_LEN_HMD5, prule0, lrule0);
+    char *pr1 = hmac_md5(phmd5, FP_LEN_HMD5, prule1, lrule1);
+    char *pr2 = hmac_md5(phmd5, FP_LEN_HMD5, prule2, lrule2);
+    char *pr3 = hmac_md5(phmd5, FP_LEN_HMD5, prule3, lrule3);
+
+    /* free the memory */
+    PFREE(free, phmd5);
+
+    /* Compute numerical sum */
+    for (uint8_t i = 0U; i != l; ++i)
+    {
+        table_x[i] = (uint8_t)(xdigit(pr0[i]) + xdigit(pr1[i]) +
+                               xdigit(pr2[i]) + xdigit(pr3[i]));
+    }
+
+    /* free the memory */
+    PFREE(free, pr0);
+    PFREE(free, pr1);
+    PFREE(free, pr2);
+    PFREE(free, pr3);
+
+    *dst = (char *)calloc(l + 1U, sizeof(char));
+    memset(table_mark, 0U, sizeof(table_mark));
+    uint8_t count = 0U;
+
+    for (uint8_t i = 0U; i != l; ++i)
+    {
+        uint8_t x = table_x[i];
+
+        switch (t)
         {
-            (*dst)[i] = (char)(xdigit(rule[i]) * 3 + xdigit(source[i]));
-
-            while (mark[(uint8_t)(*dst)[i]])
+        case FPTYPE_EMAIL:
+        {
+            while (table_mark[x])
             {
-                (*dst)[i]++;
-                if ((size_t)(*dst)[i] >= sizeof(table_char) - 1U)
+                if (++x == sizeof(table_char) - 1U)
                 {
-                    (*dst)[i] = 0;
+                    x = 0;
                 }
             }
-            mark[(uint8_t)(*dst)[i]]++;
+            table_mark[x]++;
 
-            (*dst)[i] = table_char[(uint8_t)(*dst)[i]];
+            (*dst)[i] = table_char[x];
+
+            break;
         }
 
-        free(mark);
-        mark = NULL;
-
-        break;
-    }
-
-    case 1U:
-    {
-        uint8_t mark[10U] = {0};
-        uint8_t count     = 0U;
-
-        for (uint32_t i = 0U; i < len; i++)
+        case FPTYPE_PAY:
         {
-            (*dst)[i] = (char)(xdigit(source[i]) + xdigit(rule[i]));
-            (*dst)[i] %= 10;
+            x %= 10U;
 
-            char j = (*dst)[i];
-            while (mark[(uint8_t)(*dst)[i]] > count)
+            uint8_t m = x;
+            while (table_mark[x] > count)
             {
-                (*dst)[i]++;
-                if ((*dst)[i] >= 10)
+                if (++x == 10U)
                 {
-                    (*dst)[i] = 0;
+                    x = 0U;
                 }
-                if ((*dst)[i] == j)
+                if (x == m)
                 {
                     count++;
                 }
             }
-            mark[(uint8_t)(*dst)[i]]++;
+            table_mark[x]++;
 
-            (*dst)[i] = (char)('0' + (*dst)[i]);
+            (*dst)[i] = (char)((uint8_t)'0' + x);
+
+            break;
         }
 
-        break;
+        case FPTYPE_NEW:
+        default:
+            break;
+        }
     }
 
-    default:
-        break;
+    if (t == FPTYPE_NEW)
+    {
+        uint32_t l_t = (uint32_t)strlen(table_new);
+
+        l_t = l < l_t ? l_t : l;
+        for (uint8_t i = 0U; i != l_t; ++i)
+        {
+            uint8_t x = (uint8_t)(table_x[i] % l);
+            (*dst)[x] = table_new[i];
+        }
     }
 
     return 0;
 }
 
-int fpcode(char **dst, const char *password, const char *key, uint32_t length, uint32_t type)
-{
-    if (!dst || !password || !key)
-    {
-        return -1;
-    }
-
-    uint32_t l_p = (uint32_t)strlen(password);
-    uint32_t l_k = (uint32_t)strlen(key);
-
-    length = FP_LEN_HMD5 > length ? length : FP_LEN_HMD5;
-
-    if ((l_p < 1U) || (l_k < 1U) || (length < 1U))
-    {
-        return -1;
-    }
-
-    char *phmd5 = hmac_md5(password, l_p, key, l_k);
-    char *prule =
-        hmac_md5(phmd5, FP_LEN_HMD5, FP_RULE_STR, strlen(FP_RULE_STR));
-    char *psource =
-        hmac_md5(phmd5, FP_LEN_HMD5, FP_SOURCE_STR, strlen(FP_SOURCE_STR));
-    PFREE(free, phmd5);
-
-    int ret = fpcode_cc(dst, psource, prule, length, type);
-
-    PFREE(free, psource);
-    PFREE(free, prule);
-
-    return ret;
-}
-
-/************************ (C) COPYRIGHT tqfx *******************END OF FILE****/
+/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/

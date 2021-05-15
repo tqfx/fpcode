@@ -24,7 +24,7 @@
 
 /* Exported types ------------------------------------------------------------*/
 
-typedef enum
+typedef enum fptype_e
 {
     FPTYPE_EMAIL,
     FPTYPE_PAY,
@@ -36,26 +36,39 @@ typedef enum
 __BEGIN_DECLS
 
 /**
- * @brief        flower password calculation code
- * @param[out]   dst the pointer of buffer
- * @param[in]    password source password needed to memory
- * @param[in]    key different key word
- * @param[in]    length the length of return code
- * @param[in]    type 0 normal 1 digital
- * @ref          1~32
- * @return       int 0 success -1 failure
- * @warning      need to free the memory
+ * @brief          Set the rules
+ * @param[in]      s0: The first rule
+ * @param[in]      s0: The second rule
+ * @param[in]      s0: The third rule
+ * @param[in]      s0: The fourth rule
+ * @return         int 0(success) -1(parameter error)
+*/
+extern int fpcode_rule(const char *s0,
+                       const char *s1,
+                       const char *s2,
+                       const char *s3);
+
+/**
+ * @brief          Flower Password calculation code
+ * @param[out]     dst: The pointer to char pointer
+ * @param[in]      t: fptype_e FPTYPE_EMAIL FPTYPE_PAY FPTYPE_NEW
+ * @param[in]      p: Passwords that need to be remembered
+ * @param[in]      k: Different keywords
+ * @param[in]      l: The length of the password returned (1 ~ 32)
+ * @param[in]      table_new: New character table under FPTYPE_NEW
+ * @return         int 0(success) -1(failure)
+ * @warning        Need to free up memory
 */
 extern int fpcode(char **     dst,
-                  const char *password,
-                  const char *key,
-                  uint32_t    length,
-                  uint32_t    type);
+                  fptype_e    t,
+                  const char *p,
+                  const char *k,
+                  uint32_t    l,
+                  const char *table_new);
 
 __BEGIN_DECLS
 
-/* Private defines -----------------------------------------------------------*/
-
+/* Terminate definition to prevent recursive inclusion -----------------------*/
 #endif /* __FPCODE_H__ */
 
-/************************ (C) COPYRIGHT tqfx *******************END OF FILE****/
+/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
