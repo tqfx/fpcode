@@ -1,12 +1,12 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
  * @file         fp_xml.c/h
  * @brief        fp_xml
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210515
+ * @version      1
+ * @copyright    Copyright (C) 2021 tqfx
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
@@ -20,12 +20,6 @@
 #include "fp.h"
 #include "fp_crypt.h"
 
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private typedef -----------------------------------------------------------*/
-/* Private types -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
-/* Private function prototypes -----------------------------------------------*/
 /* Private user code ---------------------------------------------------------*/
 
 int fp_xml_fp2xml(const fp_t *fp, mxml_node_t **xml)
@@ -44,6 +38,11 @@ int fp_xml_fp2xml(const fp_t *fp, mxml_node_t **xml)
 
     mxml_node_t *k_t = mxmlNewElement(*xml, const_str_t);
     (void)mxmlNewTextf(k_t, 0, "%u", fp->type);
+
+    if (fp->type == FPTYPE_NEW)
+    {
+        (void)mxmlNewCDATA(*xml, fp->new);
+    }
 
     return 0;
 }
@@ -66,17 +65,27 @@ int fp_xml_xml2fp(mxml_node_t *xml, fp_t **fp)
 
     do
     {
-        mxml_node_t *k_l =
-            mxmlFindElement(xml, xml, const_str_l, NULL, NULL, MXML_DESCEND);
+        mxml_node_t *k_l = mxmlFindElement(xml,
+                                           xml,
+                                           const_str_l,
+                                           NULL,
+                                           NULL,
+                                           MXML_DESCEND);
+
         const char *s = mxmlGetText(k_l, 0);
         if (!s)
         {
             break;
         }
-        sscanf(s, "%hhu", &((*fp)->len));
+        sscanf(s, "%u", &((*fp)->len));
 
-        mxml_node_t *k_t =
-            mxmlFindElement(xml, xml, const_str_t, NULL, NULL, MXML_DESCEND);
+        mxml_node_t *k_t = mxmlFindElement(xml,
+                                           xml,
+                                           const_str_t,
+                                           NULL,
+                                           NULL,
+                                           MXML_DESCEND);
+
         s = mxmlGetText(k_t, 0);
         if (!s)
         {
@@ -95,6 +104,25 @@ int fp_xml_xml2fp(mxml_node_t *xml, fp_t **fp)
             break;
         }
         (void)strcpy((*fp)->key, s);
+
+        if ((*fp)->type == FPTYPE_NEW)
+        {
+            s = mxmlGetCDATA(xml);
+            if (!s)
+            {
+                break;
+            }
+            (*fp)->new = (char *)malloc(strlen(s) + 1U);
+            if (!((*fp)->new))
+            {
+                break;
+            }
+            (void)strcpy((*fp)->new, s);
+        }
+        else
+        {
+            (*fp)->new = NULL;
+        }
 
         ret = 0;
     } while (0);
@@ -115,7 +143,8 @@ int fp_xml_init(const char *filename)
         return -1;
     }
 #endif /* DEBUG */
-    int          ret = 0;
+    int ret = 0;
+
     mxml_node_t *xml = mxmlNewXML(NULL);
 
     mxml_node_t *passwd = mxmlNewElement(xml, const_str_p);
@@ -127,6 +156,7 @@ int fp_xml_init(const char *filename)
     ret = mxml_w(filename, xml);
 
     PFREE(mxmlDelete, xml);
+
     return ret;
 }
 
@@ -139,15 +169,22 @@ int fp_xml_add_k(const char *filename, const fp_t *fp)
     }
 #endif /* DEBUG */
     mxml_node_t *xml = NULL;
-    int          ret = mxml_r(filename, &xml);
+
+    int ret = mxml_r(filename, &xml);
     if (ret)
     {
         return ret;
     }
     ret = -1;
+
     do
     {
-        mxml_node_t *k = mxmlFindElement(xml, xml, const_str_k, const_str_n, NULL, MXML_DESCEND);
+        mxml_node_t *k = mxmlFindElement(xml,
+                                         xml,
+                                         const_str_k,
+                                         const_str_n,
+                                         NULL,
+                                         MXML_DESCEND);
         if (!k)
         {
             break;
@@ -156,18 +193,35 @@ int fp_xml_add_k(const char *filename, const fp_t *fp)
         unsigned int n = 0U;
         sscanf(mxmlElementGetAttr(k, const_str_n), "%u", &n);
 
-        mxml_node_t *k_k = mxmlFindElement(k, k, const_str_k, const_str_i, fp->key, MXML_DESCEND);
+        mxml_node_t *k_k = mxmlFindElement(k,
+                                           k,
+                                           const_str_k,
+                                           const_str_i,
+                                           fp->key,
+                                           MXML_DESCEND);
         if (k_k)
         {
-            mxml_node_t *k_l = mxmlFindElement(k_k, k_k, const_str_l, NULL, NULL, MXML_DESCEND);
-            ret              = mxmlSetTextf(k_l, 0, "%u", fp->len);
+            mxml_node_t *k_l = mxmlFindElement(k_k,
+                                               k_k,
+                                               const_str_l,
+                                               NULL,
+                                               NULL,
+                                               MXML_DESCEND);
+
+            ret = mxmlSetTextf(k_l, 0, "%u", fp->len);
             if (ret)
             {
                 break;
             }
 
-            mxml_node_t *k_t = mxmlFindElement(k_k, k_k, const_str_t, NULL, NULL, MXML_DESCEND);
-            ret              = mxmlSetTextf(k_t, 0, "%u", fp->type);
+            mxml_node_t *k_t = mxmlFindElement(k_k,
+                                               k_k,
+                                               const_str_t,
+                                               NULL,
+                                               NULL,
+                                               MXML_DESCEND);
+
+            ret = mxmlSetTextf(k_t, 0, "%u", fp->type);
             if (ret)
             {
                 break;
@@ -211,6 +265,7 @@ int fp_xml_add_k(const char *filename, const fp_t *fp)
     } while (0);
 
     PFREE(mxmlDelete, xml);
+
     return ret;
 }
 
@@ -223,24 +278,36 @@ int fp_xml_del_k(const char *filename, const char *key)
     }
 #endif /* DEBUG */
     mxml_node_t *xml = NULL;
-    int          ret = mxml_r(filename, &xml);
+
+    int ret = mxml_r(filename, &xml);
     if (ret)
     {
         return ret;
     }
     ret = -1;
+
     do
     {
-        mxml_node_t *k = mxmlFindElement(xml, xml, const_str_k, const_str_n, NULL, MXML_DESCEND);
+        mxml_node_t *k = mxmlFindElement(xml,
+                                         xml,
+                                         const_str_k,
+                                         const_str_n,
+                                         NULL,
+                                         MXML_DESCEND);
         if (!k)
         {
             break;
         }
+
         unsigned int n = 0U;
         sscanf(mxmlElementGetAttr(k, const_str_n), "%u", &n);
 
-        mxml_node_t *k_k =
-            mxmlFindElement(k, k, const_str_k, const_str_i, key, MXML_DESCEND);
+        mxml_node_t *k_k = mxmlFindElement(k,
+                                           k,
+                                           const_str_k,
+                                           const_str_i,
+                                           key,
+                                           MXML_DESCEND);
         if (k_k)
         {
             mxmlDelete(k_k);
@@ -250,6 +317,7 @@ int fp_xml_del_k(const char *filename, const char *key)
     } while (0);
 
     PFREE(mxmlDelete, xml);
+
     return ret;
 }
 
@@ -262,27 +330,37 @@ int fp_xml_add_p(const char *filename, const char *password)
     }
 #endif /* DEBUG */
     mxml_node_t *xml = NULL;
-    int          ret = mxml_r(filename, &xml);
+
+    int ret = mxml_r(filename, &xml);
     if (ret)
     {
         return ret;
     }
     ret = -1;
+
     do
     {
-        mxml_node_t *p = mxmlFindElement(xml, xml, const_str_p, const_str_n, NULL, MXML_DESCEND);
+        mxml_node_t *p = mxmlFindElement(xml,
+                                         xml,
+                                         const_str_p,
+                                         const_str_n,
+                                         NULL,
+                                         MXML_DESCEND);
         if (!p)
         {
             break;
         }
 
-        unsigned int n   = 1U;
-        char *       out = NULL;
+        unsigned int n = 1U;
+
+        char *out = NULL;
+
         mxml_node_t *p_p = mxmlGetFirstChild(p);
         while (p_p)
         {
             mxml_node_t *tmp = mxmlGetFirstChild(p_p);
-            const char * in  = mxmlGetCDATA(tmp);
+
+            const char *in = mxmlGetCDATA(tmp);
             if (!in || fp_dncrypt(in, &out, LEN_PASSWORD))
             {
                 break;
@@ -320,6 +398,7 @@ int fp_xml_add_p(const char *filename, const char *password)
     } while (0);
 
     PFREE(mxmlDelete, xml);
+
     return ret;
 }
 
@@ -332,27 +411,37 @@ int fp_xml_del_p(const char *filename, const char *password)
     }
 #endif /* DEBUG */
     mxml_node_t *xml = NULL;
-    int          ret = mxml_r(filename, &xml);
+
+    int ret = mxml_r(filename, &xml);
     if (ret)
     {
         return ret;
     }
     ret = -1;
+
     do
     {
-        mxml_node_t *p = mxmlFindElement(xml, xml, const_str_p, const_str_n, NULL, MXML_DESCEND);
+        mxml_node_t *p = mxmlFindElement(xml,
+                                         xml,
+                                         const_str_p,
+                                         const_str_n,
+                                         NULL,
+                                         MXML_DESCEND);
         if (!p)
         {
             break;
         }
 
-        unsigned int n   = 0U;
-        char *       out = NULL;
+        unsigned int n = 0U;
+
+        char *out = NULL;
+
         mxml_node_t *p_p = mxmlGetFirstChild(p);
         while (p_p)
         {
             mxml_node_t *tmp = mxmlGetFirstChild(p_p);
-            const char * in  = mxmlGetCDATA(tmp);
+
+            const char *in = mxmlGetCDATA(tmp);
             if (!in || fp_dncrypt(in, &out, LEN_PASSWORD))
             {
                 break;
@@ -375,6 +464,7 @@ int fp_xml_del_p(const char *filename, const char *password)
                 }
             }
             PFREE(free, out);
+
             if (tmp)
             {
                 p_p = mxmlWalkNext(p_p, p, MXML_NO_DESCEND);
@@ -392,6 +482,7 @@ int fp_xml_del_p(const char *filename, const char *password)
     } while (0);
 
     PFREE(mxmlDelete, xml);
+
     return ret;
 }
 
@@ -404,16 +495,22 @@ int fp_xml_del_i(const char *filename, const char *string, unsigned int i)
     }
 #endif /* DEBUG */
     mxml_node_t *xml = NULL;
-    int          ret = mxml_r(filename, &xml);
+
+    int ret = mxml_r(filename, &xml);
     if (ret)
     {
         return ret;
     }
     ret = -1;
+
     do
     {
-        mxml_node_t *e =
-            mxmlFindElement(xml, xml, string, const_str_n, NULL, MXML_DESCEND);
+        mxml_node_t *e = mxmlFindElement(xml,
+                                         xml,
+                                         string,
+                                         const_str_n,
+                                         NULL,
+                                         MXML_DESCEND);
         if (!e)
         {
             break;
@@ -425,7 +522,8 @@ int fp_xml_del_i(const char *filename, const char *string, unsigned int i)
             flag = !flag;
         }
 
-        unsigned int n   = 0;
+        unsigned int n = 0;
+
         mxml_node_t *e_e = mxmlGetFirstChild(e);
         while (e_e)
         {
@@ -465,6 +563,7 @@ int fp_xml_del_i(const char *filename, const char *string, unsigned int i)
     } while (0);
 
     PFREE(mxmlDelete, xml);
+
     return ret;
 }
 
@@ -477,15 +576,22 @@ int fp_xml_out_p(const char *filename, char ***dst, size_t *n)
     }
 #endif /* DEBUG */
     mxml_node_t *xml = NULL;
-    int          ret = mxml_r(filename, &xml);
+
+    int ret = mxml_r(filename, &xml);
     if (ret)
     {
         return ret;
     }
     ret = -1;
+
     do
     {
-        mxml_node_t *p = mxmlFindElement(xml, xml, const_str_p, const_str_n, NULL, MXML_DESCEND);
+        mxml_node_t *p = mxmlFindElement(xml,
+                                         xml,
+                                         const_str_p,
+                                         const_str_n,
+                                         NULL,
+                                         MXML_DESCEND);
         if (!p)
         {
             break;
@@ -501,12 +607,14 @@ int fp_xml_out_p(const char *filename, char ***dst, size_t *n)
             }
         }
 
-        size_t       i   = 0U;
+        size_t i = 0U;
+
         mxml_node_t *p_p = mxmlGetFirstChild(p);
         while (p_p)
         {
             mxml_node_t *tmp = mxmlGetFirstChild(p_p);
-            const char * in  = mxmlGetCDATA(tmp);
+
+            const char *in = mxmlGetCDATA(tmp);
 
             char *out = NULL;
             if (!in || fp_dncrypt(in, &out, LEN_PASSWORD))
@@ -522,6 +630,7 @@ int fp_xml_out_p(const char *filename, char ***dst, size_t *n)
     } while (0);
 
     PFREE(mxmlDelete, xml);
+
     return ret;
 }
 
@@ -534,15 +643,22 @@ int fp_xml_out_k(const char *filename, fp_t ***dst, size_t *n)
     }
 #endif /* DEBUG */
     mxml_node_t *xml = NULL;
-    int          ret = mxml_r(filename, &xml);
+
+    int ret = mxml_r(filename, &xml);
     if (ret)
     {
         return ret;
     }
     ret = -1;
+
     do
     {
-        mxml_node_t *k = mxmlFindElement(xml, xml, const_str_k, const_str_n, NULL, MXML_DESCEND);
+        mxml_node_t *k = mxmlFindElement(xml,
+                                         xml,
+                                         const_str_k,
+                                         const_str_n,
+                                         NULL,
+                                         MXML_DESCEND);
         if (!k)
         {
             break;
@@ -558,7 +674,8 @@ int fp_xml_out_k(const char *filename, fp_t ***dst, size_t *n)
             }
         }
 
-        size_t       i   = 0U;
+        size_t i = 0U;
+
         mxml_node_t *k_k = mxmlGetFirstChild(k);
         while (k_k)
         {
@@ -576,7 +693,8 @@ int fp_xml_out_k(const char *filename, fp_t ***dst, size_t *n)
     } while (0);
 
     PFREE(mxmlDelete, xml);
+
     return ret;
 }
 
-/************************ (C) COPYRIGHT tqfx *******************END OF FILE****/
+/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/

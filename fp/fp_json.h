@@ -1,12 +1,12 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
  * @file         fp_json.c/h
  * @brief        fp_json
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210515
+ * @version      1
+ * @copyright    Copyright (C) 2021 tqfx
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
@@ -21,10 +21,6 @@
 #include "fp.h"
 #include "fp_crypt.h"
 
-/* Private includes ----------------------------------------------------------*/
-/* Exported constants --------------------------------------------------------*/
-/* Exported macro ------------------------------------------------------------*/
-/* Exported types ------------------------------------------------------------*/
 /* Exported functions prototypes ---------------------------------------------*/
 
 __BEGIN_DECLS
@@ -40,7 +36,9 @@ extern int fp_json_init(const char *filename);
 extern int fp_json_add_k(const char *filename, const fp_t *fp);
 extern int fp_json_add_p(const char *filename, const char *password);
 
-extern int fp_json_del_i(const char *filename, const char *string, unsigned int id);
+extern int fp_json_del_i(const char * filename,
+                         const char * string,
+                         unsigned int id);
 
 extern int fp_json_del_k(const char *filename, const char *key);
 extern int fp_json_del_p(const char *filename, const char *password);
@@ -50,8 +48,7 @@ extern int fp_json_out_p(const char *filename, char ***dst, size_t *n);
 
 __END_DECLS
 
-/* Private defines -----------------------------------------------------------*/
-
+/* Terminate definition to prevent recursive inclusion -----------------------*/
 #endif /* __FP_JSON__ */
 
-/************************ (C) COPYRIGHT tqfx *******************END OF FILE****/
+/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/

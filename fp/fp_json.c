@@ -1,12 +1,12 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
  * @file         fp_json.c/h
  * @brief        fp_json
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210515
+ * @version      1
+ * @copyright    Copyright (C) 2021 tqfx
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
@@ -23,14 +23,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private typedef -----------------------------------------------------------*/
-/* Private types -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
 
-static int fp_json_del_s(const char *filename, const char *string, const char *str);
+static int fp_json_del_s(const char *filename,
+                         const char *string,
+                         const char *str);
 
 /* Private user code ---------------------------------------------------------*/
 
@@ -85,6 +82,13 @@ int fp_json_fp2json(const fp_t *fp, cJSON **dst)
             break;
         }
 
+        /* {"type":0,"length":16,"key":"","new":""} */
+        if (fp->type == FPTYPE_NEW &&
+            !cJSON_AddStringToObject(*dst, const_str_n, fp->new))
+        {
+            break;
+        }
+
         ret = 0;
     } while (0);
 
@@ -113,14 +117,14 @@ int fp_json_json2fp(const cJSON *cjson, fp_t **fp)
         {
             break;
         }
-        (*fp)->type = (fp_type_t)cJSON_GetNumberValue(cjson_object);
+        (*fp)->type = (fptype_e)cJSON_GetNumberValue(cjson_object);
 
         cjson_object = cJSON_GetObjectItem(cjson, const_str_l);
         if (!cjson_object)
         {
             break;
         }
-        (*fp)->len = (unsigned char)cJSON_GetNumberValue(cjson_object);
+        (*fp)->len = (uint32_t)cJSON_GetNumberValue(cjson_object);
 
         cjson_object = cJSON_GetObjectItem(cjson, const_str_k);
         if (!cjson_object)
@@ -138,6 +142,30 @@ int fp_json_json2fp(const cJSON *cjson, fp_t **fp)
             break;
         }
         (void)strcpy((*fp)->key, str);
+
+        if ((*fp)->type == FPTYPE_NEW)
+        {
+            cjson_object = cJSON_GetObjectItem(cjson, const_str_n);
+            if (!cjson_object)
+            {
+                break;
+            }
+            str = cJSON_GetStringValue(cjson_object);
+            if (!str)
+            {
+                break;
+            }
+            (*fp)->new = (char *)malloc(sizeof(char) * (strlen(str) + 1U));
+            if (!(*fp)->new)
+            {
+                break;
+            }
+            (void)strcpy((*fp)->key, str);
+        }
+        else
+        {
+            (*fp)->new = NULL;
+        }
 
         ret = 0;
     } while (0);
@@ -440,7 +468,7 @@ int fp_json_out_k(const char *filename, fp_t ***dst, size_t *n)
             }
         }
 
-        for (size_t i = 0U; i < *n; i++)
+        for (size_t i = 0U; i != *n; ++i)
         {
             cJSON *item = cJSON_GetArrayItem(cjson, (int)i);
 
@@ -482,7 +510,7 @@ int fp_json_out_p(const char *filename, char ***dst, size_t *n)
                 break;
             }
         }
-        for (size_t i = 0U; i < *n; i++)
+        for (size_t i = 0U; i != *n; ++i)
         {
             char *in = NULL;
             if (cjson_array_s(&in, cjson, (int)i))
@@ -505,4 +533,4 @@ int fp_json_out_p(const char *filename, char ***dst, size_t *n)
     return ret;
 }
 
-/************************ (C) COPYRIGHT tqfx *******************END OF FILE****/
+/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/

@@ -1,21 +1,22 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
  * @file         fp.c/h
  * @brief        fp
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210515
+ * @version      1
+ * @copyright    Copyright (c) 2021
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-
 #ifndef __FP_H__
 #define __FP_H__
 
 /* Includes ------------------------------------------------------------------*/
+#include "fpcode.h"
+
 /* Private includes ----------------------------------------------------------*/
 
 #include <stdint.h>
@@ -48,17 +49,12 @@ static const char const_str_n[] = "n";
 
 /* Exported types ------------------------------------------------------------*/
 
-typedef enum
-{
-    FP_TYPE_DEFAULT,
-    FP_TYPE_DIGITAL,
-} fp_type_t;
-
 typedef struct
 {
-    char *    key;
-    uint8_t   len;
-    fp_type_t type;
+    char *key;
+    char *new;
+    uint32_t len;
+    fptype_e type;
 } fp_t;
 
 /* Exported functions prototypes ---------------------------------------------*/
@@ -96,6 +92,11 @@ static inline void fp_free(fp_t **fp)
             free((*fp)->key);
             (*fp)->key = NULL;
         }
+        if ((*fp)->new)
+        {
+            free((*fp)->new);
+            (*fp)->new = NULL;
+        }
         free(*fp);
         *fp = NULL;
     }
@@ -130,6 +131,7 @@ static inline void fp_free_k(fp_t ***dst, size_t *n)
     }
 }
 
+/* Terminate definition to prevent recursive inclusion -----------------------*/
 #endif /* __FP_H__ */
 
-/************************ (C) COPYRIGHT tqfx *******************END OF FILE****/
+/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/

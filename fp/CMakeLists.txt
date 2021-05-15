@@ -8,6 +8,7 @@ include (../cmake_flags.cmake)
 include_directories ("../klib")
 include_directories ("../cJSON")
 include_directories ("../mxml")
+include_directories ("../fpcode")
 
 aux_source_directory(. SRC_FP)
 

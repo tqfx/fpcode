@@ -1,12 +1,12 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
  * @file         fp.c/h
  * @brief        fp
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210515
+ * @version      1
+ * @copyright    Copyright (c) 2021
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
@@ -22,23 +22,18 @@
 
 #include <string.h>
 
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private typedef -----------------------------------------------------------*/
 /* Private types -------------------------------------------------------------*/
 
-typedef enum
+typedef enum file_type_e
 {
     FILE_TYPE_NONE,
     FILE_TYPE_JSON,
     FILE_TYPE_XML,
-} file_type_t;
+} file_type_e;
 
-/* Private variables ---------------------------------------------------------*/
-/* Private function prototypes -----------------------------------------------*/
 /* Private user code ---------------------------------------------------------*/
 
-static file_type_t fp_filetype(const char *filename)
+static file_type_e fp_filetype(const char *filename)
 {
     char *s = NULL;
     if (file_tr(filename, &s))
@@ -46,7 +41,7 @@ static file_type_t fp_filetype(const char *filename)
         return FILE_TYPE_NONE;
     }
 
-    file_type_t type = FILE_TYPE_NONE;
+    file_type_e type = FILE_TYPE_NONE;
 
     do
     {
@@ -69,6 +64,7 @@ static file_type_t fp_filetype(const char *filename)
     } while (0);
 
     PFREE(free, s);
+
     return type;
 }
 
@@ -76,7 +72,7 @@ int fp_str_p(char ***p, size_t *n, char *s)
 {
     size_t count = 0U;
 
-    for (size_t i = 0; i < *n; i++)
+    for (size_t i = 0U; i != *n; ++i)
     {
         if (strstr((*p)[i], s))
         {
@@ -92,7 +88,7 @@ int fp_str_p(char ***p, size_t *n, char *s)
     {
         fp_free_p(p, n);
     }
-    else if (count < *n)
+    else if (count != *n)
     {
         *p = (char **)realloc((void *)*p, sizeof(char *) * count);
         if (!*p)
@@ -109,7 +105,7 @@ int fp_str_k(fp_t ***k, size_t *n, char *s)
 {
     size_t count = 0U;
 
-    for (size_t i = 0; i < *n; i++)
+    for (size_t i = 0U; i != *n; ++i)
     {
         if (strstr((*k)[i]->key, s))
         {
@@ -125,7 +121,7 @@ int fp_str_k(fp_t ***k, size_t *n, char *s)
     {
         fp_free_k(k, n);
     }
-    else if (count < *n)
+    else if (count != *n)
     {
         *k = (fp_t **)realloc((void *)*k, sizeof(fp_t *) * count);
         if (!*k)
@@ -341,24 +337,26 @@ int fp_import(const char *filename, const char *dataname)
         size_t n = 0U;
 
         char **p = NULL;
-        ret      = fp_out_p(dataname, &p, &n);
+
+        ret = fp_out_p(dataname, &p, &n);
         if (ret)
         {
             break;
         }
-        for (size_t i = 0; i < n; i++)
+        for (size_t i = 0U; i != n; ++i)
         {
             fp_add_p(filename, p[i]);
         }
         fp_free_p(&p, &n);
 
         fp_t **k = NULL;
-        ret      = fp_out_k(dataname, &k, &n);
+
+        ret = fp_out_k(dataname, &k, &n);
         if (ret)
         {
             break;
         }
-        for (size_t i = 0; i < n; i++)
+        for (size_t i = 0U; i != n; ++i)
         {
             fp_add_k(filename, k[i]);
         }
@@ -369,4 +367,4 @@ int fp_import(const char *filename, const char *dataname)
     return ret;
 }
 
-/************************ (C) COPYRIGHT tqfx *******************END OF FILE****/
+/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
