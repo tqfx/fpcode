@@ -1,12 +1,12 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
  * @file         fpcode.c/h
- * @brief        core code fo fp
+ * @brief        The core code of Flower Password
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210515
+ * @version      1
+ * @copyright    Copyright (C) 2021 tqfx
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
@@ -25,7 +25,7 @@
 #define FP_RULE_STR   "qwertyuiop"
 #define FP_SOURCE_STR "asdfghjkl"
 #define FP_TABLE_CHAR \
-    "aAbBcCd0DeEf1FgGh2HiIj3JkKl4LmMn5NopP6qQrR7sStT8uUvV9wWxXyYzZ"
+    "aAbBcCdDeEfFgGhHiIjJkKlLmM0123456789nNopPqQrRsStTuUvVwWxXyYzZ"
 
 /* Private macro -------------------------------------------------------------*/
 
@@ -43,32 +43,71 @@
 /* Private function prototypes -----------------------------------------------*/
 
 /**
- * @brief        Hexadecimal to decimal
- * @param[in]    ch '0'-'9' 'A'-'F' 'a'-'f'
- * @return       0~15
+ * @brief          Hexadecimal to decimal
+ * @param[in]      ch '0'-'9' 'A'-'F' 'a'-'f'
+ * @return         int 0~15
 */
 static int xdigit(char ch);
 
-static int fpcode_cc(char **dst, const char *source, const char *rule, uint32_t len, uint32_t type);
+static int fpcode_cc(char **     dst,
+                     const char *source,
+                     const char *rule,
+                     uint32_t    len,
+                     uint32_t    type);
 
 /* Private user code ---------------------------------------------------------*/
 
 static int xdigit(char ch)
 {
-    int x = 0;
-    if ('0' <= ch && ch <= '9')
+    int ret = -1;
+
+    switch (ch)
     {
-        x = ch - '0';
-    }
-    else if ('A' <= ch && ch <= 'F')
+    case '0':
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+    case '5':
+    case '6':
+    case '7':
+    case '8':
+    case '9':
     {
-        x = ch - 'A' + 10;
+        /* 0 ~ 9 */
+        ret = ch - '0';
+        break;
     }
-    else if ('a' <= ch && ch <= 'f')
+
+    case 'a':
+    case 'b':
+    case 'c':
+    case 'd':
+    case 'e':
+    case 'f':
     {
-        x = ch - 'a' + 10;
+        /* a ~ f */
+        ret = ch - 'a' + 10;
+        break;
     }
-    return x;
+
+    case 'A':
+    case 'B':
+    case 'C':
+    case 'D':
+    case 'E':
+    case 'F':
+    {
+        /* A ~ F */
+        ret = ch - 'A' + 10;
+        break;
+    }
+
+    default:
+        break;
+    }
+
+    return ret;
 }
 
 static int fpcode_cc(char **dst, const char *source, const char *rule, uint32_t len, uint32_t type)

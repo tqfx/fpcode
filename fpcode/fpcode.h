@@ -1,17 +1,16 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
  * @file         fpcode.c/h
- * @brief        core code fo fp
+ * @brief        The core code of Flower Password
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210515
+ * @version      1
+ * @copyright    Copyright (C) 2021 tqfx
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-
 #ifndef __FPCODE_H__
 #define __FPCODE_H__
 
@@ -23,9 +22,15 @@
 
 #include <stdint.h>
 
-/* Exported constants --------------------------------------------------------*/
-/* Exported macro ------------------------------------------------------------*/
 /* Exported types ------------------------------------------------------------*/
+
+typedef enum
+{
+    FPTYPE_EMAIL,
+    FPTYPE_PAY,
+    FPTYPE_NEW
+} fptype_e;
+
 /* Exported functions prototypes ---------------------------------------------*/
 
 __BEGIN_DECLS
@@ -41,7 +46,11 @@ __BEGIN_DECLS
  * @return       int 0 success -1 failure
  * @warning      need to free the memory
 */
-extern int fpcode(char **dst, const char *password, const char *key, uint32_t length, uint32_t type);
+extern int fpcode(char **     dst,
+                  const char *password,
+                  const char *key,
+                  uint32_t    length,
+                  uint32_t    type);
 
 __BEGIN_DECLS
 
