@@ -1,11 +1,12 @@
 /**
  * *****************************************************************************
- * @file         MD5.c
- * @brief        md5 
+ * @file         MD5.c/h
+ * @brief        md5
  * @author       tqfx
  * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @version      1
+ * @copyright    Copyright (C) 2021
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
@@ -14,6 +15,10 @@
 #include "MD5.h"
 
 /* Private includes ----------------------------------------------------------*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /* Private define ------------------------------------------------------------*/
 
@@ -28,8 +33,8 @@ typedef unsigned long MD5_u32plus;
 /* Private types -------------------------------------------------------------*/
 
 /**
- * @struct       MD5_CTX
- * @brief        MD5 context
+ * @struct         MD5_CTX
+ * @brief          MD5 context
 */
 typedef struct
 {
@@ -44,37 +49,37 @@ typedef struct
 /* Private function prototypes -----------------------------------------------*/
 
 /** 
- * @brief        This processes one or more 64-byte data blocks, but does NOT 
- *               update the bit counters. There are no alignment requirements.
- * @param        ctxBuf the ctx buffer that will be used
- * @param        data pointer to the data that will be processed
- * @param        size size_t type, that hold the size
+ * @brief          This processes one or more 64-byte data blocks, but does NOT 
+ *                 update the bit counters. There are no alignment requirements.
+ * @param[out]     ctxBuf: the ctx buffer that will be used
+ * @param[in]      data: pointer to the data that will be processed
+ * @param[in]      size: size_t type, that hold the size
 */
 static const void *body(void *ctxBuf, const void *data, size_t size);
 
 /** 
- * @brief        Initialized the MD5 hashing process.
- *               this function must be called before MD5Update or MD5Final
- * @param        ctxBuf the ctx buffer that will be used
+ * @brief          Initialized the MD5 hashing process.
+ *                 this function must be called before MD5Update or MD5Final
+ * @param[in]      ctxBuf: the ctx buffer that will be used
 */
 static void MD5Init(void *ctxBuf);
 
 /** 
- * @brief        MD5Final finilized the Hashing process and creates the diggest.
- *               This function must be called after MD5Init and MD5Update
- * @param        result pointer that will hold the digest.
- * @param        ctxBuf the ctx buffer that will be used
- * @return       no return, the result is storesin the *result pointer
+ * @brief          MD5Final finilized the Hashing process and creates the diggest.
+ *                 This function must be called after MD5Init and MD5Update
+ * @param[out]     result: pointer that will hold the digest.
+ * @param[in]      ctxBuf: the ctx buffer that will be used
+ * @return         no return, the result is storesin the *result pointer
 */
 static void MD5Final(unsigned char *result, void *ctxBuf);
 
 /** 
- * @brief        MD5Update adds data in the buffers.
- *               This function can be used as many times as we want in the
- *               hashing process. Examples on hmac_md5 functions.
- * @param        ctxBuf the ctx buffer that will be used
- * @param        data the actual data that will be used in the hashing process.
- * @param        size size_t type, indicated the side of the data pointer.
+ * @brief          MD5Update adds data in the buffers.
+ *                 This function can be used as many times as we want in the
+ *                 hashing process. Examples on hmac_md5 functions.
+ * @param[out]     ctxBuf: the ctx buffer that will be used
+ * @param[in]      data: the actual data that will be used in the hashing process.
+ * @param[in]      size: size_t type, indicated the side of the data pointer.
 */
 static void MD5Update(void *ctxBuf, const void *data, size_t size);
 
@@ -469,4 +474,4 @@ char *hmac_md5(const void *text, size_t text_len, const void *key, size_t key_le
 }
 #endif
 
-/************************ (C) COPYRIGHT tqfx *******************END OF FILE****/
+/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
