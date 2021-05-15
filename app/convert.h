@@ -5,7 +5,7 @@
  * @author       tqfx
  * @date         20210515
  * @version      1
- * @copyright    Copyright (c) 2021
+ * @copyright    Copyright (C) 2021 tqfx
  * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
