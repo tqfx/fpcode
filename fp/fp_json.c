@@ -160,7 +160,7 @@ int fp_json_json2fp(const cJSON *cjson, fp_t **fp)
             {
                 break;
             }
-            (void)strcpy((*fp)->key, str);
+            (void)strcpy((*fp)->new, str);
         }
 
         ret = 0;
