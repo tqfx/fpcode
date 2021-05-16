@@ -3,8 +3,8 @@ cmake_minimum_required (VERSION 3.0)
 
 project (MXML)
 
-include (../cmake_flags.cmake)
-include (cmake_check.cmake)
+include (cmake-flags.cmake)
+include (cmake-check.cmake)
 
 aux_source_directory(. SRC_MXML)
 
