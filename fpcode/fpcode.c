@@ -35,6 +35,9 @@
         _ = NULL;       \
     } while (0)
 
+#undef MIN2
+#define MIN2(n, x) ((n) < (x) ? (n) : (x))
+
 /* Private variables ---------------------------------------------------------*/
 
 /* The pointer for rules */
@@ -174,7 +177,7 @@ int fpcode(char **     dst,
     }
 
     /* Restrict the output password length */
-    l = FP_LEN_HMD5 > l ? l : FP_LEN_HMD5;
+    l = MIN2(l, FP_LEN_HMD5);
 
     /* Get the initial value */
     char *phmd5 = hmac_md5(p, l_p, k, l_k);
@@ -260,11 +263,10 @@ int fpcode(char **     dst,
     {
         uint32_t l_t = (uint32_t)strlen(table_new);
 
-        l_t = l > l_t ? l_t : l;
+        l_t = MIN2(l_t, l);
         for (uint8_t i = 0U; i != l_t; ++i)
         {
-            uint8_t x = (uint8_t)(table_x[i] % l);
-            (*dst)[x] = table_new[i];
+            (*dst)[table_x[i] % l] = table_new[i];
         }
     }
 
