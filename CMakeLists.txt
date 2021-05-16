@@ -39,8 +39,8 @@ if (MINGW AND HAVE_PTHREAD_H)
 target_link_libraries (key -static winpthread)
 endif (MINGW AND HAVE_PTHREAD_H)
 
-add_executable (tqfx main.c)
-target_link_libraries (tqfx
+add_executable (key2 main.c)
+target_link_libraries (key2
     app
     fpcode
     fp
@@ -49,12 +49,12 @@ target_link_libraries (tqfx
     klib
 )
 if (MINGW AND HAVE_PTHREAD_H)
-target_link_libraries (tqfx -static winpthread)
+target_link_libraries (key2 -static winpthread)
 endif (MINGW AND HAVE_PTHREAD_H)
 
 if (WIN32 OR ANDROID)
 install (TARGETS key RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
-install (TARGETS tqfx RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+install (TARGETS key2 RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif (WIN32 OR ANDROID)
 
 # termux
@@ -68,10 +68,10 @@ include_directories (
 add_subdirectory (termux-api)
 add_subdirectory (app-termux)
 
-add_executable (key-t main-termux.c)
-target_link_libraries (key-t
-    app_termux
-    termux_api
+add_executable (key.exe main-termux.c)
+target_link_libraries (key.exe
+    app-termux
+    termux-api
     fpcodex
     fp
     klib
@@ -79,10 +79,10 @@ target_link_libraries (key-t
     mxml
 )
 
-add_executable (tqfx-t main-termux.c)
-target_link_libraries (tqfx-t
-    app_termux
-    termux_api
+add_executable (key2.exe main-termux.c)
+target_link_libraries (key2.exe
+    app-termux
+    termux-api
     fpcode
     fp
     klib
@@ -90,7 +90,8 @@ target_link_libraries (tqfx-t
     mxml
 )
 
-install (TARGETS key-t RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
-install (TARGETS tqfx-t RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+install (TARGETS key.exe RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+install (TARGETS key2.exe RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 endif (ANDROID)
+

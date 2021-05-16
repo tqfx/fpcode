@@ -10,4 +10,4 @@ include_directories ("../cJSON")
 
 aux_source_directory(. SRC_TERMUX_API)
 
-add_library(termux_api STATIC ${SRC_TERMUX_API})
+add_library(termux-api STATIC ${SRC_TERMUX_API})

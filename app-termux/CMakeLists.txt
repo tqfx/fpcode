@@ -14,4 +14,4 @@ include_directories ("../tapi")
 
 aux_source_directory(. SRC_APP_TERMUX)
 
-add_library(app_termux STATIC ${SRC_APP_TERMUX})
+add_library(app-termux STATIC ${SRC_APP_TERMUX})
