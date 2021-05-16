@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 3.0)
 
 project (CJSON)
 
-include (../cmake_flags.cmake)
+include (cmake-flags.cmake)
 
 aux_source_directory(. SRC_CJSON)
 
