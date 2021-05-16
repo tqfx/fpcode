@@ -3,7 +3,7 @@
 #include "file.h"
 #include "fp.h"
 #include "kstring.h"
-#include "tapi.h"
+#include "termux-tapi.h"
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -20,8 +20,8 @@
 #include "fp.h"
 #include "fpcode.h"
 #include "kstring.h"
-#include "tapi.h"
 #include "termux-api.h"
+#include "termux-tapi.h"
 
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -694,7 +694,8 @@ void app_termux_search_password(const char *filename)
 
         int   i  = 0;
         char *vs = NULL;
-        ret      = p2vsn(&vs, p, n);
+
+        ret = p2vsn(&vs, p, n);
         if (ret)
         {
             break;
