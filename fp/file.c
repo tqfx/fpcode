@@ -35,7 +35,7 @@
 
 /* Private user code ---------------------------------------------------------*/
 
-int file_br(const char *filename,
+int file_br(const char *restrict filename,
             void **const restrict dst,
             size_t *const restrict sz)
 {

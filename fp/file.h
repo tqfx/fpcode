@@ -54,7 +54,7 @@ __BEGIN_DECLS
  * @param[out]     sz: The address where the number of data is stored
  * @return         int 0(success) -1(failure)
 */
-extern int file_br(const char *filename,
+extern int file_br(const char *restrict filename,
                    void **const restrict dst,
                    size_t *const restrict sz);
 
