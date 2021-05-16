@@ -11,7 +11,7 @@ include (cmake_flags.cmake)
 
 include_directories (
     "${PROJECT_SOURCE_DIR}"
-    "${PROJECT_SOURCE_DIR}/klib/klib"
+    "${PROJECT_SOURCE_DIR}/klib"
     "${PROJECT_SOURCE_DIR}/cJSON"
     "${PROJECT_SOURCE_DIR}/mxml"
     "${PROJECT_SOURCE_DIR}/fpcode"
@@ -19,7 +19,7 @@ include_directories (
     "${PROJECT_SOURCE_DIR}/app"
 )
 
-add_subdirectory (klib/klib)
+add_subdirectory (klib)
 add_subdirectory (cJSON)
 add_subdirectory (fpcode)
 add_subdirectory (fp)
