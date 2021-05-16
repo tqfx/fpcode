@@ -9,25 +9,26 @@
 ### 帮助
 
 ```txt
-	Copyright tqfx 2020~2021
+	Copyright (C) 2021 tqfx
 option:
--i --id 	get password by id
--a --add 	add key or password
--d --del 	delete key or password
--s --show 	show key or password
+-i --id		get password by id
+-a --add	add key or password
+-d --del	delete key or password
+-s --show	show key or password
 parameter:
--k --key 	the key
--p --password 	the password
--l --length 	the length {1,32}
--t --type 	the type of password {0,1}
--f --filename 	filename of data
-   --import 	filename of data
+-k --key	the key
+-p --password	the password
+-l --length	the length {1, 32}
+-t --type	the type {0 email, 1 pay, 2 new}
+-n --new	the new table
+-f --filename	filename of data
+   --import	filename of data
 ```
 
 ### 生成密码
 
 ```bash
-key -k key -p password
+./key -k key -p password
 ```
 
 注意：不会将记录写入数据库
@@ -37,7 +38,7 @@ key -k key -p password
 向数据库添加密码 `123456`
 
 ```bash
-key -a -p 123456
+./key -a -p 123456
 ```
 
 ### 添加标识
@@ -45,13 +46,13 @@ key -a -p 123456
 向数据库添加 名为 `key`，长度为 `16`，类型为 `默认` 的标识
 
 ```bash
-key -a -k key -l 16 -t 0
+./key -a -k key -l 16 -t 0
 ```
 
 向数据库添加 名为 `pay`，长度为 `6`，类型为 `数字` 的标识
 
 ```bash
-key --add --key pay --length 6 --type 1
+./key --add --key pay --length 6 --type 1
 ```
 
 ### 删除密码
@@ -59,13 +60,13 @@ key --add --key pay --length 6 --type 1
 从数据库删除密码 `123456`
 
 ```bash
-key -d -p 123456
+./key -d -p 123456
 ```
 
 从数据库删除 ID 为 0 的密码
 
 ```bash
-key -di -p 0
+./key -di -p 0
 ```
 
 ### 删除标识
@@ -73,13 +74,13 @@ key -di -p 0
 从数据库删除标识 `key`
 
 ```bash
-key -d -k key
+./key -d -k key
 ```
 
 从数据库删除 ID 为 0 的标识
 
 ```bash
-key -di -k 0
+./key -di -k 0
 ```
 
 ### 查询密码
@@ -87,7 +88,7 @@ key -di -k 0
 显示所有密码
 
 ```bash
-key -s -p=
+./key -s -p=
 ```
 
 ### 查询标识
@@ -95,7 +96,7 @@ key -s -p=
 显示包含 `key` 的标识
 
 ```bash
-key -s -k key
+./key -s -k key
 ````
 
 ### 导入数据
@@ -103,10 +104,17 @@ key -s -k key
 将 `.fp.json` 的数据导入到 `.fp.xml`
 
 ```bash
-key -f .fp.xml --import .fp.json
+./key -f .fp.xml --import .fp.json
 ```
 
 ## 编译
+
+### 准备
+
+```bash
+git clone --recursive https://github.com/tqfx/fpcode.git
+cd fpcode
+```
 
 ### [msys2](https://www.msys2.org/)
 
@@ -124,6 +132,15 @@ mkdir build
 cd build
 cmake .. -G "MinGW Makefiles"
 mingw32-make
+```
+
+### [MSVC](https://visualstudio.microsoft.com/zh-hans/visual-cpp-build-tools/)
+
+```bash
+mkdir build
+cd build
+cmake ..
+msbuild ALL_BUILD.vcxproj -p:Configuration=Release -noLogo
 ```
 
 ### [termux](https://github.com/termux/termux-app)

@@ -180,11 +180,7 @@ int main_cb(int argc, char *argv[])
 
     if (!filename)
     {
-        char *s = getenv("_");
-        if (!s)
-        {
-            s = *argv;
-        }
+        char *s = *argv;
 
         if (strstr(s, ".exe"))
         {
