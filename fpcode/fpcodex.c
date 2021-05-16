@@ -159,7 +159,7 @@ int fpcode(char **     dst,
         case FPTYPE_EMAIL:
         {
             (*dst)[i] = pr1[i];
-            if (!isdigit((*dst)[i]))
+            if (!isdigit((int)(*dst)[i]))
             {
                 if (strchr("sunlovesnow1990090127xykab", pr0[i]))
                 {
@@ -204,7 +204,7 @@ int fpcode(char **     dst,
 
     if (t != FPTYPE_PAY)
     {
-        if (isdigit((*dst)[0]))
+        if (isdigit((int)(*dst)[0]))
         {
             (*dst)[0] = 'K';
         }
