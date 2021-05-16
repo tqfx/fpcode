@@ -63,12 +63,12 @@ extern int fpcode_rule(const char *s0,
  * @return         int 0(success) -1(failure)
  * @warning        Need to free up memory
 */
-extern int fpcode(char **     dst,
-                  fptype_e    t,
-                  const char *p,
-                  const char *k,
-                  uint32_t    l,
-                  const char *table_new);
+extern int fpcode(char **const restrict dst,
+                  fptype_e t,
+                  const char *restrict p,
+                  const char *restrict k,
+                  uint32_t l,
+                  const char *restrict table_new);
 
 __BEGIN_DECLS
 

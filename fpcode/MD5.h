@@ -2,10 +2,10 @@
  * *****************************************************************************
  * @file         MD5.c/h
  * @brief        md5
- * @author       tqfx
  * @date         20210101
+ * @author       scottmac and tzikis
  * @version      1
- * @copyright    Copyright (C) 2021
+ * @copyright    Copyright (C) 2021 scottmac and tzikis
  * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */

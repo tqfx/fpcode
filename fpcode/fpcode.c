@@ -153,12 +153,12 @@ int fpcode_rule(const char *s0,
     return ret;
 }
 
-int fpcode(char **     dst,
-           fptype_e    t,
-           const char *p,
-           const char *k,
-           uint32_t    l,
-           const char *table_new)
+int fpcode(char **const restrict dst,
+           fptype_e t,
+           const char *restrict p,
+           const char *restrict k,
+           uint32_t l,
+           const char *restrict table_new)
 {
     /* Check the variable */
     if (!dst || !p || !k || (t == FPTYPE_NEW && !table_new))
