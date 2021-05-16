@@ -61,17 +61,17 @@ endif (WIN32 OR ANDROID)
 if (ANDROID)
 
 include_directories (
-    "${PROJECT_SOURCE_DIR}/tapi"
+    "${PROJECT_SOURCE_DIR}/termux-api"
     "${PROJECT_SOURCE_DIR}/app-termux"
 )
 
-add_subdirectory (tapi)
+add_subdirectory (termux-api)
 add_subdirectory (app-termux)
 
 add_executable (key-t main-termux.c)
 target_link_libraries (key-t
     app_termux
-    tapi
+    termux_api
     fpcodex
     fp
     klib
@@ -82,7 +82,7 @@ target_link_libraries (key-t
 add_executable (tqfx-t main-termux.c)
 target_link_libraries (tqfx-t
     app_termux
-    tapi
+    termux_api
     fpcode
     fp
     klib
