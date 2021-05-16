@@ -7,7 +7,7 @@ if (NOT CMAKE_BUILD_TYPE)
 set (CMAKE_BUILD_TYPE "Debug")
 endif (NOT CMAKE_BUILD_TYPE)
 
-include (cmake_flags.cmake)
+include (cmake-flags.cmake)
 
 include_directories (
     "${PROJECT_SOURCE_DIR}"
@@ -29,7 +29,7 @@ add_subdirectory (mxml)
 add_executable (key main.c)
 target_link_libraries (key
     app
-    fpcode_x
+    fpcodex
     fp
     mxml
     cjson
