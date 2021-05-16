@@ -48,6 +48,9 @@ int file_br(const char *filename, void **dst, size_t *sz)
     FILE *fp = fopen(filename, "rb");
     if (!fp)
     {
+#ifdef DEBUG
+        perror(filename);
+#endif /* DEBUG */
         return -1;
     }
 
@@ -88,6 +91,9 @@ int file_bw(const char *filename, void *src, size_t sz)
     FILE *fp = fopen(filename, "wb");
     if (!fp)
     {
+#ifdef DEBUG
+        perror(filename);
+#endif /* DEBUG */
         return -1;
     }
 
@@ -116,6 +122,9 @@ int file_tr(const char *filename, char **dst)
     FILE *fp = fopen(filename, "rt");
     if (!fp)
     {
+#ifdef DEBUG
+        perror(filename);
+#endif /* DEBUG */
         return -1;
     }
 
@@ -160,6 +169,9 @@ int file_tw(const char *filename, char *src)
     FILE *fp = fopen(filename, "wt");
     if (!fp)
     {
+#ifdef DEBUG
+        perror(filename);
+#endif /* DEBUG */
         return -1;
     }
 
