@@ -1,35 +1,39 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
  * @file         tapi.c/h
- * @brief        api termux
+ * @brief        api termux packaging
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210516
+ * @version      1
+ * @copyright    Copyright (C) 2021 tqfx
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
 /* Includes ------------------------------------------------------------------*/
 
-#include "tapi.h"
+#include "termux-tapi.h"
 
 /* Private includes ----------------------------------------------------------*/
 
 #include "cJSON.h"
-#include "termux_api.h"
+#include "termux-api.h"
 
 #include <stdlib.h>
 #include <string.h>
 
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
 /* Private typedef -----------------------------------------------------------*/
-/* Private types -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
+
+typedef int (*dialog_ci_t)(char **, const char *, const char *);
+
 /* Private function prototypes -----------------------------------------------*/
 
-static int tapi_dialog_ci(char **text, int *index, int code, const char *title, const char *values, int (*func)(char **, const char *, const char *));
+static int tapi_dialog_ci(char **     text,
+                          int *       index,
+                          int         code,
+                          const char *title,
+                          const char *values,
+                          dialog_ci_t func);
 
 /* Private user code ---------------------------------------------------------*/
 
@@ -109,7 +113,11 @@ int tapi_confirm(const char *title, const char *hint)
     return ret;
 }
 
-int tapi_checkbox(char ***text, int **index, int *n, const char *title, const char *values)
+int tapi_checkbox(char ***    text,
+                  int **      index,
+                  int *       n,
+                  const char *title,
+                  const char *values)
 {
     int ret = -2;
 
@@ -137,8 +145,10 @@ int tapi_checkbox(char ***text, int **index, int *n, const char *title, const ch
             ret = -1;
             break;
         }
+
         cjson_object = cJSON_GetObjectItem(cjson, "values");
-        *n           = cJSON_GetArraySize(cjson_object);
+
+        *n = cJSON_GetArraySize(cjson_object);
         if (*n)
         {
             if (text)
@@ -151,7 +161,7 @@ int tapi_checkbox(char ***text, int **index, int *n, const char *title, const ch
             }
         }
 
-        for (int i = 0; i < *n; i++)
+        for (int i = 0; i != *n; ++i)
         {
             cJSON *item = cJSON_GetArrayItem(cjson_object, i);
             if (index)
@@ -167,11 +177,13 @@ int tapi_checkbox(char ***text, int **index, int *n, const char *title, const ch
                 item = cJSON_GetObjectItem(item, "text");
                 if (item)
                 {
-                    (*text)[i]        = cJSON_GetStringValue(item);
+                    (*text)[i] = cJSON_GetStringValue(item);
+
                     item->valuestring = NULL;
                 }
             }
         }
+
         ret = 0;
     } while (0);
 
@@ -180,7 +192,9 @@ int tapi_checkbox(char ***text, int **index, int *n, const char *title, const ch
     return ret;
 }
 
-int tapi_counter(long int *pl, const char *title, const char *values)
+int tapi_counter(long int *  pl,
+                 const char *title,
+                 const char *values)
 {
     int ret = -2;
 
@@ -217,6 +231,7 @@ int tapi_counter(long int *pl, const char *title, const char *values)
             }
             *pl = atol(cJSON_GetStringValue(cjson_object));
         }
+
         ret = 0;
     } while (0);
 
@@ -225,7 +240,12 @@ int tapi_counter(long int *pl, const char *title, const char *values)
     return ret;
 }
 
-static int tapi_dialog_ci(char **text, int *index, int code, const char *title, const char *values, int (*func)(char **, const char *, const char *))
+static int tapi_dialog_ci(char **     text,
+                          int *       index,
+                          int         code,
+                          const char *title,
+                          const char *values,
+                          dialog_ci_t func)
 {
     int ret = -2;
 
@@ -269,9 +289,11 @@ static int tapi_dialog_ci(char **text, int *index, int code, const char *title, 
             {
                 break;
             }
-            *text                     = cJSON_GetStringValue(cjson_object);
+            *text = cJSON_GetStringValue(cjson_object);
+
             cjson_object->valuestring = NULL;
         }
+
         ret = 0;
     } while (0);
 
@@ -280,22 +302,49 @@ static int tapi_dialog_ci(char **text, int *index, int code, const char *title, 
     return ret;
 }
 
-int tapi_radio(char **text, int *index, const char *title, const char *values)
+int tapi_radio(char **     text,
+               int *       index,
+               const char *title,
+               const char *values)
 {
-    return tapi_dialog_ci(text, index, -1, title, values, termux_dialog_radio);
+    return tapi_dialog_ci(text,
+                          index,
+                          -1,
+                          title,
+                          values,
+                          termux_dialog_radio);
 }
 
-int tapi_sheet(char **text, int *index, const char *title, const char *values)
+int tapi_sheet(char **     text,
+               int *       index,
+               const char *title,
+               const char *values)
 {
-    return tapi_dialog_ci(text, index, 0, title, values, termux_dialog_sheet);
+    return tapi_dialog_ci(text,
+                          index,
+                          0,
+                          title,
+                          values,
+                          termux_dialog_sheet);
 }
 
-int tapi_spinner(char **text, int *index, const char *title, const char *values)
+int tapi_spinner(char **     text,
+                 int *       index,
+                 const char *title,
+                 const char *values)
 {
-    return tapi_dialog_ci(text, index, -1, title, values, termux_dialog_spinner);
+    return tapi_dialog_ci(text,
+                          index,
+                          -1,
+                          title,
+                          values,
+                          termux_dialog_spinner);
 }
 
-int tapi_text(char **dst, const char *title, const char *hint, const char *op)
+int tapi_text(char **     dst,
+              const char *title,
+              const char *hint,
+              const char *op)
 {
     int ret = -2;
 
@@ -330,9 +379,11 @@ int tapi_text(char **dst, const char *title, const char *hint, const char *op)
             {
                 break;
             }
-            *dst                      = cJSON_GetStringValue(cjson_object);
+            *dst = cJSON_GetStringValue(cjson_object);
+
             cjson_object->valuestring = NULL;
         }
+
         ret = 0;
     } while (0);
 
@@ -356,4 +407,4 @@ int tapi_toast_ok(const char *text)
     return termux_toast(text, "green", "white", NULL, 1);
 }
 
-/************************ (C) COPYRIGHT tqfx *******************END OF FILE****/
+/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
