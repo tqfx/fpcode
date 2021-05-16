@@ -1,9 +1,12 @@
 [submodule "klib"]
 	path = klib
-	url = https://github.com/tqfx/klib.git
 	branch = klib
-
+	url = https://github.com/tqfx/klib.git
 [submodule "mxml"]
 	path = mxml
-	url = https://github.com/tqfx/mxml.git
 	branch = mxml
+	url = https://github.com/tqfx/mxml.git
+[submodule "cJSON"]
+	path = cJSON
+	branch = cjson
+	url = https://github.com/tqfx/cJSON.git
