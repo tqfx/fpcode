@@ -12,13 +12,13 @@
 
 /* Includes ------------------------------------------------------------------*/
 
-#include "fp_json.h"
+#include "fp-json.h"
 
 /* Private includes ----------------------------------------------------------*/
 
-#include "file_json.h"
+#include "file-json.h"
+#include "fp-crypt.h"
 #include "fp.h"
-#include "fp_crypt.h"
 
 #include <stdlib.h>
 #include <string.h>

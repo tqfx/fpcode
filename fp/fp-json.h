@@ -17,9 +17,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 
-#include "file_json.h"
+#include "file-json.h"
+#include "fp-crypt.h"
 #include "fp.h"
-#include "fp_crypt.h"
 
 /* Exported functions prototypes ---------------------------------------------*/
 

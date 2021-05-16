@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 3.0)
 
 project (FP)
 
-include (../cmake_flags.cmake)
+include (../cmake-flags.cmake)
 
 include_directories ("../klib")
 include_directories ("../cJSON")

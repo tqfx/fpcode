@@ -12,13 +12,13 @@
 
 /* Includes ------------------------------------------------------------------*/
 
-#include "fp_xml.h"
+#include "fp-xml.h"
 
 /* Private includes ----------------------------------------------------------*/
 
-#include "file_xml.h"
+#include "file-xml.h"
+#include "fp-crypt.h"
 #include "fp.h"
-#include "fp_crypt.h"
 
 /* Private user code ---------------------------------------------------------*/
 

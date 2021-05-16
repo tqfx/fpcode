@@ -15,8 +15,8 @@
 #include "fp.h"
 
 #include "file.h"
-#include "fp_json.h"
-#include "fp_xml.h"
+#include "fp-json.h"
+#include "fp-xml.h"
 
 /* Private includes ----------------------------------------------------------*/
 
