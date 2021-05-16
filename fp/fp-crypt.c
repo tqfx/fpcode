@@ -1,6 +1,6 @@
 /**
  * *****************************************************************************
- * @file         fp_crypt.c/h
+ * @file         fp-crypt.c/h
  * @brief        crypt fp
  * @author       tqfx
  * @date         20210515
@@ -43,14 +43,16 @@ static unsigned int rands(void)
     return (unsigned int)((srands_next / 65536UL) % 32768UL);
 }
 
-int fp_encrypt(const char *in, char **out, unsigned int len)
+int fp_encrypt(const char *restrict in,
+               char **const restrict out,
+               unsigned int len)
 {
-#ifdef DEBUG
+#ifdef DEBUG_CHECK
     if (!in || !out)
     {
         return -1;
     }
-#endif /* DEBUG */
+#endif /* DEBUG_CHECK */
     unsigned int n_table = (unsigned int)strlen(table_encode);
     unsigned int n_in    = (unsigned int)strlen(in);
     unsigned int i       = 0U;
@@ -94,14 +96,16 @@ int fp_encrypt(const char *in, char **out, unsigned int len)
     return 0;
 }
 
-int fp_dncrypt(const char *in, char **out, unsigned int len)
+int fp_dncrypt(const char *restrict in,
+               char **const restrict out,
+               unsigned int len)
 {
-#ifdef DEBUG
+#ifdef DEBUG_CHECK
     if (!in || !out)
     {
         return -1;
     }
-#endif /* DEBUG */
+#endif /* DEBUG_CHECK */
     unsigned int n_table = (unsigned int)strlen(table_encode);
     unsigned int j       = 0U;
 

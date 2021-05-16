@@ -1,6 +1,6 @@
 /**
  * *****************************************************************************
- * @file         fp_crypt.c/h
+ * @file         fp-crypt.c/h
  * @brief        crypt fp
  * @author       tqfx
  * @date         20210515
@@ -40,7 +40,9 @@ __BEGIN_DECLS
  * @param[in]      len: length of password
  * @return         int 0(SUCCESS) -1(FAILURE)
 */
-extern int fp_encrypt(const char *in, char **out, unsigned int len);
+extern int fp_encrypt(const char *restrict in,
+                      char **const restrict out,
+                      unsigned int len);
 
 /**
  * @brief          Dncrypt password
@@ -49,7 +51,9 @@ extern int fp_encrypt(const char *in, char **out, unsigned int len);
  * @param[in]      len: length of password
  * @return         int 0(SUCCESS) -1(FAILURE)
 */
-extern int fp_dncrypt(const char *in, char **out, unsigned int len);
+extern int fp_dncrypt(const char *restrict in,
+                      char **const restrict out,
+                      unsigned int len);
 
 __END_DECLS
 
