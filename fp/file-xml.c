@@ -18,12 +18,12 @@
 
 int mxml_r(const char *filename, mxml_node_t **xml)
 {
-#ifdef DEBUG
+#ifdef DEBUG_CHECK
     if (!filename || !xml)
     {
         return -1;
     }
-#endif /* DEBUG */
+#endif /* DEBUG_CHECK */
     FILE *fp = fopen(filename, "rb");
     if (!fp)
     {
@@ -39,12 +39,12 @@ int mxml_r(const char *filename, mxml_node_t **xml)
 
 int mxml_w(const char *filename, mxml_node_t *xml)
 {
-#ifdef DEBUG
+#ifdef DEBUG_CHECK
     if (!filename || !xml)
     {
         return -1;
     }
-#endif /* DEBUG */
+#endif /* DEBUG_CHECK */
     FILE *fp = fopen(filename, "wb");
     if (!fp)
     {

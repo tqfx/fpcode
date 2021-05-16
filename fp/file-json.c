@@ -23,12 +23,12 @@
 
 int cjson_r(const char *filename, cJSON **const cjson)
 {
-#ifdef DEBUG
+#ifdef DEBUG_CHECK
     if (!filename || !cjson)
     {
         return -1;
     }
-#endif /* DEBUG */
+#endif /* DEBUG_CHECK */
     char *s = NULL;
 
     int ret = file_tr(filename, &s);
@@ -45,12 +45,12 @@ int cjson_r(const char *filename, cJSON **const cjson)
 
 int cjson_w(const char *filename, const cJSON *cjson)
 {
-#ifdef DEBUG
+#ifdef DEBUG_CHECK
     if (!filename || !cjson)
     {
         return -1;
     }
-#endif /* DEBUG */
+#endif /* DEBUG_CHECK */
     int ret = -1;
 
     char *s = cJSON_PrintUnformatted(cjson);
@@ -68,12 +68,12 @@ int cjson_array_item_s(char **      dst,
                        const char * string,
                        int          index)
 {
-#ifdef DEBUG
+#ifdef DEBUG_CHECK
     if (!dst || !cjson || !string || index < 0)
     {
         return -1;
     }
-#endif /* DEBUG */
+#endif /* DEBUG_CHECK */
     int ret = -1;
 
     do
@@ -105,12 +105,12 @@ int cjson_array_s(char **      dst,
                   const cJSON *cjson,
                   int          index)
 {
-#ifdef DEBUG
+#ifdef DEBUG_CHECK
     if (!dst || !cjson || index < 0)
     {
         return -1;
     }
-#endif /* DEBUG */
+#endif /* DEBUG_CHECK */
     int ret = -1;
 
     do
