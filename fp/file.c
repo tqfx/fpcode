@@ -37,20 +37,20 @@
 
 int file_br(const char *filename, void **dst, size_t *sz)
 {
-#ifdef DEBUG
+#ifdef DEBUG_CHECK
     if (!filename || !dst || !sz)
     {
         return -1;
     }
-#endif /* DEBUG */
+#endif /* DEBUG_CHECK */
     char buf[BUFSIZ] = {0};
 
     FILE *fp = fopen(filename, "rb");
     if (!fp)
     {
-#ifdef DEBUG
+#ifdef DEBUG_PRROR
         perror(filename);
-#endif /* DEBUG */
+#endif /* DEBUG_PRROR */
         return -1;
     }
 
@@ -82,18 +82,18 @@ int file_br(const char *filename, void **dst, size_t *sz)
 
 int file_bw(const char *filename, void *src, size_t sz)
 {
-#ifdef DEBUG
+#ifdef DEBUG_CHECK
     if (!filename || !src)
     {
         return -1;
     }
-#endif /* DEBUG */
+#endif /* DEBUG_CHECK */
     FILE *fp = fopen(filename, "wb");
     if (!fp)
     {
-#ifdef DEBUG
+#ifdef DEBUG_PRROR
         perror(filename);
-#endif /* DEBUG */
+#endif /* DEBUG_PRROR */
         return -1;
     }
 
@@ -111,20 +111,20 @@ int file_bw(const char *filename, void *src, size_t sz)
 
 int file_tr(const char *filename, char **dst)
 {
-#ifdef DEBUG
+#ifdef DEBUG_CHECK
     if (!filename || !dst)
     {
         return -1;
     }
-#endif /* DEBUG */
+#endif /* DEBUG_CHECK */
     char buf[BUFSIZ] = {0};
 
     FILE *fp = fopen(filename, "rt");
     if (!fp)
     {
-#ifdef DEBUG
+#ifdef DEBUG_PRROR
         perror(filename);
-#endif /* DEBUG */
+#endif /* DEBUG_PRROR */
         return -1;
     }
 
@@ -160,18 +160,18 @@ int file_tr(const char *filename, char **dst)
 
 int file_tw(const char *filename, char *src)
 {
-#ifdef DEBUG
+#ifdef DEBUG_CHECK
     if (!filename || !src)
     {
         return -1;
     }
-#endif /* DEBUG */
+#endif /* DEBUG_CHECK */
     FILE *fp = fopen(filename, "wt");
     if (!fp)
     {
-#ifdef DEBUG
+#ifdef DEBUG_PRROR
         perror(filename);
-#endif /* DEBUG */
+#endif /* DEBUG_PRROR */
         return -1;
     }
 
@@ -190,12 +190,12 @@ int file_tw(const char *filename, char *src)
 
 int file_exist(const char *filename)
 {
-#ifdef DEBUG
+#ifdef DEBUG_CHECK
     if (!filename)
     {
         return 0;
     }
-#endif /* DEBUG */
+#endif /* DEBUG_CHECK */
     int ret = 0;
 
     FILE *fp = fopen(filename, "rb");
