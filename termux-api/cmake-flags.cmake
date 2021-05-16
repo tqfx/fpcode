@@ -1,5 +1,8 @@
-# compiler is gnu
-if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+# compiler is gnu or clang
+if ("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" OR
+    "${CMAKE_C_COMPILER_ID}" STREQUAL "Clang" OR
+    "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
+    "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 
 # C/C++ standard 11
 set (CMAKE_C_FLAGS "-std=gnu11 ${CMAKE_C_FLAGS}")
@@ -33,18 +36,21 @@ add_compile_options (
     -Wconversion
 )
 
-else () #(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+endif ("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" OR
+       "${CMAKE_C_COMPILER_ID}" STREQUAL "Clang" OR
+       "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
+       "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+
+# compiler is msvc
+if ("${CMAKE_C_COMPILER_ID}" STREQUAL "MSVC" OR
+    "${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 
 # C/C++ standard
 set (CMAKE_CXX_STANDARD 11)
 set (CMAKE_C_STANDARD 11)
 
-endif (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-
-# compiler is msvc
-if (MSVC)
-
 # Remove unsafe warnings
 add_definitions (/D _CRT_SECURE_NO_WARNINGS)
 
-endif (MSVC)
+endif ("${CMAKE_C_COMPILER_ID}" STREQUAL "MSVC" OR
+       "${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
