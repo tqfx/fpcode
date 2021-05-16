@@ -1,18 +1,18 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
- * @file         app_termux.c/h
+ * @file         app-termux.c/h
  * @brief        application on termux
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210516
+ * @version      1
+ * @copyright    Copyright (c) 2021 tqfx
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
 /* Includes ------------------------------------------------------------------*/
 
-#include "app_termux.h"
+#include "app-termux.h"
 
 /* Private includes ----------------------------------------------------------*/
 
@@ -21,7 +21,7 @@
 #include "fpcode.h"
 #include "kstring.h"
 #include "tapi.h"
-#include "termux_api.h"
+#include "termux-api.h"
 
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -48,7 +48,7 @@ static int p2vsn(char **dst, char **p, size_t n)
     }
 
     kstring_t *ks = ks_init();
-    for (size_t i = 0; i < n; ++i)
+    for (size_t i = 0U; i != n; ++i)
     {
         (void)ksprintf(ks, "%s,", p[i]);
     }
@@ -66,7 +66,7 @@ static int k2vsn(char **dst, fp_t **k, size_t n)
     }
 
     kstring_t *ks = ks_init();
-    for (size_t i = 0; i < n; ++i)
+    for (size_t i = 0U; i != n; ++i)
     {
         (void)ksprintf(ks, "%s,", k[i]->key);
     }
@@ -79,6 +79,7 @@ static int k2vsn(char **dst, fp_t **k, size_t n)
 static int app_termux_input_k(fp_t *fp)
 {
     int ret = -2;
+
     if (!fp)
     {
         return ret;
@@ -86,7 +87,7 @@ static int app_termux_input_k(fp_t *fp)
 
     do
     {
-        ret = tapi_spinner(NULL, (int *)&fp->type, "类型", "默认,数字");
+        ret = tapi_spinner(NULL, (int *)&fp->type, "类型", "邮箱类,数字类,自定义");
     } while (ret < -1);
     if (ret == -1)
     {
@@ -97,26 +98,32 @@ static int app_termux_input_k(fp_t *fp)
     {
         switch (fp->type)
         {
-        case FP_TYPE_DEFAULT:
+        case FPTYPE_NEW:
+        case FPTYPE_EMAIL:
         {
-            long l  = 0;
-            ret     = tapi_counter(&l, "长度", "1,32,16");
-            fp->len = (uint8_t)l;
+            long l = 0;
+
+            ret = tapi_counter(&l, "长度", "1,32,16");
+
+            fp->len = (uint32_t)l;
+
             break;
         }
 
-        case FP_TYPE_DIGITAL:
+        case FPTYPE_PAY:
         {
-            long l  = 0;
-            ret     = tapi_counter(&l, "长度", "1,32,6");
-            fp->len = (uint8_t)l;
+            long l = 0;
+
+            ret = tapi_counter(&l, "长度", "1,32,6");
+
+            fp->len = (uint32_t)l;
+
             break;
         }
 
         default:
             break;
         }
-
     } while (ret < -1);
     if (ret == -1)
     {
@@ -137,12 +144,30 @@ static int app_termux_input_k(fp_t *fp)
         }
     } while (ret);
 
+    if (fp->type == FPTYPE_NEW)
+    {
+        do
+        {
+            ret = tapi_text(&fp->new, "字符表", "table", NULL);
+            if (ret == -1)
+            {
+                break;
+            }
+            if (!ret && !strlen(fp->new))
+            {
+                PFREE(free, fp->key);
+                fp->type = FPTYPE_EMAIL;
+            }
+        } while (ret);
+    }
+
     return ret;
 }
 
 static int app_termux_input_p(char **p)
 {
     int ret = -2;
+
     if (!p)
     {
         return ret;
@@ -153,7 +178,7 @@ static int app_termux_input_p(char **p)
         char *p1 = NULL;
         do
         {
-            ret = tapi_text(&p1, "密码", const_str_p, "p");
+            ret = tapi_text(&p1, "密码", "first", "p");
             if (ret == -1)
             {
                 return ret;
@@ -201,8 +226,14 @@ static int app_termux_fpcode(const char *password, const fp_t *fp)
 {
     int ret = -2;
 
+    if (fp->type == FPTYPE_NEW && !fp->new)
+    {
+        tapi_toast_error("空表");
+        return ret;
+    }
+
     char *p = NULL;
-    if (fpcode(&p, password, fp->key, fp->len, fp->type))
+    if (fpcode(&p, fp->type, password, fp->key, fp->len, fp->new))
     {
         tapi_toast_error("空字符串");
         return ret;
@@ -306,12 +337,12 @@ void app_termux_show_key(const char *filename)
             break;
         }
 
-        int   i  = 0;
         char *ss = NULL;
         if (k2vsn(&ss, k, n))
         {
             break;
         }
+        int i = 0;
         do
         {
             ret = tapi_radio(NULL, &i, const_str_k, ss);
@@ -332,10 +363,11 @@ void app_termux_show_key(const char *filename)
 
 static int app_termux_del(const char *filename, const char *string)
 {
-    int    ret = -2;
-    char **p   = NULL;
-    fp_t **k   = NULL;
-    size_t n   = 0U;
+    int ret = -2;
+
+    char **p = NULL;
+    fp_t **k = NULL;
+    size_t n = 0U;
 
     int (*func)(const char *, const char *);
     if (!strcmp(string, const_str_k))
@@ -402,7 +434,7 @@ static int app_termux_del(const char *filename, const char *string)
             break;
         }
 
-        for (int i = 0; i < l; i++)
+        for (int i = 0; i != l; ++i)
         {
             if (tapi_confirm("是否删除", s[i]))
             {
@@ -414,7 +446,7 @@ static int app_termux_del(const char *filename, const char *string)
             }
         }
 
-        for (int i = 0; i < l; i++)
+        for (int i = 0; i != l; ++i)
         {
             PFREE(free, s[i]);
         }
@@ -517,9 +549,10 @@ void app_termux_create(const char *filename)
 
 void app_termux_search_key(const char *filename)
 {
-    int    ret = -2;
-    fp_t **k   = NULL;
-    size_t n   = 0U;
+    int ret = -2;
+
+    fp_t **k = NULL;
+    size_t n = 0U;
 
     do
     {
@@ -619,9 +652,10 @@ void app_termux_search_key(const char *filename)
 
 void app_termux_search_password(const char *filename)
 {
-    int    ret = -2;
-    char **p   = NULL;
-    size_t n   = 0U;
+    int ret = -2;
+
+    char **p = NULL;
+    size_t n = 0U;
 
     do
     {

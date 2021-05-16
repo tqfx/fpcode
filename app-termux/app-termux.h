@@ -1,28 +1,23 @@
-/*!< @encoding utf-8 */
 /**
  * *****************************************************************************
- * @file         app_termux.c/h
+ * @file         app-termux.c/h
  * @brief        application on termux
  * @author       tqfx
- * @date         20210101
- * @version      0.01
- * @copyright    Copyright (c) 2020-2021
+ * @date         20210516
+ * @version      1
+ * @copyright    Copyright (c) 2021 tqfx
+ * @code         utf-8                                                  @endcode
  * *****************************************************************************
 */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-
 #ifndef __APP_TERMUX_H__
 #define __APP_TERMUX_H__
 
 /* Includes ------------------------------------------------------------------*/
 
-#include "tapi.h"
+#include "termux-tapi.h"
 
-/* Private includes ----------------------------------------------------------*/
-/* Exported constants --------------------------------------------------------*/
-/* Exported macro ------------------------------------------------------------*/
-/* Exported types ------------------------------------------------------------*/
 /* Exported functions prototypes ---------------------------------------------*/
 
 __BEGIN_DECLS
@@ -42,8 +37,7 @@ extern void app_termux_create(const char *filename);
 
 __END_DECLS
 
-/* Private defines -----------------------------------------------------------*/
-
+/* Terminate definition to prevent recursive inclusion -----------------------*/
 #endif /* __APP_TERMUX_H__ */
 
-/************************ (C) COPYRIGHT tqfx *******************END OF FILE****/
+/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/

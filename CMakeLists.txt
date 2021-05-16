@@ -62,25 +62,25 @@ if (ANDROID)
 
 include_directories (
     "${PROJECT_SOURCE_DIR}/tapi"
-    "${PROJECT_SOURCE_DIR}/app_termux"
+    "${PROJECT_SOURCE_DIR}/app-termux"
 )
 
 add_subdirectory (tapi)
-add_subdirectory (app_termux)
+add_subdirectory (app-termux)
 
-add_executable (key-t main_termux.c)
+add_executable (key-t main-termux.c)
 target_link_libraries (key-t
     app_termux
     tapi
-    fpcode_x
+    fpcodex
     fp
     klib
     cjson
     mxml
 )
 
-add_executable (smf-t main_termux.c)
-target_link_libraries (smf-t
+add_executable (tqfx-t main-termux.c)
+target_link_libraries (tqfx-t
     app_termux
     tapi
     fpcode
@@ -90,7 +90,7 @@ target_link_libraries (smf-t
     mxml
 )
 
-install (TARGETS smf-t RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 install (TARGETS key-t RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+install (TARGETS tqfx-t RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 endif (ANDROID)

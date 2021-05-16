@@ -1,5 +1,5 @@
 
-#include "app_termux.h"
+#include "app-termux.h"
 #include "file.h"
 #include "fp.h"
 #include "kstring.h"
@@ -138,21 +138,8 @@ int main(int argc, char *argv[])
             s = argv[!argc];
         }
 
-        size_t n = strlen(s);
-        for (size_t i = n; i < n + 1U; i--)
-        {
-            if (s[i] == '\\' || s[i] == '/')
-            {
-                break;
-            }
-            else
-            {
-                s[i] = 0;
-            }
-        }
-
         kstring_t *ks = ks_init();
-        ksprintf(ks, "%s%s", s, ".fp.xml");
+        ksprintf(ks, "%s%s", s, ".xml");
         filename = ks_release(ks);
         PFREE(ks_free, ks);
     }
