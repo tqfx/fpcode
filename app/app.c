@@ -388,7 +388,7 @@ int app_get_key(const char *filename,
         }
         if (n)
         {
-            ret = app_fpcode(p[0], fp);
+            ret = app_fpcode(*p, fp);
             fp_free_p(&p, &n);
         }
     } while (0);
@@ -400,11 +400,12 @@ int app_get_id(const char * filename,
                unsigned int id_k,
                unsigned int id_p)
 {
-    int    ret = -1;
-    char **p   = NULL;
-    size_t n   = 0U;
-    fp_t **k   = NULL;
-    size_t l   = 0U;
+    int ret = -1;
+
+    char **p = NULL;
+    size_t n = 0U;
+    fp_t **k = NULL;
+    size_t l = 0U;
 
     do
     {
