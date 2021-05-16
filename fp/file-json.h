@@ -23,7 +23,7 @@
 
 __BEGIN_DECLS
 
-extern int cjson_r(const char *filename, cJSON **const dst);
+extern int cjson_r(const char *filename, cJSON **const cjson);
 
 extern int cjson_w(const char *filename, const cJSON *cjson);
 

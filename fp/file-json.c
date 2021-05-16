@@ -21,7 +21,7 @@
 
 /* Private user code ---------------------------------------------------------*/
 
-int cjson_r(const char *filename, cJSON **const dst)
+int cjson_r(const char *filename, cJSON **const cjson)
 {
 #ifdef DEBUG
     if (!filename || !cjson)
@@ -37,7 +37,7 @@ int cjson_r(const char *filename, cJSON **const dst)
         return ret;
     }
 
-    *dst = cJSON_Parse(s);
+    *cjson = cJSON_Parse(s);
     PFREE(free, s);
 
     return ret;
