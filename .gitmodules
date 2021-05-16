@@ -3,3 +3,7 @@
 	url = https://github.com/tqfx/klib.git
 	branch = klib
 
+[submodule "mxml"]
+	path = mxml
+	url = https://github.com/tqfx/mxml.git
+	branch = mxml
