@@ -20,4 +20,4 @@ $(BUILD):
 format: fpcode fp app app_termux tapi
 	@-find $^ -regex '.*\.\(cpp\|hpp\|cu\|c\|h\)' -exec clang-format --verbose -style=file -i {} \;
 clean:
-	@-git clean -d -x -f
+	@-git clean -f -d -X
