@@ -35,7 +35,9 @@
 
 /* Private user code ---------------------------------------------------------*/
 
-int file_br(const char *filename, void **dst, size_t *sz)
+int file_br(const char *filename,
+            void **const restrict dst,
+            size_t *const restrict sz)
 {
 #ifdef DEBUG_CHECK
     if (!filename || !dst || !sz)
@@ -80,7 +82,9 @@ int file_br(const char *filename, void **dst, size_t *sz)
     return 0;
 }
 
-int file_bw(const char *filename, void *src, size_t sz)
+int file_bw(const char *restrict filename,
+            const void *restrict src,
+            size_t sz)
 {
 #ifdef DEBUG_CHECK
     if (!filename || !src)
@@ -101,7 +105,7 @@ int file_bw(const char *filename, void *src, size_t sz)
 
     do
     {
-        i += fwrite((char *)src + i, sizeof(char), sz - i, fp);
+        i += fwrite((const char *)src + i, sizeof(char), sz - i, fp);
     } while (i < sz);
 
     FCLOSE(fp);
@@ -109,7 +113,8 @@ int file_bw(const char *filename, void *src, size_t sz)
     return 0;
 }
 
-int file_tr(const char *filename, char **dst)
+int file_tr(const char *restrict filename,
+            char **const restrict dst)
 {
 #ifdef DEBUG_CHECK
     if (!filename || !dst)
@@ -158,7 +163,8 @@ int file_tr(const char *filename, char **dst)
     return 0;
 }
 
-int file_tw(const char *filename, char *src)
+int file_tw(const char *restrict filename,
+            const char *restrict src)
 {
 #ifdef DEBUG_CHECK
     if (!filename || !src)
@@ -188,7 +194,7 @@ int file_tw(const char *filename, char *src)
     return 0;
 }
 
-int file_exist(const char *filename)
+int file_exist(const char *restrict filename)
 {
 #ifdef DEBUG_CHECK
     if (!filename)

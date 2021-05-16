@@ -54,7 +54,9 @@ __BEGIN_DECLS
  * @param[out]     sz: The address where the number of data is stored
  * @return         int 0(success) -1(failure)
 */
-extern int file_br(const char *filename, void **dst, size_t *sz);
+extern int file_br(const char *filename,
+                   void **const restrict dst,
+                   size_t *const restrict sz);
 
 /**
  * @brief          Write data to binary file
@@ -63,7 +65,9 @@ extern int file_br(const char *filename, void **dst, size_t *sz);
  * @param[out]     sz: The number of data to be written
  * @return         int 0(success) -1(failure)
 */
-extern int file_bw(const char *filename, void *src, size_t sz);
+extern int file_bw(const char *restrict filename,
+                   const void *restrict src,
+                   size_t sz);
 
 /**
  * @brief          Read the entire contents of the text file
@@ -71,7 +75,8 @@ extern int file_bw(const char *filename, void *src, size_t sz);
  * @param[out]     dst: The address where the first address of string
  * @return         int 0(success) -1(failure)
 */
-extern int file_tr(const char *filename, char **dst);
+extern int file_tr(const char *restrict filename,
+                   char **const restrict dst);
 
 /**
  * @brief          Write data to text file
@@ -79,14 +84,15 @@ extern int file_tr(const char *filename, char **dst);
  * @param[out]     dst: The first address of string
  * @return         int 0(success) -1(failure)
 */
-extern int file_tw(const char *filename, char *src);
+extern int file_tw(const char *restrict filename,
+                   const char *restrict src);
 
 /**
  * @brief          Check if the file exists
  * @param[in]      filename: File name to be operated
  * @return         int 1(yes) 0(no)
 */
-extern int file_exist(const char *filename);
+extern int file_exist(const char *restrict filename);
 
 __END_DECLS
 
