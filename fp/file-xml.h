@@ -1,6 +1,6 @@
 /**
  * *****************************************************************************
- * @file         file_xml.c/h
+ * @file         file-xml.c/h
  * @brief        some function of file xml
  * @author       tqfx
  * @date         20210515
@@ -23,9 +23,23 @@
 
 __BEGIN_DECLS
 
-extern int mxml_r(const char *filename, mxml_node_t **xml);
+/**
+ * @brief          Read mxml_node_t object from XML file
+ * @param[in]      filename: The XML file name to be operated
+ * @param[out]     xml: The address of the mxml_node_t pointer
+ * @return         int 0(success) -1(failure)
+*/
+extern int mxml_r(const char *restrict filename,
+                  mxml_node_t **const restrict xml);
 
-extern int mxml_w(const char *filename, mxml_node_t *xml);
+/**
+ * @brief          Write mxml_node_t object to XML file
+ * @param[in]      filename: The XML file name to be operated
+ * @param[in]      xml: The mxml_node_t pointer
+ * @return         int 0(success) -1(failure)
+*/
+extern int mxml_w(const char *restrict filename,
+                  mxml_node_t *restrict xml);
 
 __END_DECLS
 

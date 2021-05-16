@@ -1,6 +1,6 @@
 /**
  * *****************************************************************************
- * @file         file_xml.c/h
+ * @file         file-xml.c/h
  * @brief        some function of file xml
  * @author       tqfx
  * @date         20210515
@@ -16,7 +16,8 @@
 
 /* Private user code ---------------------------------------------------------*/
 
-int mxml_r(const char *filename, mxml_node_t **xml)
+int mxml_r(const char *restrict filename,
+           mxml_node_t **const xml)
 {
 #ifdef DEBUG_CHECK
     if (!filename || !xml)
@@ -37,7 +38,8 @@ int mxml_r(const char *filename, mxml_node_t **xml)
     return 0;
 }
 
-int mxml_w(const char *filename, mxml_node_t *xml)
+int mxml_w(const char *restrict filename,
+           mxml_node_t *restrict xml)
 {
 #ifdef DEBUG_CHECK
     if (!filename || !xml)

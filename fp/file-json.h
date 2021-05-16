@@ -1,6 +1,6 @@
 /**
  * *****************************************************************************
- * @file         file_json.c/h
+ * @file         file-json.c/h
  * @brief        some funtion of json file
  * @author       tqfx
  * @date         20210515
@@ -23,9 +23,23 @@
 
 __BEGIN_DECLS
 
-extern int cjson_r(const char *filename, cJSON **const cjson);
+/**
+ * @brief          Read cJOSN object from json file
+ * @param[in]      filename: The json file name to be operated
+ * @param[out]     cjson: The address of the cJSON pointer
+ * @return         int 0(success) -1(failure)
+*/
+extern int cjson_r(const char *restrict filename,
+                   cJSON **const restrict cjson);
 
-extern int cjson_w(const char *filename, const cJSON *cjson);
+/**
+ * @brief          Write cJOSN object to json file
+ * @param[in]      filename: The json file name to be operated
+ * @param[in]      cjson: The cJSON pointer
+ * @return         int 0(success) -1(failure)
+*/
+extern int cjson_w(const char *restrict filename,
+                   const cJSON *restrict cjson);
 
 /**
  * @brief          Get string of array
@@ -35,10 +49,10 @@ extern int cjson_w(const char *filename, const cJSON *cjson);
  * @param[in]      index: index of string
  * @return         string
 */
-extern int cjson_array_item_s(char **      dst,
-                              const cJSON *cjson,
-                              const char * string,
-                              int          index);
+extern int cjson_array_item_s(char **const restrict dst,
+                              const cJSON *restrict cjson,
+                              const char *restrict string,
+                              int index);
 
 /**
  * @brief          Get string of array
@@ -47,9 +61,9 @@ extern int cjson_array_item_s(char **      dst,
  * @param[in]      index: index of string
  * @return         string
 */
-extern int cjson_array_s(char **      dst,
-                         const cJSON *cjson,
-                         int          index);
+extern int cjson_array_s(char **const restrict dst,
+                         const cJSON *restrict cjson,
+                         int index);
 
 __END_DECLS
 
