@@ -24,11 +24,15 @@
 
 /* Exported types ------------------------------------------------------------*/
 
+/**
+ * @enum           fptype_e
+ * @brief          The type of Flower Password
+*/
 typedef enum fptype_e
 {
-    FPTYPE_EMAIL,
-    FPTYPE_PAY,
-    FPTYPE_NEW
+    FPTYPE_EMAIL, /* Email password */
+    FPTYPE_PAY,   /* Payment password */
+    FPTYPE_NEW,   /* Custom password */
 } fptype_e;
 
 /* Exported functions prototypes ---------------------------------------------*/
@@ -41,7 +45,7 @@ __BEGIN_DECLS
  * @param[in]      s0: The second rule
  * @param[in]      s0: The third rule
  * @param[in]      s0: The fourth rule
- * @return         int 0(success) -1(parameter error)
+ * @return         int 0(success) -1(failure)
 */
 extern int fpcode_rule(const char *s0,
                        const char *s1,
