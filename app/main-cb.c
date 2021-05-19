@@ -188,7 +188,14 @@ int main_cb(int argc, char *argv[])
         }
 
         kstring_t *ks = ks_init();
-        ksprintf(ks, "%s%s", s, ".xml");
+        if (strstr(s, "/") || strstr(s, "\\"))
+        {
+            ksprintf(ks, "%s%s", s, ".xml");
+        }
+        else
+        {
+            ksprintf(ks, "./%s%s", s, ".xml");
+        }
         filename = ks_release(ks);
         PFREE(ks_free, ks);
     }
