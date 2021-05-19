@@ -45,12 +45,12 @@
 */
 typedef struct Termux_record
 {
-    char *       file;     // 开始记录到特定文件
-    char *       encoder;  // 使用指定的编码器(aac, amr_wb, amr_nb)开始记录
-    unsigned int limit;    // 开始记录指定的限制(以秒为单位, 0不受限制)
-    unsigned int bitrate;  // 开始记录指定的比特率(以kbps为单位)
-    unsigned int rate;     // 开始记录指定的采样率(以Hz为单位)
-    unsigned int count;    // 开始记录指定的通道数(1,2,...)
+    char *       file;    /*!< 开始记录到特定文件 */
+    char *       encoder; /*!< 使用指定的编码器(aac, amr_wb, amr_nb)开始记录 */
+    unsigned int limit;   /*!< 开始记录指定的限制(以秒为单位, 0不受限制) */
+    unsigned int bitrate; /*!< 开始记录指定的比特率(以kbps为单位) */
+    unsigned int rate;    /*!< 开始记录指定的采样率(以Hz为单位) */
+    unsigned int count;   /*!< 开始记录指定的通道数(1,2,...) */
 } Termux_record;
 
 /**
@@ -59,33 +59,33 @@ typedef struct Termux_record
 */
 typedef struct Termux_noti
 {
-    int alert_once     : 1;  // 在编辑通知时不会发出警报
-    int ongoing        : 1;  // 固定通知
-    int sound          : 1;  // 在通知中播放声音
-    int media_next     : 1;  // 在媒体下一个按钮上执行的操作
-    int media_pause    : 1;  // 在媒体暂停按钮上执行的操作
-    int media_play     : 1;  // 在媒体播放按钮上执行的操作
-    int media_previous : 1;  // 在媒体上一个按钮上执行的操作
+    int alert_once     : 1;  //!< 在编辑通知时不会发出警报
+    int ongoing        : 1;  //!< 固定通知
+    int sound          : 1;  //!< 在通知中播放声音
+    int media_next     : 1;  //!< 在媒体下一个按钮上执行的操作
+    int media_pause    : 1;  //!< 在媒体暂停按钮上执行的操作
+    int media_play     : 1;  //!< 在媒体播放按钮上执行的操作
+    int media_previous : 1;  //!< 在媒体上一个按钮上执行的操作
 
-    char *       content;         // 内容显示在通知中.将优先于stdin.
-    char *       action;          // 按下通知时要执行的动作
-    char *       button1;         // 在第一个通知按钮上显示的文字
-    char *       button1_action;  // 在第一个通知按钮上执行的操作
-    char *       button2;         // 在第二个通知按钮上显示的文字
-    char *       button2_action;  // 在第二个通知按钮上执行的操作
-    char *       button3;         // 在第三个通知按钮上显示的文字
-    char *       button3_action;  // 在第三个通知按钮上执行的操作
-    char *       group;           // 通知组(与同一组的通知一起显示)
-    unsigned int id;              // 通知ID(将覆盖以前所有具有相同ID的通知)
-    char *       image_path;      // 通知中将显示的图像的绝对路径
-    char *       led_color;       // 指示灯的闪烁颜色为RRGGBB(默认值: 无)
-    unsigned int led_off;         // 闪烁时LED熄灭的毫秒数(默认值: 800)
-    unsigned int led_on;          // 指示灯闪烁的毫秒数(默认值: 800)
-    char *       on_delete;       // 清除通知时执行的操作
-    char *       priority;        // 通知优先级(high/low/max/min/default)
-    char *       title;           // 显示的通知标题
-    char *       vibrate;         // 振动模式, 逗号分隔为500,1000,200
-    char *       type;            // 使用的通知样式(default/media)
+    char *       content;         //!< 内容显示在通知中.将优先于stdin.
+    char *       action;          //!< 按下通知时要执行的动作
+    char *       button1;         //!< 在第一个通知按钮上显示的文字
+    char *       button1_action;  //!< 在第一个通知按钮上执行的操作
+    char *       button2;         //!< 在第二个通知按钮上显示的文字
+    char *       button2_action;  //!< 在第二个通知按钮上执行的操作
+    char *       button3;         //!< 在第三个通知按钮上显示的文字
+    char *       button3_action;  //!< 在第三个通知按钮上执行的操作
+    char *       group;           //!< 通知组(与同一组的通知一起显示)
+    unsigned int id;              //!< 通知ID(将覆盖以前所有具有相同ID的通知)
+    char *       image_path;      //!< 通知中将显示的图像的绝对路径
+    char *       led_color;       //!< 指示灯的闪烁颜色为RRGGBB(默认值: 无)
+    unsigned int led_off;         //!< 闪烁时LED熄灭的毫秒数(默认值: 800)
+    unsigned int led_on;          //!< 指示灯闪烁的毫秒数(默认值: 800)
+    char *       on_delete;       //!< 清除通知时执行的操作
+    char *       priority;        //!< 通知优先级(high/low/max/min/default)
+    char *       title;           //!< 显示的通知标题
+    char *       vibrate;         //!< 振动模式, 逗号分隔为500,1000,200
+    char *       type;            //!< 使用的通知样式(default/media)
 } Termux_noti;
 
 /**
@@ -94,17 +94,17 @@ typedef struct Termux_noti
 */
 typedef struct Termux_tts
 {
-    char *engines;   // 要使用的TTS引擎(请参阅termux-tts-engines)
-    char *language;  // 要使用的语言(引擎可能不支持)
-    char *region;    // 要说的语言区域
-    char *variant;   // 所用语言的变体
-    char *stream;    // 要使用的音频流(默认值: NOTIFICATION), 其中一种:
-                     // ALARM, MUSIC, NOTIFICATION, RING, SYSTEM, VOICE_CALL
-    float pitch;     // 用于演讲的音调.
-                     // 1.0是正常音高较低的值会降低合成语音的音调,更大的值会增加它.
-    float rate;      // 使用的语速. 正常语速是1.0
-                     // 较低的值会使语音变慢(0.5是正常语速的一半)
-                     // 而更大的价值会加速它(2.0是正常语速的两倍).
+    char *engines;   //!< 要使用的TTS引擎(请参阅termux-tts-engines)
+    char *language;  //!< 要使用的语言(引擎可能不支持)
+    char *region;    //!< 要说的语言区域
+    char *variant;   //!< 所用语言的变体
+    char *stream;    //!< 要使用的音频流(默认值: NOTIFICATION), 其中一种:
+                     //!< ALARM, MUSIC, NOTIFICATION, RING, SYSTEM, VOICE_CALL
+    float pitch;     //!< 用于演讲的音调.
+                     //!< 1.0是正常音高较低的值会降低合成语音的音调,更大的值会增加它.
+    float rate;      //!< 使用的语速. 正常语速是1.0
+                     //!< 较低的值会使语音变慢(0.5是正常语速的一半)
+                     //!< 而更大的价值会加速它(2.0是正常语速的两倍).
 } Termux_tts;
 
 /* Exported functions prototypes ---------------------------------------------*/
@@ -114,7 +114,9 @@ __BEGIN_DECLS
 /**
  * @brief          获取有关音频功能的信息.
  * @param[out]     out: the pointer of buffer variable
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval
  *  {
  *      "PROPERTY_OUTPUT_SAMPLE_RATE": "48000",
@@ -132,7 +134,9 @@ extern int termux_audio_info(char **out);
 /**
  * @brief          获取设备电池的状态.
  * @param[out]     out: the pointer of buffer variable
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval
  *  {
  *      "health": "GOOD",
@@ -148,7 +152,9 @@ extern int termux_battery_status(char **out);
 /**
  * @brief          将屏幕亮度设置为0至255或auto
  * @param[in]      num: -1(auto) 0-255
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_brightness(int num);
 
@@ -157,7 +163,9 @@ extern int termux_brightness(int num);
  * @param[out]     out: the pointer of buffer variable
  * @param[in]      l: 通话记录列表中的限制偏移量(默认值: 10)
  * @param[in]      o: 在呼叫日志列表中的偏移量(默认值: 0)
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval
  * [
  *  {
@@ -176,7 +184,9 @@ extern int termux_call_log(char **out,
 /**
  * @brief          获取有关设备相机的信息.
  * @param[out]     out: the pointer of buffer variable
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval
  * [
  *  {
@@ -237,15 +247,19 @@ extern int termux_camera_info(char **out);
  * @brief          拍摄照片并将其保存为JPEG格式的文件.
  * @param[in]      c: 要使用的摄像机的ID(请参阅termux_camera_info),默认值: 0
  * @param[in]      filename: 文件名
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
-extern int termux_camera_photo(const char *filename,
- unsigned int c);
+extern int termux_camera_photo(const char * filename,
+                               unsigned int c);
 
 /**
  * @brief          获取系统剪贴板文本
  * @param[out]     out: the pointer of buffer variable
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_clipboard_get(char **out);
 
@@ -254,14 +268,18 @@ extern int termux_clipboard_get(char **out);
  *                 要设置的文本要么作为参数提供,
  *                 要么在未提供参数的情况下从stdin读取.
  * @param[in]      str 字符串
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_clipboard_set(const char *str);
 
 /**
  * @brief          列出所有联系人
  * @param[out]     out: the pointer of buffer variable
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval         [{"name":"","number":""}]
 */
 extern int termux_contact_list(char **out);
@@ -270,14 +288,17 @@ extern int termux_contact_list(char **out);
  * @brief          选择一个时间值
  * @param[out]     out: the pointer of buffer variable
  * @param[in]      t: 设置对话框的标题(可选)
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval
  *  {
  *      'code': -1,
  *      'text': '00:00'
  *  }
 */
-extern int termux_dialog_time(char **out, const char *t);
+extern int termux_dialog_time(char **     out,
+                              const char *t);
 
 /**
  * @brief          输入文本(如果未指定小部件,则为默认值)
@@ -289,7 +310,9 @@ extern int termux_dialog_time(char **out, const char *t);
  *                 n 输入数字输入(可选)
  *                 p 输入密码作为输入(可选)
  * @note           不能将[m]与[n]一起使用
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval
  *  {
  *      'code': -1,
@@ -306,7 +329,9 @@ extern int termux_dialog_text(char **     out,
  * @param[out]     out: the pointer of buffer variable
  * @param[in]      t: 设置对话框的标题(可选)
  * @param[in]      i: 文本提示(可选)
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_dialog_speech(char **     out,
                                 const char *t,
@@ -317,7 +342,9 @@ extern int termux_dialog_speech(char **     out,
  * @param[out]     out: the pointer of buffer variable
  * @param[in]      t: 设置对话框的标题(可选)
  * @param[in]      v: 要使用的逗号delim值(必需)
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval
  * {
  *      'code': -1,
@@ -334,7 +361,9 @@ extern int termux_dialog_spinner(char **     out,
  * @param[out]     out: the pointer of buffer variable
  * @param[in]      t: 设置对话框的标题(可选)
  * @param[in]      v: 要使用的逗号delim值(必需)
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval
  *  {
  *      'code': 0,
@@ -351,7 +380,9 @@ extern int termux_dialog_sheet(char **     out,
  * @param[out]     out: the pointer of buffer variable
  * @param[in]      t: 设置对话框的标题(可选)
  * @param[in]      v: 要使用的逗号delim值(必需)
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval
  *  {
  *      'code': -1,
@@ -368,7 +399,9 @@ extern int termux_dialog_radio(char **     out,
  * @param[out]     out: the pointer of buffer variable
  * @param[in]      t: 设置对话框的标题(可选)
  * @param[in]      d: 用于日期小部件输出的SimpleDateFormat模式(可选) 'yyyyMMdd k:m:s'
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval
  *  {
  *      'code': -1,
@@ -385,7 +418,9 @@ extern int termux_dialog_date(char **     out,
  * @param[out]     out: the pointer of buffer variable
  * @param[in]      t: 设置对话框的标题(可选)
  * @param[in]      r: [min,max,start] 要使用的(3)个数字的逗号delim(可选)
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval
  *  {
  *      'code': -1,
@@ -402,7 +437,9 @@ extern int termux_dialog_counter(char **     out,
  * @param[out]     out: the pointer of buffer variable
  * @param[in]      t: 设置对话框的标题(可选)
  * @param[in]      v: 要使用的逗号delim值(必需)
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval
  *  {
  *      'code': -1,
@@ -423,7 +460,9 @@ extern int termux_dialog_checkbox(char **     out,
  * @param[out]     out: the pointer of buffer variable
  * @param[in]      t: 设置对话框的标题(可选)
  * @param[in]      i: 文本提示(可选)
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval
  *  {
  *      'code': 0,
@@ -441,7 +480,9 @@ extern int termux_dialog_confirm(char **     out,
  * @param[in]      url: 下载链接
  * @param[in]      d: 下载请求通知的描述
  * @param[in]      t: 下载请求通知的标题
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_download(const char *url,
                            const char *t,
@@ -476,7 +517,9 @@ extern int termux_fingerprint(char **     out,
 /**
  * @brief          查询红外发射器支持的载波频率.
  * @param[out]     out: the pointer of buffer variable
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval         [{"min":30000,"max":30000},]
 */
 extern int termux_infrared_frequencies(char **out);
@@ -487,7 +530,9 @@ extern int termux_infrared_frequencies(char **out);
  * @param[out]     out: the pointer of buffer variable
  * @param[in]      f: IR载波频率, 以赫兹为单位
  * @param[in]      num
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_infrared_transmit(char **out,
                                     int    f,
@@ -498,7 +543,9 @@ extern int termux_infrared_transmit(char **out,
  * @param[out]     out: the pointer of buffer variable
  * @param[in]      p: 程序位置提供程序 [gps/network/passive] (默认值: gps)
  * @param[in]      r: 请求一次 [once/last/updates] 的请求(默认值: once)
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval
  *  {
  *      "latitude": 100.455187,
@@ -520,7 +567,9 @@ extern int termux_location(char **     out,
  * @param[out]     out: the pointer of buffer variable
  * @param[in]      filename: 要扫描的文件名
  * @param[in]      op: r递归扫描目录 v详细模式
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_media_scan(char **     out,
                              const char *filename,
@@ -535,7 +584,9 @@ extern int termux_media_scan(char **     out,
  *                 pause 暂停播放
  *                 stop 退出播放
  * @param[in]      filename: 播放文件名
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_media_player(char **     out,
                                const char *op,
@@ -549,7 +600,9 @@ extern int termux_media_player(char **     out,
  *                 i 获取有关当前录制的信息
  *                 q 退出录音
  * @param[in]      struct_op: struct Termux_record
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_microphone_record(char **              out,
                                     const Termux_record *struct_op,
@@ -558,14 +611,18 @@ extern int termux_microphone_record(char **              out,
 /**
  * @brief          显示系统通知. 内容文本使用 -c/--content 指定或从stdin中读取.
  * @param[in]      op: struct Termux_noti
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_notification(const Termux_noti *op);
 
 /**
  * @brief          显示当前显示的通知列表.
  * @param[out]     out: the pointer of buffer variable
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval
  *  [
  *      {
@@ -585,7 +642,9 @@ extern int termux_notification_list(char **out);
 /**
  * @brief          删除先前用termux-notification --id显示的通知.
  * @param[in]      id
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_notification_remove(int id);
 
@@ -597,7 +656,9 @@ extern int termux_notification_remove(int id);
  *                 1 文件应该共享以发送
  *                 2 应始终显示应用选择器
  * @param[in]      type: 指定要使用的内容类型
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_open(const char *path_url,
                        int         select,
@@ -606,7 +667,9 @@ extern int termux_open(const char *path_url,
 /**
  * @brief          打开一个URL进行查看
  * @param[in]      url: 链接
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_open_url(const char *url);
 
@@ -620,7 +683,9 @@ extern int termux_open_url(const char *url);
  * @param[in]      s: 要监听的传感器(可以只包含部分名称)
  * @param[in]      ms 接收新传感器更新之前的延迟时间(以毫秒为单位)
  * @param[in]      n: 读取传感器的次数(默认值:连续)(分钟:1
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_sensor(char **     out,
                          const char *s,
@@ -635,7 +700,9 @@ extern int termux_sensor(char **     out,
  * @param[in]      l: 短信列表中的限制偏移量(默认值: 10)
  * @param[in]      o: 短信列表中的偏移量(默认值: 0)
  * @param[in]      t: 要列出的消息类型(默认值: inbox): all|inbox|sent|draft|outbox
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_sms_list(char **     out,
                            const char *t,
@@ -649,7 +716,9 @@ extern int termux_sms_list(char **     out,
  *                 要么在未提供参数的情况下从stdin读取.
  * @param[in]      number: 收件人号码-用逗号分隔多个号码
  * @param[in]      text: 文本
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_sms_send(const char *numbers,
                            const char *text);
@@ -657,35 +726,45 @@ extern int termux_sms_send(const char *numbers,
 /**
  * @brief          将语音转换为文本, 将部分匹配项发送到stdout.
  * @param[out]     out: the pointer of buffer variable
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_speech_to_text(char **out);
 
 /**
  * @brief          向系统请求文件并将其输出到指定文件.
  * @param[in]      filename: 文件名
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_storage_get(const char *filename);
 
 /**
  * @brief          拨打电话号码
  * @param[in]      num: 电话号码
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_telephony_call(const char *num);
 
 /**
  * @brief          从设备上的所有无线电(包括主要和相邻小区)获取有关所有观察到的小区信息的信息.
  * @param[out]     out: the pointer of buffer variable
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_telephony_cellinfo(char **out);
 
 /**
  * @brief          获取有关电话设备的信息.
  * @param[out]     out: the pointer of buffer variable
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval
  *  {
  *      "data_activity": "none",
@@ -719,7 +798,9 @@ extern int termux_telephony_deviceinfo(char **out);
  * @param[in]      b: 设置背景颜色(default: gray)
  * @param[in]      g: 设置烤面包的位置 [top, middle, or bottom] (default: middle)
  * @param[in]      s: 1 只显示片刻
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_toast(const char *text,
                         const char *c,
@@ -730,7 +811,9 @@ extern int termux_toast(const char *text,
 /**
  * @brief          在设备上切换LED手电筒
  * @param[in]      on: 1 0
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_torch(int on);
 
@@ -738,7 +821,9 @@ extern int termux_torch(int on);
  * @brief          获取有关可用的文本语音转换(TTS)引擎的信息.
  *                 可以使用-e选项将引擎的名称提供给termux-tts-speak命令.
  * @param[out]     out: the pointer of buffer variable
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval
  * [
  *      {
@@ -761,7 +846,9 @@ extern int termux_tts_engines(char **out);
  *                 或者如果未提供参数, 则从stdin读取.
  * @param[in]      text: 文本
  * @param[in]      op: struct Termux_tts
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_tts_speak(const Termux_tts *op,
                             const char *      text);
@@ -772,7 +859,9 @@ extern int termux_tts_speak(const Termux_tts *op,
  * @param[in]      path: 路径
  * @param[in]      op: l 列出可用的设备   r 显示许可权请求对话框(如有必要)
  * @param[in]      e: 命令执行带有文件描述符的指定命令引用设备作为其参数
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_usb(char **     out,
                       const char *path,
@@ -783,7 +872,9 @@ extern int termux_usb(char **     out,
  * @brief          振动设备.
  * @param[in]      ms: 持续时间以毫秒为单位的振动持续时间(默认值: 1000)
  * @param[in]      mute: 1 即使在静音模式下也能振动
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_vibrate(int ms,
                           int mute);
@@ -792,7 +883,9 @@ extern int termux_vibrate(int ms,
  * @brief          更改音频流的音量.
  * @param[in]      s: alarm, music, notification, ring, system, call
  * @param[in]      v: 音量大小
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval
  *  [
  *      {
@@ -834,7 +927,9 @@ extern int termux_volume(const char *s,
  * @brief          更改设备上的墙纸
  * @param[in]      file_url: 从文件设置墙纸或从url资源设置墙纸
  * @param[in]      screen: 1 设置用于锁屏的墙纸(Nougat及更高版本)
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_wallpaper(const char *file_url,
                             int         screen);
@@ -842,21 +937,27 @@ extern int termux_wallpaper(const char *file_url,
 /**
  * @brief          获取Termux唤醒锁,  以防止CPU休眠.
  * @param[in]      mark: 1(lock) 0(unlock)
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_wake_lock(int mark);
 
 /**
  * @brief          开启/关闭Wi-Fi
  * @param[in]      mark: 1(on) 0(off)
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_wifi_enable(int mark);
 
 /**
  * @brief          获取有关上一次wifi扫描的信息.
  * @param[out]     out: the pointer of buffer variable
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
  * @retval
  *  [
  *      {
@@ -875,7 +976,9 @@ extern int termux_wifi_scaninfo(char **out);
 /**
  * @brief          获取有关当前wifi连接的信息
  * @param[out]     out: the pointer of buffer variable
- * @return         int 0(success) -1(failure)
+ * @return         The status
+ * @retval          0 success
+ * @retval         -1 failure
 */
 extern int termux_wifi_connectioninfo(char **out);
 

@@ -41,7 +41,8 @@ static const char const_str_n[] = "n";
 #define __BEGIN_DECLS \
     extern "C"        \
     {
-#define __END_DECLS }
+#define __END_DECLS \
+    }
 #else
 #define __BEGIN_DECLS
 #define __END_DECLS
