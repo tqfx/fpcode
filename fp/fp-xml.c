@@ -226,9 +226,12 @@ int fp_xml_add_k(const char *filename, const fp_t *fp)
             }
 
             mxml_node_t *k_n = mxmlGetLastChild(k);
-            if (fp->type == FPTYPE_NEW && mxmlSetCDATA(k_n, fp->new))
+            if (fp->type == FPTYPE_NEW)
             {
-                (void)mxmlNewCDATA(k, fp->new);
+                if (mxmlSetCDATA(k_n, fp->new))
+                {
+                    (void)mxmlNewCDATA(k, fp->new);
+                }
             }
             else if (mxmlGetCDATA(k_n))
             {
