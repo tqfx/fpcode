@@ -11,6 +11,7 @@ include (cmake-flags.cmake)
 
 include_directories (
     "${PROJECT_SOURCE_DIR}"
+    "${PROJECT_SOURCE_DIR}/md5"
     "${PROJECT_SOURCE_DIR}/klib"
     "${PROJECT_SOURCE_DIR}/cJSON"
     "${PROJECT_SOURCE_DIR}/mxml"
@@ -19,6 +20,7 @@ include_directories (
     "${PROJECT_SOURCE_DIR}/app"
 )
 
+add_subdirectory (md5)
 add_subdirectory (klib)
 add_subdirectory (cJSON)
 add_subdirectory (fpcode)
@@ -34,6 +36,7 @@ target_link_libraries (key
     mxml
     cjson
     klib
+    md5
 )
 if (MINGW AND HAVE_PTHREAD_H)
 target_link_libraries (key -static winpthread)
@@ -47,6 +50,7 @@ target_link_libraries (key2
     mxml
     cjson
     klib
+    md5
 )
 if (MINGW AND HAVE_PTHREAD_H)
 target_link_libraries (key2 -static winpthread)
@@ -77,6 +81,7 @@ target_link_libraries (key.exe
     klib
     cjson
     mxml
+    md5
 )
 
 add_executable (key2.exe main-termux.c)
@@ -88,6 +93,7 @@ target_link_libraries (key2.exe
     klib
     cjson
     mxml
+    md5
 )
 
 install (TARGETS key.exe RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})

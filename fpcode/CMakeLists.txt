@@ -5,6 +5,8 @@ project (FPCODE)
 
 include (../cmake-flags.cmake)
 
-add_library(fpcode STATIC MD5.c fpcode.c)
+include_directories ("../md5")
 
-add_library(fpcodex STATIC MD5.c fpcodex.c)
+add_library(fpcode STATIC fpcode.c)
+
+add_library(fpcodex STATIC fpcodex.c)

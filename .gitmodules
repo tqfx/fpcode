@@ -10,3 +10,7 @@
 	path = cJSON
 	branch = cjson
 	url = https://github.com/tqfx/cJSON.git
+[submodule "md5"]
+	path = md5
+	branch = release
+	url = https://github.com/tqfx/md5.git
