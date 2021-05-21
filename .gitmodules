@@ -1,14 +1,14 @@
 [submodule "klib"]
 	path = klib
-	branch = klib
+	branch = release
 	url = https://github.com/tqfx/klib.git
 [submodule "mxml"]
 	path = mxml
-	branch = mxml
+	branch = release
 	url = https://github.com/tqfx/mxml.git
 [submodule "cJSON"]
 	path = cJSON
-	branch = cjson
+	branch = release
 	url = https://github.com/tqfx/cJSON.git
 [submodule "md5"]
 	path = md5
