@@ -1,28 +1,33 @@
-/**
- * *****************************************************************************
- * @file         fp_xml.c/h
- * @brief        fp_xml
- * @author       tqfx
- * @date         20210515
- * @version      1
- * @copyright    Copyright (C) 2021 tqfx
- * @code         utf-8                                                  @endcode
- * *****************************************************************************
+/*!
+ @file           fp-xml.c
+ @brief          xml of fp
+ @author         tqfx tqfx@foxmail.com
+ @version        0
+ @date           2021-05-29
+ @copyright      Copyright (C) 2021 tqfx
+ \n \n
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ \n \n
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ \n \n
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-/* Includes ------------------------------------------------------------------*/
-
 #include "fp-xml.h"
-
-/* Private includes ----------------------------------------------------------*/
 
 #include "file-xml.h"
 #include "fp-crypt.h"
 #include "fp.h"
 
-/* Private user code ---------------------------------------------------------*/
-
-int fp_xml_fp2xml(const fp_t *fp, mxml_node_t **xml)
+int fp_xml_fp2xml(const fp_t *  fp,
+                  mxml_node_t **xml)
 {
 #ifdef DEBUG
     if (!fp || !xml)
@@ -47,7 +52,8 @@ int fp_xml_fp2xml(const fp_t *fp, mxml_node_t **xml)
     return 0;
 }
 
-int fp_xml_xml2fp(mxml_node_t *xml, fp_t **fp)
+int fp_xml_xml2fp(mxml_node_t *xml,
+                  fp_t **      fp)
 {
 #ifdef DEBUG
     if (!xml || !fp)
@@ -158,7 +164,8 @@ int fp_xml_init(const char *filename)
     return ret;
 }
 
-int fp_xml_add_k(const char *filename, const fp_t *fp)
+int fp_xml_add_k(const char *filename,
+                 const fp_t *fp)
 {
 #ifdef DEBUG
     if (!filename || !fp)
@@ -280,7 +287,8 @@ int fp_xml_add_k(const char *filename, const fp_t *fp)
     return ret;
 }
 
-int fp_xml_del_k(const char *filename, const char *key)
+int fp_xml_del_k(const char *filename,
+                 const char *key)
 {
 #ifdef DEBUG
     if (!filename || !key)
@@ -332,7 +340,8 @@ int fp_xml_del_k(const char *filename, const char *key)
     return ret;
 }
 
-int fp_xml_add_p(const char *filename, const char *password)
+int fp_xml_add_p(const char *filename,
+                 const char *password)
 {
 #ifdef DEBUG
     if (!filename || !password)
@@ -413,7 +422,8 @@ int fp_xml_add_p(const char *filename, const char *password)
     return ret;
 }
 
-int fp_xml_del_p(const char *filename, const char *password)
+int fp_xml_del_p(const char *filename,
+                 const char *password)
 {
 #ifdef DEBUG
     if (!filename || !password)
@@ -497,7 +507,9 @@ int fp_xml_del_p(const char *filename, const char *password)
     return ret;
 }
 
-int fp_xml_del_i(const char *filename, const char *string, unsigned int i)
+int fp_xml_del_i(const char * filename,
+                 const char * string,
+                 unsigned int i)
 {
 #ifdef DEBUG
     if (!filename || !string)
@@ -578,7 +590,9 @@ int fp_xml_del_i(const char *filename, const char *string, unsigned int i)
     return ret;
 }
 
-int fp_xml_out_p(const char *filename, char ***dst, size_t *n)
+int fp_xml_out_p(const char *filename,
+                 char ***    dst,
+                 size_t *    n)
 {
 #ifdef DEBUG
     if (!filename || !dst || !n)
@@ -645,7 +659,9 @@ int fp_xml_out_p(const char *filename, char ***dst, size_t *n)
     return ret;
 }
 
-int fp_xml_out_k(const char *filename, fp_t ***dst, size_t *n)
+int fp_xml_out_k(const char *filename,
+                 fp_t ***    dst,
+                 size_t *    n)
 {
 #ifdef DEBUG
     if (!filename || !dst || !n)
@@ -708,4 +724,4 @@ int fp_xml_out_k(const char *filename, fp_t ***dst, size_t *n)
     return ret;
 }
 
-/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
+/* END OF FILE */

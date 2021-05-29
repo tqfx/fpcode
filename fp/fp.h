@@ -1,28 +1,33 @@
-/**
- * *****************************************************************************
- * @file         fp.c/h
- * @brief        fp
- * @author       tqfx
- * @date         20210515
- * @version      1
- * @copyright    Copyright (c) 2021
- * @code         utf-8                                                  @endcode
- * *****************************************************************************
+/*!
+ @file           fp.h
+ @brief          fp
+ @author         tqfx tqfx@foxmail.com
+ @version        0
+ @date           2021-05-29
+ @copyright      Copyright (C) 2021 tqfx
+ \n \n
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ \n \n
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ \n \n
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-/* Define to prevent recursive inclusion -------------------------------------*/
+/* Define to prevent recursive inclusion */
 #ifndef __FP_H__
 #define __FP_H__
 
-/* Includes ------------------------------------------------------------------*/
 #include "fpcode.h"
-
-/* Private includes ----------------------------------------------------------*/
 
 #include <stdint.h>
 #include <stdlib.h>
-
-/* Exported constants --------------------------------------------------------*/
 
 #define LEN_PASSWORD 32U
 
@@ -32,8 +37,6 @@ static const char const_str_t[] = "t";
 static const char const_str_l[] = "l";
 static const char const_str_i[] = "i";
 static const char const_str_n[] = "n";
-
-/* Exported macro ------------------------------------------------------------*/
 
 #undef __BEGIN_DECLS
 #undef __END_DECLS
@@ -48,8 +51,6 @@ static const char const_str_n[] = "n";
 #define __END_DECLS
 #endif /* __cplusplus */
 
-/* Exported types ------------------------------------------------------------*/
-
 typedef struct
 {
     char *key;
@@ -58,31 +59,42 @@ typedef struct
     fptype_t type;
 } fp_t;
 
-/* Exported functions prototypes ---------------------------------------------*/
-
 __BEGIN_DECLS
 
-extern int fp_str_k(fp_t ***k, size_t *n, char *s);
-extern int fp_str_p(char ***p, size_t *n, char *s);
+extern int fp_str_k(fp_t ***k,
+                    size_t *n,
+                    char *  s);
+extern int fp_str_p(char ***p,
+                    size_t *n,
+                    char *  s);
 
 extern int fp_init(const char *filename);
 
-extern int fp_add_p(const char *filename, const char *password);
-extern int fp_del_p(const char *filename, const char *password);
+extern int fp_add_p(const char *filename,
+                    const char *password);
+extern int fp_del_p(const char *filename,
+                    const char *password);
 
-extern int fp_add_k(const char *filename, const fp_t *fp);
-extern int fp_del_k(const char *filename, const char *key);
+extern int fp_add_k(const char *filename,
+                    const fp_t *fp);
+extern int fp_del_k(const char *filename,
+                    const char *key);
 
-extern int fp_del_i(const char *filename, const char *string, unsigned int i);
+extern int fp_del_i(const char * filename,
+                    const char * string,
+                    unsigned int i);
 
-extern int fp_out_p(const char *filename, char ***dst, size_t *n);
-extern int fp_out_k(const char *filename, fp_t ***dst, size_t *n);
+extern int fp_out_p(const char *filename,
+                    char ***    dst,
+                    size_t *    n);
+extern int fp_out_k(const char *filename,
+                    fp_t ***    dst,
+                    size_t *    n);
 
-extern int fp_import(const char *filename, const char *dataname);
+extern int fp_import(const char *filename,
+                     const char *dataname);
 
 __END_DECLS
-
-/* Private defines -----------------------------------------------------------*/
 
 static inline void fp_free(fp_t **fp)
 {
@@ -103,7 +115,8 @@ static inline void fp_free(fp_t **fp)
     }
 }
 
-static inline void fp_free_p(char ***dst, size_t *n)
+static inline void fp_free_p(char ***dst,
+                             size_t *n)
 {
     if (*dst)
     {
@@ -118,7 +131,8 @@ static inline void fp_free_p(char ***dst, size_t *n)
     }
 }
 
-static inline void fp_free_k(fp_t ***dst, size_t *n)
+static inline void fp_free_k(fp_t ***dst,
+                             size_t *n)
 {
     if (*dst)
     {
@@ -132,7 +146,7 @@ static inline void fp_free_k(fp_t ***dst, size_t *n)
     }
 }
 
-/* Terminate definition to prevent recursive inclusion -----------------------*/
+/* Enddef to prevent recursive inclusion */
 #endif /* __FP_H__ */
 
-/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
+/* END OF FILE */

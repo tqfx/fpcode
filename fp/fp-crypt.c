@@ -1,36 +1,40 @@
-/**
- * *****************************************************************************
- * @file         fp-crypt.c/h
- * @brief        crypt fp
- * @author       tqfx
- * @date         20210515
- * @version      1
- * @copyright    Copyright (C) 2021 tqfx
- * @code         utf-8                                                  @endcode
- * *****************************************************************************
+/*!
+ @file           fp-crypt.c
+ @brief          crypt fp
+ @author         tqfx tqfx@foxmail.com
+ @version        0
+ @date           2021-05-29
+ @copyright      Copyright (C) 2021 tqfx
+ \n \n
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ \n \n
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ \n \n
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-/* Includes ------------------------------------------------------------------*/
-
 #include "fp-crypt.h"
-
-/* Private includes ----------------------------------------------------------*/
 
 #include <stdlib.h>
 #include <string.h>
 
-/* Private define ------------------------------------------------------------*/
+/*! @cond */
 
 #define LEN_CRYPT_CHAR 16U
 
-/* Private variables ---------------------------------------------------------*/
+/*! @endcond */
 
 static const char *table_encode =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 static unsigned long srands_next = 1UL;
-
-/* Private user code ---------------------------------------------------------*/
 
 static void srands(unsigned long seed)
 {
@@ -154,4 +158,4 @@ int fp_dncrypt(const char *restrict in,
     return 0;
 }
 
-/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
+/* END OF FILE */

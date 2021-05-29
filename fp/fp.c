@@ -1,16 +1,24 @@
-/**
- * *****************************************************************************
- * @file         fp.c/h
- * @brief        fp
- * @author       tqfx
- * @date         20210515
- * @version      1
- * @copyright    Copyright (c) 2021
- * @code         utf-8                                                  @endcode
- * *****************************************************************************
+/*!
+ @file           fp.c
+ @brief          fp
+ @author         tqfx tqfx@foxmail.com
+ @version        0
+ @date           2021-05-29
+ @copyright      Copyright (C) 2021 tqfx
+ \n \n
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ \n \n
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ \n \n
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-
-/* Includes ------------------------------------------------------------------*/
 
 #include "fp.h"
 
@@ -18,22 +26,16 @@
 #include "fp-json.h"
 #include "fp-xml.h"
 
-/* Private includes ----------------------------------------------------------*/
-
 #include <string.h>
 
-/* Private types -------------------------------------------------------------*/
-
-typedef enum file_type_e
+typedef enum
 {
     FILE_TYPE_NONE,
     FILE_TYPE_JSON,
     FILE_TYPE_XML,
-} file_type_e;
+} file_type_t;
 
-/* Private user code ---------------------------------------------------------*/
-
-static file_type_e fp_filetype(const char *filename)
+static file_type_t fp_filetype(const char *filename)
 {
     char *s = NULL;
     if (file_tr(filename, &s))
@@ -41,7 +43,7 @@ static file_type_e fp_filetype(const char *filename)
         return FILE_TYPE_NONE;
     }
 
-    file_type_e type = FILE_TYPE_NONE;
+    file_type_t type = FILE_TYPE_NONE;
 
     do
     {
@@ -68,7 +70,9 @@ static file_type_e fp_filetype(const char *filename)
     return type;
 }
 
-int fp_str_p(char ***p, size_t *n, char *s)
+int fp_str_p(char ***p,
+             size_t *n,
+             char *  s)
 {
     size_t count = 0U;
 
@@ -101,7 +105,9 @@ int fp_str_p(char ***p, size_t *n, char *s)
     return 0;
 }
 
-int fp_str_k(fp_t ***k, size_t *n, char *s)
+int fp_str_k(fp_t ***k,
+             size_t *n,
+             char *  s)
 {
     size_t count = 0U;
 
@@ -146,7 +152,8 @@ int fp_init(const char *filename)
     }
 }
 
-int fp_add_p(const char *filename, const char *password)
+int fp_add_p(const char *filename,
+             const char *password)
 {
     int ret = -1;
 
@@ -172,7 +179,8 @@ int fp_add_p(const char *filename, const char *password)
     return ret;
 }
 
-int fp_del_p(const char *filename, const char *password)
+int fp_del_p(const char *filename,
+             const char *password)
 {
     int ret = -1;
 
@@ -198,7 +206,8 @@ int fp_del_p(const char *filename, const char *password)
     return ret;
 }
 
-int fp_add_k(const char *filename, const fp_t *fp)
+int fp_add_k(const char *filename,
+             const fp_t *fp)
 {
     int ret = -1;
 
@@ -224,7 +233,8 @@ int fp_add_k(const char *filename, const fp_t *fp)
     return ret;
 }
 
-int fp_del_k(const char *filename, const char *key)
+int fp_del_k(const char *filename,
+             const char *key)
 {
     int ret = -1;
 
@@ -250,7 +260,9 @@ int fp_del_k(const char *filename, const char *key)
     return ret;
 }
 
-int fp_del_i(const char *filename, const char *string, unsigned int i)
+int fp_del_i(const char * filename,
+             const char * string,
+             unsigned int i)
 {
     int ret = -1;
 
@@ -276,7 +288,9 @@ int fp_del_i(const char *filename, const char *string, unsigned int i)
     return ret;
 }
 
-int fp_out_p(const char *filename, char ***dst, size_t *n)
+int fp_out_p(const char *filename,
+             char ***    dst,
+             size_t *    n)
 {
     int ret = -1;
 
@@ -302,7 +316,9 @@ int fp_out_p(const char *filename, char ***dst, size_t *n)
     return ret;
 }
 
-int fp_out_k(const char *filename, fp_t ***dst, size_t *n)
+int fp_out_k(const char *filename,
+             fp_t ***    dst,
+             size_t *    n)
 {
     int ret = -1;
 
@@ -328,7 +344,8 @@ int fp_out_k(const char *filename, fp_t ***dst, size_t *n)
     return ret;
 }
 
-int fp_import(const char *filename, const char *dataname)
+int fp_import(const char *filename,
+              const char *dataname)
 {
     int ret = -1;
 
@@ -367,4 +384,4 @@ int fp_import(const char *filename, const char *dataname)
     return ret;
 }
 
-/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
+/* END OF FILE */

@@ -1,20 +1,26 @@
-/**
- * *****************************************************************************
- * @file         fp_json.c/h
- * @brief        fp_json
- * @author       tqfx
- * @date         20210515
- * @version      1
- * @copyright    Copyright (C) 2021 tqfx
- * @code         utf-8                                                  @endcode
- * *****************************************************************************
+/*!
+ @file           fp-json.c
+ @brief          json of fp
+ @author         tqfx tqfx@foxmail.com
+ @version        0
+ @date           2021-05-29
+ @copyright      Copyright (C) 2021 tqfx
+ \n \n
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ \n \n
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ \n \n
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-/* Includes ------------------------------------------------------------------*/
-
 #include "fp-json.h"
-
-/* Private includes ----------------------------------------------------------*/
 
 #include "file-json.h"
 #include "fp-crypt.h"
@@ -23,20 +29,18 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Private function prototypes -----------------------------------------------*/
-
 static int fp_json_del_s(const char *filename,
                          const char *string,
                          const char *str);
-
-/* Private user code ---------------------------------------------------------*/
 
 int cjson_array_k(char **dst, const cJSON *cjson, int index)
 {
     return cjson_array_item_s(dst, cjson, const_str_k, index);
 }
 
-int fp_json_array(const char *filename, cJSON **dst, const char *string)
+int fp_json_array(const char *filename,
+                  cJSON **    dst,
+                  const char *string)
 {
     cJSON *cjson = NULL;
     if (cjson_r(filename, &cjson))
@@ -51,7 +55,8 @@ int fp_json_array(const char *filename, cJSON **dst, const char *string)
     return 0;
 }
 
-int fp_json_fp2json(const fp_t *fp, cJSON **dst)
+int fp_json_fp2json(const fp_t *fp,
+                    cJSON **    dst)
 {
     /* {} */
     *dst = cJSON_CreateObject();
@@ -100,7 +105,8 @@ int fp_json_fp2json(const fp_t *fp, cJSON **dst)
     return ret;
 }
 
-int fp_json_json2fp(const cJSON *cjson, fp_t **fp)
+int fp_json_json2fp(const cJSON *cjson,
+                    fp_t **      fp)
 {
     *fp = (fp_t *)calloc(1, sizeof(fp_t));
     if (!*fp)
@@ -207,7 +213,8 @@ int fp_json_init(const char *filename)
     return ret;
 }
 
-int fp_json_add_k(const char *filename, const fp_t *fp)
+int fp_json_add_k(const char *filename,
+                  const fp_t *fp)
 {
     cJSON *cjson = NULL;
     if (cjson_r(filename, &cjson))
@@ -263,7 +270,8 @@ int fp_json_add_k(const char *filename, const fp_t *fp)
     return ret;
 }
 
-int fp_json_add_p(const char *filename, const char *password)
+int fp_json_add_p(const char *filename,
+                  const char *password)
 {
     cJSON *cjson = NULL;
     if (cjson_r(filename, &cjson))
@@ -327,7 +335,9 @@ int fp_json_add_p(const char *filename, const char *password)
     return ret;
 }
 
-int fp_json_del_i(const char *filename, const char *string, unsigned int id)
+int fp_json_del_i(const char * filename,
+                  const char * string,
+                  unsigned int id)
 {
     cJSON *cjson = NULL;
     if (cjson_r(filename, &cjson))
@@ -358,7 +368,9 @@ int fp_json_del_i(const char *filename, const char *string, unsigned int id)
     return ret;
 }
 
-static int fp_json_del_s(const char *filename, const char *string, const char *str)
+static int fp_json_del_s(const char *filename,
+                         const char *string,
+                         const char *str)
 {
     int (*func)(char **, const cJSON *, int);
     if (!strcmp(string, const_str_k))
@@ -432,17 +444,21 @@ static int fp_json_del_s(const char *filename, const char *string, const char *s
     return ret;
 }
 
-int fp_json_del_k(const char *filename, const char *key)
+int fp_json_del_k(const char *filename,
+                  const char *key)
 {
     return fp_json_del_s(filename, const_str_k, key);
 }
 
-int fp_json_del_p(const char *filename, const char *password)
+int fp_json_del_p(const char *filename,
+                  const char *password)
 {
     return fp_json_del_s(filename, const_str_p, password);
 }
 
-int fp_json_out_k(const char *filename, fp_t ***dst, size_t *n)
+int fp_json_out_k(const char *filename,
+                  fp_t ***    dst,
+                  size_t *    n)
 {
     cJSON *cjson = NULL;
     if (fp_json_array(filename, &cjson, const_str_k))
@@ -485,7 +501,9 @@ int fp_json_out_k(const char *filename, fp_t ***dst, size_t *n)
     return ret;
 }
 
-int fp_json_out_p(const char *filename, char ***dst, size_t *n)
+int fp_json_out_p(const char *filename,
+                  char ***    dst,
+                  size_t *    n)
 {
     cJSON *cjson = NULL;
     if (fp_json_array(filename, &cjson, const_str_p))
@@ -529,4 +547,4 @@ int fp_json_out_p(const char *filename, char ***dst, size_t *n)
     return ret;
 }
 
-/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
+/* END OF FILE */

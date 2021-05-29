@@ -1,26 +1,32 @@
-/**
- * *****************************************************************************
- * @file         file.c/h
- * @brief        some function of the file
- * @author       tqfx
- * @date         20210515
- * @version      1
- * @copyright    Copyright (C) 2021 tqfx
- * @code         utf-8                                                  @endcode
- * *****************************************************************************
+/*!
+ @file           file.c
+ @brief          some function of the file
+ @author         tqfx tqfx@foxmail.com
+ @version        0
+ @date           2021-05-29
+ @copyright      Copyright (C) 2021 tqfx
+ \n \n
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ \n \n
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ \n \n
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-/* Includes ------------------------------------------------------------------*/
-
 #include "file.h"
-
-/* Private includes ----------------------------------------------------------*/
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-/* Private macro -------------------------------------------------------------*/
+/*! @cond */
 
 #undef FCLOSE
 #define FCLOSE(_FILE_)        \
@@ -33,7 +39,7 @@
         _FILE_ = NULL;        \
     } while (0)
 
-/* Private user code ---------------------------------------------------------*/
+/*! @endcond */
 
 int file_br(const char *restrict filename,
             void **const restrict dst,
@@ -215,4 +221,4 @@ int file_exist(const char *restrict filename)
     return ret;
 }
 
-/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
+/* END OF FILE */
