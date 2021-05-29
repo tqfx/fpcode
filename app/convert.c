@@ -1,20 +1,26 @@
-/**
- * *****************************************************************************
- * @file         convert.c/h
- * @brief        code conversion 
- * @author       tqfx
- * @date         20210515
- * @version      1
- * @copyright    Copyright (C) 2021 tqfx
- * @code         utf-8                                                  @endcode
- * *****************************************************************************
+/*!
+ @file           convert.c
+ @brief          code conversion
+ @author         tqfx tqfx@foxmail.com
+ @version        0
+ @date           2021-05-29
+ @copyright      Copyright (C) 2021 tqfx
+ \n \n
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ \n \n
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ \n \n
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-/* Includes ------------------------------------------------------------------*/
-
 #include "convert.h"
-
-/* Private includes ----------------------------------------------------------*/
 
 #ifdef __WINNT__
 #include <windows.h>
@@ -23,14 +29,10 @@
 #include <stdlib.h>
 #endif
 
-/* Private define ------------------------------------------------------------*/
-
 #ifndef __WINNT__
 #define CHARSET_UTF8 "zh_CN.utf8"
 #define CHARSET_GBK  "zh_CN.gbk"
 #endif
-
-/* Private user code ---------------------------------------------------------*/
 
 #ifdef __WINNT__
 int code_convert(char **      dst,
@@ -142,4 +144,4 @@ int gbk_utf8(char **dst, const char *src)
 #endif
 }
 
-/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
+/* END OF FILE */

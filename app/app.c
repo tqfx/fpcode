@@ -1,20 +1,26 @@
-/**
- * *****************************************************************************
- * @file         app.c/h
- * @brief        application
- * @author       tqfx
- * @date         20210515
- * @version      1
- * @copyright    Copyright (C) 2021 tqfx
- * @code         utf-8                                                  @endcode
- * *****************************************************************************
+/*!
+ @file           app.c
+ @brief          application
+ @author         tqfx tqfx@foxmail.com
+ @version        0
+ @date           2021-05-29
+ @copyright      Copyright (C) 2021 tqfx
+ \n \n
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ \n \n
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ \n \n
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-/* Includes ------------------------------------------------------------------*/
-
 #include "app.h"
-
-/* Private includes ----------------------------------------------------------*/
 
 #include "clipboard.h"
 #include "convert.h"
@@ -27,8 +33,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Private variables ---------------------------------------------------------*/
-
 static const char const_format_log[]     = "%s  %s  %s\n";
 static const char const_format_item_id[] = "%04u      %s\n";
 
@@ -36,13 +40,9 @@ static const char const_str_ok[]    = "ok";
 static const char const_str_error[] = "error";
 static const char const_str_empty[] = "empty";
 
-/* Private function prototypes -----------------------------------------------*/
-
 #ifdef __clang__
 static int cmdout(const char *str);
 #endif /* __clang__ */
-
-/* Private user code ---------------------------------------------------------*/
 
 #ifdef __clang__
 static int cmdout(const char *str)
@@ -488,4 +488,4 @@ int app_key_import(const char *filename,
     return ret;
 }
 
-/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
+/* END OF FILE */
