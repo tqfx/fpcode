@@ -1,20 +1,26 @@
-/**
- * *****************************************************************************
- * @file         tapi.c/h
- * @brief        api termux packaging
- * @author       tqfx
- * @date         20210516
- * @version      1
- * @copyright    Copyright (C) 2021 tqfx
- * @code         utf-8                                                  @endcode
- * *****************************************************************************
+/*!
+ @file           termux-tapi.c
+ @brief          api termux packaging
+ @author         tqfx tqfx@foxmail.com
+ @version        0
+ @date           2021-05-29
+ @copyright      Copyright (C) 2021 tqfx
+ \n \n
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ \n \n
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ \n \n
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-/* Includes ------------------------------------------------------------------*/
-
 #include "termux-tapi.h"
-
-/* Private includes ----------------------------------------------------------*/
 
 #include "cJSON.h"
 #include "termux-api.h"
@@ -22,11 +28,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Private typedef -----------------------------------------------------------*/
-
 typedef int (*dialog_ci_t)(char **, const char *, const char *);
-
-/* Private function prototypes -----------------------------------------------*/
 
 static int tapi_dialog_ci(char **     text,
                           int *       index,
@@ -34,8 +36,6 @@ static int tapi_dialog_ci(char **     text,
                           const char *title,
                           const char *values,
                           dialog_ci_t func);
-
-/* Private user code ---------------------------------------------------------*/
 
 int tapi_auth_finger(void)
 {
@@ -407,4 +407,4 @@ int tapi_toast_ok(const char *text)
     return termux_toast(text, "green", "white", NULL, 1);
 }
 
-/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
+/* END OF FILE */

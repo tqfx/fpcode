@@ -1,28 +1,32 @@
-/**
- * *****************************************************************************
- * @file         termux-api.c/h
- * @brief        api of termux
- * @author       tqfx
- * @date         20210516
- * @version      1
- * @copyright    Copyright (C) 2021 tqfx
- * @code         utf-8                                                  @endcode
- * *****************************************************************************
+/*!
+ @file           termux-api.c
+ @brief          api of termux
+ @author         tqfx tqfx@foxmail.com
+ @version        0
+ @date           2021-05-29
+ @copyright      Copyright (C) 2021 tqfx
+ \n \n
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ \n \n
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ \n \n
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-/* Includes ------------------------------------------------------------------*/
-
 #include "termux-api.h"
-
-/* Private includes ----------------------------------------------------------*/
 
 #include "kstring.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-/* Private macro -------------------------------------------------------------*/
 
 #define CMD_OP_ADD(_k_, _s_, _v_) \
     do                            \
@@ -36,13 +40,9 @@
         PFREE(free, tmp);         \
     } while (0)
 
-/* Private function prototypes -----------------------------------------------*/
-
 static void cmdstr(char **dst, const char *src);
 static int  cmdout(const char *str);
 static int  cmdsh(char **out, const char *str);
-
-/* Private user code ---------------------------------------------------------*/
 
 static void cmdstr(char **dst, const char *src)
 {
@@ -121,21 +121,21 @@ static int cmdsh(char **out, const char *str)
     return 0;
 }
 
-/*termux-audio-info---------------------------------*/
+/*termux-audio-info*/
 
 int termux_audio_info(char **out)
 {
     return cmdsh(out, "termux-audio-info");
 }
 
-/*termux-battery-status-----------------------------*/
+/*termux-battery-status*/
 
 int termux_battery_status(char **out)
 {
     return cmdsh(out, "termux-battery-status");
 }
 
-/*termux-brightness-------------------------------*/
+/*termux-brightness*/
 
 int termux_brightness(int num)
 {
@@ -158,7 +158,7 @@ int termux_brightness(int num)
     return ret;
 }
 
-/*termux-call-log---------------------------------*/
+/*termux-call-log*/
 
 int termux_call_log(char **out,
                     int    l,
@@ -184,7 +184,7 @@ int termux_call_log(char **out,
     return ret;
 }
 
-/*termux-camera-----------------------------------*/
+/*termux-camera*/
 
 int termux_camera_info(char **out)
 {
@@ -211,7 +211,7 @@ int termux_camera_photo(const char * filename,
     return ret;
 }
 
-/*termux-clipboard----------------------------------*/
+/*termux-clipboard*/
 
 int termux_clipboard_get(char **out)
 {
@@ -237,14 +237,14 @@ int termux_clipboard_set(const char *str)
     return ret;
 }
 
-/*termux-contact-list--------------------------------*/
+/*termux-contact-list*/
 
 int termux_contact_list(char **out)
 {
     return cmdsh(out, "termux-contact-list");
 }
 
-/*termux-dialog--------------------------------------*/
+/*termux-dialog*/
 
 int termux_dialog_time(char **     out,
                        const char *t)
@@ -486,7 +486,7 @@ int termux_dialog_confirm(char **     out,
     return ret;
 }
 
-/*download-------------------------------------------*/
+/*download*/
 
 int termux_download(const char *url,
                     const char *t,
@@ -519,7 +519,7 @@ int termux_download(const char *url,
     return ret;
 }
 
-/*fingerprint-----------------------------------------*/
+/*fingerprint*/
 
 int termux_fingerprint(char **     out,
                        const char *t,
@@ -557,7 +557,7 @@ int termux_fingerprint(char **     out,
     return ret;
 }
 
-/*termux-infrared-------------------------------------*/
+/*termux-infrared*/
 
 int termux_infrared_frequencies(char **out)
 {
@@ -578,7 +578,7 @@ int termux_infrared_transmit(char **out,
     return ret;
 }
 
-/*localtion-------------------------------------------*/
+/*localtion*/
 
 int termux_location(char **     out,
                     const char *p,
@@ -604,7 +604,7 @@ int termux_location(char **     out,
     return ret;
 }
 
-/*media-----------------------------------------------*/
+/*media*/
 
 int termux_media_scan(char **     out,
                       const char *filename,
@@ -656,7 +656,7 @@ int termux_media_player(char **     out,
     return ret;
 }
 
-/*termux-microphone-record---------------------------------------*/
+/*termux-microphone-record*/
 
 int termux_microphone_record(char **              out,
                              const Termux_record *op_s,
@@ -710,7 +710,7 @@ int termux_microphone_record(char **              out,
     return ret;
 }
 
-/*termux-notification--------------------------------------------*/
+/*termux-notification*/
 
 int termux_notification(const Termux_noti *op)
 {
@@ -875,7 +875,7 @@ int termux_notification_remove(int id)
     return ret;
 }
 
-/*termux-open-----------------------------------------------*/
+/*termux-open*/
 
 int termux_open(const char *path_url,
                 int         select,
@@ -939,7 +939,7 @@ int termux_open_url(const char *url)
     return ret;
 }
 
-/*termux-sensor--------------------------------------------*/
+/*termux-sensor*/
 
 int termux_sensor(char **     out,
                   const char *s,
@@ -977,7 +977,7 @@ int termux_sensor(char **     out,
     return ret;
 }
 
-/*termux-sms--------------------------------------------*/
+/*termux-sms*/
 
 int termux_sms_list(char **     out,
                     const char *t,
@@ -1040,14 +1040,14 @@ int termux_sms_send(const char *numbers,
     return ret;
 }
 
-/*termux-speech-to-text----------------------------------*/
+/*termux-speech-to-text*/
 
 int termux_speech_to_text(char **out)
 {
     return cmdsh(out, "termux-speech-to-text");
 }
 
-/*termux-storage-get------------------------------------*/
+/*termux-storage-get*/
 
 int termux_storage_get(const char *filename)
 {
@@ -1070,7 +1070,7 @@ int termux_storage_get(const char *filename)
     return ret;
 }
 
-/*termux-telephony--------------------------------------*/
+/*termux-telephony*/
 
 int termux_telephony_call(const char *num)
 {
@@ -1103,7 +1103,7 @@ int termux_telephony_deviceinfo(char **out)
     return cmdsh(out, "termux-telephony-deviceinfo");
 }
 
-/*torch----------------------------------------------*/
+/*torch*/
 
 int termux_toast(const char *text,
                  const char *c,
@@ -1148,7 +1148,7 @@ int termux_toast(const char *text,
     return ret;
 }
 
-/*torch----------------------------------------------*/
+/*torch*/
 
 int termux_torch(int on)
 {
@@ -1166,7 +1166,7 @@ int termux_torch(int on)
     return ret;
 }
 
-/*tts-----------------------------------------------*/
+/*tts*/
 
 int termux_tts_engines(char **out)
 {
@@ -1231,7 +1231,7 @@ int termux_tts_speak(const Termux_tts *op,
     return ret;
 }
 
-/*usb-----------------------------------------------*/
+/*usb*/
 
 int termux_usb(char **     out,
                const char *path,
@@ -1263,7 +1263,7 @@ int termux_usb(char **     out,
     return ret;
 }
 
-/*vibrate--------------------------------------------*/
+/*vibrate*/
 
 int termux_vibrate(int ms,
                    int mute)
@@ -1290,7 +1290,7 @@ int termux_vibrate(int ms,
     return ret;
 }
 
-/*volume----------------------------------------------*/
+/*volume*/
 
 int termux_volume(const char *s,
                   int         v)
@@ -1312,7 +1312,7 @@ int termux_volume(const char *s,
     return ret;
 }
 
-/*wallpaper-------------------------------------------*/
+/*wallpaper*/
 
 int termux_wallpaper(const char *file_url,
                      int         screen)
@@ -1348,7 +1348,7 @@ int termux_wallpaper(const char *file_url,
     return ret;
 }
 
-/*wake------------------------------------------------*/
+/*wake*/
 
 int termux_wake_lock(int mark)
 {
@@ -1366,7 +1366,7 @@ int termux_wake_lock(int mark)
     return ret;
 }
 
-/*wifi------------------------------------------------*/
+/*wifi*/
 
 int termux_wifi_connectioninfo(char **out)
 {
@@ -1394,4 +1394,4 @@ int termux_wifi_scaninfo(char **out)
     return cmdsh(out, "termux-wifi-scaninfo");
 }
 
-/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
+/* END OF FILE */
