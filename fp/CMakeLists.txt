@@ -9,6 +9,7 @@ include_directories ("../klib")
 include_directories ("../cJSON")
 include_directories ("../mxml")
 include_directories ("../fpcode")
+include_directories ("../md5")
 
 aux_source_directory(. SRC_FP)
 
