@@ -106,9 +106,9 @@ typedef struct
     char *variant;   //!< 所用语言的变体
     char *stream;    //!< 要使用的音频流(默认值: NOTIFICATION), 其中一种:
                      //!< ALARM, MUSIC, NOTIFICATION, RING, SYSTEM, VOICE_CALL
-    float pitch;     //!< 用于演讲的音调.
+    double pitch;    //!< 用于演讲的音调.
                      //!< 1.0是正常音高较低的值会降低合成语音的音调,更大的值会增加它.
-    float rate;      //!< 使用的语速. 正常语速是1.0
+    double rate;     //!< 使用的语速. 正常语速是1.0
                      //!< 较低的值会使语音变慢(0.5是正常语速的一半)
                      //!< 而更大的价值会加速它(2.0是正常语速的两倍).
 } Termux_tts;
