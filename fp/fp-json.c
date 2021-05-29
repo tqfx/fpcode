@@ -117,7 +117,7 @@ int fp_json_json2fp(const cJSON *cjson, fp_t **fp)
         {
             break;
         }
-        (*fp)->type = (fptype_e)cJSON_GetNumberValue(cjson_object);
+        (*fp)->type = (fptype_t)cJSON_GetNumberValue(cjson_object);
 
         cjson_object = cJSON_GetObjectItem(cjson, const_str_l);
         if (!cjson_object)

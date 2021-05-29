@@ -1,30 +1,35 @@
-/**
- * *****************************************************************************
- * @file         fpcode_x.c
- * @brief        The core code of Flower Password old
- * @author       tqfx
- * @date         20210515
- * @version      1
- * @copyright    Copyright (C) 2021 tqfx
- * @code         utf-8                                                  @endcode
- * *****************************************************************************
+/*!
+ @file           fpcodex.c
+ @brief          The core code of Flower Password old
+ @author         tqfx tqfx@foxmail.com
+ @version        0
+ @date           2021-05-29
+ @copyright      Copyright (C) 2021 tqfx
+ \n \n
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ \n \n
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ \n \n
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-/* Includes ------------------------------------------------------------------*/
-
+#include "fpcode-private.h"
 #include "fpcode.h"
-
-/* Private includes ----------------------------------------------------------*/
 
 #include <ctype.h>
 #include <stdint.h>
 #include <string.h>
 
-/* Private define ------------------------------------------------------------*/
+/*! @cond */
 
 #define FP_LEN_HMD5 32U
-
-/* Private macro -------------------------------------------------------------*/
 
 #undef PFREE
 #define PFREE(_FUN_, _) \
@@ -34,77 +39,12 @@
         _ = NULL;       \
     } while (0)
 
-/* Private variables ---------------------------------------------------------*/
+/*! @endcond */
 
-/* numeration table */
 static uint8_t table_x[FP_LEN_HMD5] = {0};
 
-/* Private function prototypes -----------------------------------------------*/
-
-/**
- * @brief          Hexadecimal to decimal
- * @param[in]      ch: '0'-'9' 'a'-'f' 'A'-'F'
- * @return         int 0~15
-*/
-static int xdigit(char ch);
-
-/* Private user code ---------------------------------------------------------*/
-
-static int xdigit(char ch)
-{
-    int ret = -1;
-
-    switch (ch)
-    {
-    case '0':
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-    case '5':
-    case '6':
-    case '7':
-    case '8':
-    case '9':
-    {
-        /* 0 ~ 9 */
-        ret = ch - '0';
-        break;
-    }
-
-    case 'a':
-    case 'b':
-    case 'c':
-    case 'd':
-    case 'e':
-    case 'f':
-    {
-        /* a ~ f */
-        ret = ch - 'a' + 10;
-        break;
-    }
-
-    case 'A':
-    case 'B':
-    case 'C':
-    case 'D':
-    case 'E':
-    case 'F':
-    {
-        /* A ~ F */
-        ret = ch - 'A' + 10;
-        break;
-    }
-
-    default:
-        break;
-    }
-
-    return ret;
-}
-
 int fpcode(char **const restrict dst,
-           fptype_e t,
+           fptype_t t,
            const char *restrict p,
            const char *restrict k,
            uint32_t l,
@@ -222,4 +162,4 @@ int fpcode(char **const restrict dst,
     return 0;
 }
 
-/************************ (C) COPYRIGHT TQFX *******************END OF FILE****/
+/* END OF FILE */

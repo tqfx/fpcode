@@ -55,7 +55,7 @@ typedef struct
     char *key;
     char *new;
     uint32_t len;
-    fptype_e type;
+    fptype_t type;
 } fp_t;
 
 /* Exported functions prototypes ---------------------------------------------*/
