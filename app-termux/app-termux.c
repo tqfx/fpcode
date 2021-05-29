@@ -1,20 +1,26 @@
-/**
- * *****************************************************************************
- * @file         app-termux.c/h
- * @brief        application on termux
- * @author       tqfx
- * @date         20210516
- * @version      1
- * @copyright    Copyright (c) 2021 tqfx
- * @code         utf-8                                                  @endcode
- * *****************************************************************************
+/*!
+ @file           app-termux.c
+ @brief          application on termux
+ @author         tqfx tqfx@foxmail.com
+ @version        0
+ @date           2021-05-29
+ @copyright      Copyright (C) 2021 tqfx
+ \n \n
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ \n \n
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ \n \n
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-/* Includes ------------------------------------------------------------------*/
-
 #include "app-termux.h"
-
-/* Private includes ----------------------------------------------------------*/
 
 #include "file.h"
 #include "fp.h"
@@ -23,24 +29,23 @@
 #include "termux-api.h"
 #include "termux-tapi.h"
 
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private typedef -----------------------------------------------------------*/
-/* Private types -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
-/* Private function prototypes -----------------------------------------------*/
-
-static int p2vsn(char **dst, char **p, size_t n);
-static int k2vsn(char **dst, fp_t **k, size_t n);
+static int p2vsn(char **dst,
+                 char **p,
+                 size_t n);
+static int k2vsn(char **dst,
+                 fp_t **k,
+                 size_t n);
 
 static int app_termux_input_k(fp_t *fp);
 static int app_termux_input_p(char **p);
-static int app_termux_fpcode(const char *password, const fp_t *fp);
-static int app_termux_get_key(const char *filename, const fp_t *fp);
+static int app_termux_fpcode(const char *password,
+                             const fp_t *fp);
+static int app_termux_get_key(const char *filename,
+                              const fp_t *fp);
 
-/* Private user code ---------------------------------------------------------*/
-
-static int p2vsn(char **dst, char **p, size_t n)
+static int p2vsn(char **dst,
+                 char **p,
+                 size_t n)
 {
     if (!n)
     {
@@ -58,7 +63,9 @@ static int p2vsn(char **dst, char **p, size_t n)
     return 0;
 }
 
-static int k2vsn(char **dst, fp_t **k, size_t n)
+static int k2vsn(char **dst,
+                 fp_t **k,
+                 size_t n)
 {
     if (!n)
     {
@@ -222,7 +229,8 @@ static int app_termux_input_p(char **p)
     return ret;
 }
 
-static int app_termux_fpcode(const char *password, const fp_t *fp)
+static int app_termux_fpcode(const char *password,
+                             const fp_t *fp)
 {
     int ret = -2;
 
@@ -265,7 +273,8 @@ static int app_termux_fpcode(const char *password, const fp_t *fp)
     return ret;
 }
 
-static int app_termux_get_key(const char *filename, const fp_t *fp)
+static int app_termux_get_key(const char *filename,
+                              const fp_t *fp)
 {
     int ret = -2;
 
@@ -361,7 +370,8 @@ void app_termux_show_key(const char *filename)
     return;
 }
 
-static int app_termux_del(const char *filename, const char *string)
+static int app_termux_del(const char *filename,
+                          const char *string)
 {
     int ret = -2;
 
@@ -727,4 +737,4 @@ void app_termux_search_password(const char *filename)
     return;
 }
 
-/************************ (C) COPYRIGHT tqfx *******************END OF FILE****/
+/* END OF FILE */
