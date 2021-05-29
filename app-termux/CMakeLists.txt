@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.10)
 
 project(APP_TERMUX)
 
-include(../cmake-flags.cmake)
+include(../cmake/cmake-flags.cmake)
 
 include_directories("../klib")
 include_directories("../cJSON")
