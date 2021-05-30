@@ -28,16 +28,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define CMD_OP_ADD(_k_, _s_, _v_) \
-    do                            \
-    {                             \
-        char *tmp = NULL;         \
-        cmdstr(&tmp, _v_);        \
-        (void)ksprintf(_k_,       \
-                       " "_s_     \
-                       " \"%s\"", \
-                       tmp);      \
-        PFREE(free, tmp);         \
+#define CMD_OP_ADD(k, s, v)          \
+    do                               \
+    {                                \
+        char *tmp = NULL;            \
+        cmdstr(&tmp, v);             \
+        (void)ksprintf(k, " "s       \
+                          " \"%s\"", \
+                       tmp);         \
+        PFREE(free, tmp);            \
     } while (0)
 
 static void cmdstr(char **dst, const char *src);
@@ -47,7 +46,7 @@ static int cmdsh(char **out, const char *str);
 static void cmdstr(char **dst, const char *src)
 {
     kstring_t *ks = ks_init();
-    (void)kputs(src, ks);
+    (void)kputs(ks, src);
     (void)ks_mod(ks, "\"", "\\\"");
     *dst = ks_release(ks);
     PFREE(free, ks);
@@ -110,9 +109,9 @@ static int cmdsh(char **out, const char *str)
         {
             break;
         }
-        (void)kputc_(tmp, &ks);
+        (void)kputc_(&ks, tmp);
     }
-    (void)kputc_(0, &ks);
+    (void)kputc_(&ks, 0);
     PFREE(pclose, pipe);
 #ifdef CMD_SHOW
     (void)printf("%s\n", ks.s);

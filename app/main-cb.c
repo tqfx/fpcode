@@ -181,6 +181,10 @@ int main_cb(int argc, char *argv[])
     {
         char *s = *argv;
 
+#ifdef __clang__
+        s = getenv("_");
+#endif /* __clang__ */
+
         if (strstr(s, ".exe"))
         {
             s[strlen(s) - 4U] = 0;
