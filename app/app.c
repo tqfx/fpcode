@@ -33,10 +33,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-static const char const_format_log[]     = "%s  %s  %s\n";
+static const char const_format_log[] = "%s  %s  %s\n";
 static const char const_format_item_id[] = "%04u      %s\n";
 
-static const char const_str_ok[]    = "ok";
+static const char const_str_ok[] = "ok";
 static const char const_str_error[] = "error";
 static const char const_str_empty[] = "empty";
 
@@ -201,8 +201,8 @@ int app_add_password(const char *filename,
     return ret;
 }
 
-static int app_del_id(const char * filename,
-                      const char * string,
+static int app_del_id(const char *filename,
+                      const char *string,
                       unsigned int id)
 {
     int ret = -1;
@@ -255,7 +255,7 @@ static int app_del_id(const char * filename,
 
 int app_del_key(const char *filename,
                 const char *key,
-                bool        id)
+                bool id)
 {
     int ret = 0;
 
@@ -278,7 +278,7 @@ int app_del_key(const char *filename,
 
 int app_del_password(const char *filename,
                      const char *password,
-                     bool        id)
+                     bool id)
 {
     int ret = 0;
 
@@ -396,7 +396,7 @@ int app_get_key(const char *filename,
     return ret;
 }
 
-int app_get_id(const char * filename,
+int app_get_id(const char *filename,
                unsigned int id_k,
                unsigned int id_p)
 {

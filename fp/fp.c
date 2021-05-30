@@ -72,7 +72,7 @@ static file_type_t fp_filetype(const char *filename)
 
 int fp_str_p(char ***p,
              size_t *n,
-             char *  s)
+             char *s)
 {
     size_t count = 0U;
 
@@ -107,7 +107,7 @@ int fp_str_p(char ***p,
 
 int fp_str_k(fp_t ***k,
              size_t *n,
-             char *  s)
+             char *s)
 {
     size_t count = 0U;
 
@@ -260,8 +260,8 @@ int fp_del_k(const char *filename,
     return ret;
 }
 
-int fp_del_i(const char * filename,
-             const char * string,
+int fp_del_i(const char *filename,
+             const char *string,
              unsigned int i)
 {
     int ret = -1;
@@ -289,8 +289,8 @@ int fp_del_i(const char * filename,
 }
 
 int fp_out_p(const char *filename,
-             char ***    dst,
-             size_t *    n)
+             char ***dst,
+             size_t *n)
 {
     int ret = -1;
 
@@ -317,8 +317,8 @@ int fp_out_p(const char *filename,
 }
 
 int fp_out_k(const char *filename,
-             fp_t ***    dst,
-             size_t *    n)
+             fp_t ***dst,
+             size_t *n)
 {
     int ret = -1;
 

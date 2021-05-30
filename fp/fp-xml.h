@@ -29,10 +29,10 @@
 
 __BEGIN_DECLS
 
-extern int fp_xml_fp2xml(const fp_t *  fp,
+extern int fp_xml_fp2xml(const fp_t *fp,
                          mxml_node_t **xml);
 extern int fp_xml_xml2fp(mxml_node_t *xml,
-                         fp_t **      fp);
+                         fp_t **fp);
 
 extern int fp_xml_init(const char *filename);
 
@@ -45,16 +45,16 @@ extern int fp_xml_add_k(const char *filename,
 extern int fp_xml_del_k(const char *filename,
                         const char *key);
 
-extern int fp_xml_del_i(const char * filename,
-                        const char * string,
+extern int fp_xml_del_i(const char *filename,
+                        const char *string,
                         unsigned int i);
 
 extern int fp_xml_out_p(const char *filename,
-                        char ***    dst,
-                        size_t *    n);
+                        char ***dst,
+                        size_t *n);
 extern int fp_xml_out_k(const char *filename,
-                        fp_t ***    dst,
-                        size_t *    n);
+                        fp_t ***dst,
+                        size_t *n);
 
 __END_DECLS
 

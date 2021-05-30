@@ -33,15 +33,15 @@ static char *dataname = NULL;
 static char *password = NULL;
 
 static fp_t code = {
-    .key  = NULL,
-    .new  = NULL,
-    .len  = 16U,
+    .key = NULL,
+    .new = NULL,
+    .len = 16U,
     .type = FPTYPE_EMAIL,
 };
-static bool bool_id   = false;
+static bool bool_id = false;
 static bool bool_show = false;
-static bool bool_add  = false;
-static bool bool_del  = false;
+static bool bool_add = false;
+static bool bool_del = false;
 
 static int prefix_home(char **s);
 
@@ -211,7 +211,7 @@ int main_cb(int argc, char *argv[])
         gbk_utf8(&tmp, code.key);
         free(code.key);
         code.key = tmp;
-        tmp      = NULL;
+        tmp = NULL;
 #endif
     }
 

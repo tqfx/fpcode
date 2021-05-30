@@ -46,17 +46,17 @@ extern int app_add_password(const char *filename,
 
 extern int app_del_key(const char *filename,
                        const char *key,
-                       bool        id);
+                       bool id);
 extern int app_del_password(const char *filename,
                             const char *password,
-                            bool        id);
+                            bool id);
 
 extern int app_show_key(const char *filename,
                         const char *key);
 extern int app_show_password(const char *filename,
                              const char *password);
 
-extern int app_get_id(const char * filename,
+extern int app_get_id(const char *filename,
                       unsigned int id_k,
                       unsigned int id_p);
 extern int app_get_key(const char *filename,

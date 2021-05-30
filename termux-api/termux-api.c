@@ -41,8 +41,8 @@
     } while (0)
 
 static void cmdstr(char **dst, const char *src);
-static int  cmdout(const char *str);
-static int  cmdsh(char **out, const char *str);
+static int cmdout(const char *str);
+static int cmdsh(char **out, const char *str);
 
 static void cmdstr(char **dst, const char *src)
 {
@@ -161,8 +161,8 @@ int termux_brightness(int num)
 /*termux-call-log*/
 
 int termux_call_log(char **out,
-                    int    l,
-                    int    o)
+                    int l,
+                    int o)
 {
     kstring_t *ks = ks_init();
     (void)ksprintf(ks, "termux-call-log");
@@ -191,7 +191,7 @@ int termux_camera_info(char **out)
     return cmdsh(out, "termux-camera-info");
 }
 
-int termux_camera_photo(const char * filename,
+int termux_camera_photo(const char *filename,
                         unsigned int c)
 {
     kstring_t *ks = ks_init();
@@ -246,7 +246,7 @@ int termux_contact_list(char **out)
 
 /*termux-dialog*/
 
-int termux_dialog_time(char **     out,
+int termux_dialog_time(char **out,
                        const char *t)
 {
     kstring_t *ks = ks_init();
@@ -264,7 +264,7 @@ int termux_dialog_time(char **     out,
     return ret;
 }
 
-int termux_dialog_text(char **     out,
+int termux_dialog_text(char **out,
                        const char *t,
                        const char *i,
                        const char *op)
@@ -294,7 +294,7 @@ int termux_dialog_text(char **     out,
     return ret;
 }
 
-int termux_dialog_speech(char **     out,
+int termux_dialog_speech(char **out,
                          const char *t,
                          const char *i)
 {
@@ -318,7 +318,7 @@ int termux_dialog_speech(char **     out,
     return ret;
 }
 
-int termux_dialog_spinner(char **     out,
+int termux_dialog_spinner(char **out,
                           const char *t,
                           const char *v)
 {
@@ -342,7 +342,7 @@ int termux_dialog_spinner(char **     out,
     return ret;
 }
 
-int termux_dialog_sheet(char **     out,
+int termux_dialog_sheet(char **out,
                         const char *t,
                         const char *v)
 {
@@ -366,7 +366,7 @@ int termux_dialog_sheet(char **     out,
     return ret;
 }
 
-int termux_dialog_radio(char **     out,
+int termux_dialog_radio(char **out,
                         const char *t,
                         const char *v)
 {
@@ -390,7 +390,7 @@ int termux_dialog_radio(char **     out,
     return ret;
 }
 
-int termux_dialog_date(char **     out,
+int termux_dialog_date(char **out,
                        const char *t,
                        const char *d)
 {
@@ -414,7 +414,7 @@ int termux_dialog_date(char **     out,
     return ret;
 }
 
-int termux_dialog_counter(char **     out,
+int termux_dialog_counter(char **out,
                           const char *t,
                           const char *r)
 {
@@ -438,7 +438,7 @@ int termux_dialog_counter(char **     out,
     return ret;
 }
 
-int termux_dialog_checkbox(char **     out,
+int termux_dialog_checkbox(char **out,
                            const char *t,
                            const char *v)
 {
@@ -462,7 +462,7 @@ int termux_dialog_checkbox(char **     out,
     return ret;
 }
 
-int termux_dialog_confirm(char **     out,
+int termux_dialog_confirm(char **out,
                           const char *t,
                           const char *i)
 {
@@ -521,7 +521,7 @@ int termux_download(const char *url,
 
 /*fingerprint*/
 
-int termux_fingerprint(char **     out,
+int termux_fingerprint(char **out,
                        const char *t,
                        const char *d,
                        const char *s,
@@ -565,8 +565,8 @@ int termux_infrared_frequencies(char **out)
 }
 
 int termux_infrared_transmit(char **out,
-                             int    f,
-                             int    num)
+                             int f,
+                             int num)
 {
     kstring_t *ks = ks_init();
     (void)ksprintf(ks, "termux-infrared-transmit -f '%i' '%i'", f, num);
@@ -580,7 +580,7 @@ int termux_infrared_transmit(char **out,
 
 /*localtion*/
 
-int termux_location(char **     out,
+int termux_location(char **out,
                     const char *p,
                     const char *r)
 {
@@ -606,7 +606,7 @@ int termux_location(char **     out,
 
 /*media*/
 
-int termux_media_scan(char **     out,
+int termux_media_scan(char **out,
                       const char *filename,
                       const char *op)
 {
@@ -632,7 +632,7 @@ int termux_media_scan(char **     out,
     return ret;
 }
 
-int termux_media_player(char **     out,
+int termux_media_player(char **out,
                         const char *op,
                         const char *filename)
 {
@@ -658,9 +658,9 @@ int termux_media_player(char **     out,
 
 /*termux-microphone-record*/
 
-int termux_microphone_record(char **              out,
+int termux_microphone_record(char **out,
                              const Termux_record *op_s,
-                             const char *         op)
+                             const char *op)
 {
     kstring_t *ks = ks_init();
     (void)ksprintf(ks, "termux-microphone-record");
@@ -878,7 +878,7 @@ int termux_notification_remove(int id)
 /*termux-open*/
 
 int termux_open(const char *path_url,
-                int         select,
+                int select,
                 const char *type)
 {
     int ret = -1;
@@ -941,10 +941,10 @@ int termux_open_url(const char *url)
 
 /*termux-sensor*/
 
-int termux_sensor(char **     out,
+int termux_sensor(char **out,
                   const char *s,
-                  int         ms,
-                  int         n,
+                  int ms,
+                  int n,
                   const char *op)
 {
     kstring_t *ks = ks_init();
@@ -979,10 +979,10 @@ int termux_sensor(char **     out,
 
 /*termux-sms*/
 
-int termux_sms_list(char **     out,
+int termux_sms_list(char **out,
                     const char *t,
-                    int         l,
-                    int         o,
+                    int l,
+                    int o,
                     const char *op)
 {
     kstring_t *ks = ks_init();
@@ -1109,7 +1109,7 @@ int termux_toast(const char *text,
                  const char *c,
                  const char *b,
                  const char *g,
-                 int         s)
+                 int s)
 {
     kstring_t *ks = ks_init();
     (void)ksprintf(ks, "termux-toast");
@@ -1174,7 +1174,7 @@ int termux_tts_engines(char **out)
 }
 
 int termux_tts_speak(const Termux_tts *op,
-                     const char *      text)
+                     const char *text)
 {
     kstring_t *ks = ks_init();
     (void)ksprintf(ks, "termux-tts-speak");
@@ -1233,7 +1233,7 @@ int termux_tts_speak(const Termux_tts *op,
 
 /*usb*/
 
-int termux_usb(char **     out,
+int termux_usb(char **out,
                const char *path,
                const char *e,
                const char *op)
@@ -1293,7 +1293,7 @@ int termux_vibrate(int ms,
 /*volume*/
 
 int termux_volume(const char *s,
-                  int         v)
+                  int v)
 {
     int ret = -1;
 
@@ -1315,7 +1315,7 @@ int termux_volume(const char *s,
 /*wallpaper*/
 
 int termux_wallpaper(const char *file_url,
-                     int         screen)
+                     int screen)
 {
     int ret = -1;
 

@@ -58,8 +58,8 @@ int fp_encrypt(const char *restrict in,
     }
 #endif /* DEBUG_CHECK */
     unsigned int n_table = (unsigned int)strlen(table_encode);
-    unsigned int n_in    = (unsigned int)strlen(in);
-    unsigned int i       = 0U;
+    unsigned int n_in = (unsigned int)strlen(in);
+    unsigned int i = 0U;
 
     *out = (char *)malloc(len * LEN_CRYPT_CHAR + 1U);
     if (!(*out))
@@ -69,12 +69,12 @@ int fp_encrypt(const char *restrict in,
 
     for (unsigned int j = 0U; i != len * LEN_CRYPT_CHAR; i += LEN_CRYPT_CHAR)
     {
-        char         ch   = '\0';
+        char ch = '\0';
         unsigned int site = (unsigned int)-1;
 
         if (j < n_in)
         {
-            ch   = in[j++];
+            ch = in[j++];
             site = rands() % 4U * 4U;
         }
 
@@ -111,7 +111,7 @@ int fp_dncrypt(const char *restrict in,
     }
 #endif /* DEBUG_CHECK */
     unsigned int n_table = (unsigned int)strlen(table_encode);
-    unsigned int j       = 0U;
+    unsigned int j = 0U;
 
     *out = (char *)malloc(len + 1U);
     if (!(*out))

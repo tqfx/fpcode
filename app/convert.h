@@ -52,12 +52,12 @@ __BEGIN_DECLS
   @retval        -1 failure
 */
 #ifdef __WINNT__
-extern int code_convert(char **      dst,
+extern int code_convert(char **dst,
                         unsigned int dst_charset,
-                        const char * src,
+                        const char *src,
                         unsigned int src_charset);
 #else
-extern int code_convert(char **     dst,
+extern int code_convert(char **dst,
                         const char *dst_charset,
                         const char *src,
                         const char *src_charset);

@@ -30,17 +30,17 @@
 
 __BEGIN_DECLS
 
-extern int cjson_array_k(char **      dst,
+extern int cjson_array_k(char **dst,
                          const cJSON *cjson,
-                         int          index);
+                         int index);
 extern int fp_json_array(const char *filename,
-                         cJSON **    dst,
+                         cJSON **dst,
                          const char *string);
 
 extern int fp_json_fp2json(const fp_t *fp,
-                           cJSON **    pcjson);
+                           cJSON **pcjson);
 extern int fp_json_json2fp(const cJSON *pcjson,
-                           fp_t **      fp);
+                           fp_t **fp);
 
 extern int fp_json_init(const char *filename);
 
@@ -49,8 +49,8 @@ extern int fp_json_add_k(const char *filename,
 extern int fp_json_add_p(const char *filename,
                          const char *password);
 
-extern int fp_json_del_i(const char * filename,
-                         const char * string,
+extern int fp_json_del_i(const char *filename,
+                         const char *string,
                          unsigned int id);
 
 extern int fp_json_del_k(const char *filename,
@@ -59,11 +59,11 @@ extern int fp_json_del_p(const char *filename,
                          const char *password);
 
 extern int fp_json_out_k(const char *filename,
-                         fp_t ***    dst,
-                         size_t *    n);
+                         fp_t ***dst,
+                         size_t *n);
 extern int fp_json_out_p(const char *filename,
-                         char ***    dst,
-                         size_t *    n);
+                         char ***dst,
+                         size_t *n);
 
 __END_DECLS
 

@@ -63,10 +63,10 @@ __BEGIN_DECLS
 
 extern int fp_str_k(fp_t ***k,
                     size_t *n,
-                    char *  s);
+                    char *s);
 extern int fp_str_p(char ***p,
                     size_t *n,
-                    char *  s);
+                    char *s);
 
 extern int fp_init(const char *filename);
 
@@ -80,16 +80,16 @@ extern int fp_add_k(const char *filename,
 extern int fp_del_k(const char *filename,
                     const char *key);
 
-extern int fp_del_i(const char * filename,
-                    const char * string,
+extern int fp_del_i(const char *filename,
+                    const char *string,
                     unsigned int i);
 
 extern int fp_out_p(const char *filename,
-                    char ***    dst,
-                    size_t *    n);
+                    char ***dst,
+                    size_t *n);
 extern int fp_out_k(const char *filename,
-                    fp_t ***    dst,
-                    size_t *    n);
+                    fp_t ***dst,
+                    size_t *n);
 
 extern int fp_import(const char *filename,
                      const char *dataname);
@@ -127,7 +127,7 @@ static inline void fp_free_p(char ***dst,
         }
         free((*dst));
         *dst = NULL;
-        *n   = 0U;
+        *n = 0U;
     }
 }
 
@@ -142,7 +142,7 @@ static inline void fp_free_k(fp_t ***dst,
         }
         free((*dst));
         *dst = NULL;
-        *n   = 0U;
+        *n = 0U;
     }
 }
 

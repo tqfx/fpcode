@@ -39,7 +39,7 @@ int cjson_array_k(char **dst, const cJSON *cjson, int index)
 }
 
 int fp_json_array(const char *filename,
-                  cJSON **    dst,
+                  cJSON **dst,
                   const char *string)
 {
     cJSON *cjson = NULL;
@@ -56,7 +56,7 @@ int fp_json_array(const char *filename,
 }
 
 int fp_json_fp2json(const fp_t *fp,
-                    cJSON **    dst)
+                    cJSON **dst)
 {
     /* {} */
     *dst = cJSON_CreateObject();
@@ -106,7 +106,7 @@ int fp_json_fp2json(const fp_t *fp,
 }
 
 int fp_json_json2fp(const cJSON *cjson,
-                    fp_t **      fp)
+                    fp_t **fp)
 {
     *fp = (fp_t *)calloc(1, sizeof(fp_t));
     if (!*fp)
@@ -279,7 +279,7 @@ int fp_json_add_p(const char *filename,
         return -1;
     }
 
-    int   ret = -1;
+    int ret = -1;
     char *out = NULL;
 
     do
@@ -335,8 +335,8 @@ int fp_json_add_p(const char *filename,
     return ret;
 }
 
-int fp_json_del_i(const char * filename,
-                  const char * string,
+int fp_json_del_i(const char *filename,
+                  const char *string,
                   unsigned int id)
 {
     cJSON *cjson = NULL;
@@ -457,8 +457,8 @@ int fp_json_del_p(const char *filename,
 }
 
 int fp_json_out_k(const char *filename,
-                  fp_t ***    dst,
-                  size_t *    n)
+                  fp_t ***dst,
+                  size_t *n)
 {
     cJSON *cjson = NULL;
     if (fp_json_array(filename, &cjson, const_str_k))
@@ -502,8 +502,8 @@ int fp_json_out_k(const char *filename,
 }
 
 int fp_json_out_p(const char *filename,
-                  char ***    dst,
-                  size_t *    n)
+                  char ***dst,
+                  size_t *n)
 {
     cJSON *cjson = NULL;
     if (fp_json_array(filename, &cjson, const_str_p))

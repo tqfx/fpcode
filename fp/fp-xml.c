@@ -26,7 +26,7 @@
 #include "fp-crypt.h"
 #include "fp.h"
 
-int fp_xml_fp2xml(const fp_t *  fp,
+int fp_xml_fp2xml(const fp_t *fp,
                   mxml_node_t **xml)
 {
 #ifdef DEBUG
@@ -53,7 +53,7 @@ int fp_xml_fp2xml(const fp_t *  fp,
 }
 
 int fp_xml_xml2fp(mxml_node_t *xml,
-                  fp_t **      fp)
+                  fp_t **fp)
 {
 #ifdef DEBUG
     if (!xml || !fp)
@@ -507,8 +507,8 @@ int fp_xml_del_p(const char *filename,
     return ret;
 }
 
-int fp_xml_del_i(const char * filename,
-                 const char * string,
+int fp_xml_del_i(const char *filename,
+                 const char *string,
                  unsigned int i)
 {
 #ifdef DEBUG
@@ -591,8 +591,8 @@ int fp_xml_del_i(const char * filename,
 }
 
 int fp_xml_out_p(const char *filename,
-                 char ***    dst,
-                 size_t *    n)
+                 char ***dst,
+                 size_t *n)
 {
 #ifdef DEBUG
     if (!filename || !dst || !n)
@@ -660,8 +660,8 @@ int fp_xml_out_p(const char *filename,
 }
 
 int fp_xml_out_k(const char *filename,
-                 fp_t ***    dst,
-                 size_t *    n)
+                 fp_t ***dst,
+                 size_t *n)
 {
 #ifdef DEBUG
     if (!filename || !dst || !n)

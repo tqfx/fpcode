@@ -17,7 +17,7 @@ $(BUILD):
 	@-mkdir $@
 
 .PHONY: format clean
-format: fpcode fp app app_termux tapi
+format: fpcode fp app app-termux termux-api
 	@-find $^ -regex '.*\.\(cpp\|hpp\|cu\|c\|h\)' -exec clang-format --verbose -style=file -i {} \;
 clean:
 	@-git clean -f -d -X

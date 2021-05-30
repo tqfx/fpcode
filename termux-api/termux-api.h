@@ -51,8 +51,8 @@
 */
 typedef struct
 {
-    char *       file;     //!< 开始记录到特定文件
-    char *       encoder;  //!< 使用指定的编码器(aac, amr_wb, amr_nb)开始记录
+    char *file;            //!< 开始记录到特定文件
+    char *encoder;         //!< 使用指定的编码器(aac, amr_wb, amr_nb)开始记录
     unsigned int limit;    //!< 开始记录指定的限制(以秒为单位, 0不受限制)
     unsigned int bitrate;  //!< 开始记录指定的比特率(以kbps为单位)
     unsigned int rate;     //!< 开始记录指定的采样率(以Hz为单位)
@@ -73,25 +73,25 @@ typedef struct
     int media_play     : 1;  //!< 在媒体播放按钮上执行的操作
     int media_previous : 1;  //!< 在媒体上一个按钮上执行的操作
 
-    char *       content;         //!< 内容显示在通知中.将优先于stdin.
-    char *       action;          //!< 按下通知时要执行的动作
-    char *       button1;         //!< 在第一个通知按钮上显示的文字
-    char *       button1_action;  //!< 在第一个通知按钮上执行的操作
-    char *       button2;         //!< 在第二个通知按钮上显示的文字
-    char *       button2_action;  //!< 在第二个通知按钮上执行的操作
-    char *       button3;         //!< 在第三个通知按钮上显示的文字
-    char *       button3_action;  //!< 在第三个通知按钮上执行的操作
-    char *       group;           //!< 通知组(与同一组的通知一起显示)
-    unsigned int id;              //!< 通知ID(将覆盖以前所有具有相同ID的通知)
-    char *       image_path;      //!< 通知中将显示的图像的绝对路径
-    char *       led_color;       //!< 指示灯的闪烁颜色为RRGGBB(默认值: 无)
-    unsigned int led_off;         //!< 闪烁时LED熄灭的毫秒数(默认值: 800)
-    unsigned int led_on;          //!< 指示灯闪烁的毫秒数(默认值: 800)
-    char *       on_delete;       //!< 清除通知时执行的操作
-    char *       priority;        //!< 通知优先级(high/low/max/min/default)
-    char *       title;           //!< 显示的通知标题
-    char *       vibrate;         //!< 振动模式, 逗号分隔为500,1000,200
-    char *       type;            //!< 使用的通知样式(default/media)
+    char *content;         //!< 内容显示在通知中.将优先于stdin.
+    char *action;          //!< 按下通知时要执行的动作
+    char *button1;         //!< 在第一个通知按钮上显示的文字
+    char *button1_action;  //!< 在第一个通知按钮上执行的操作
+    char *button2;         //!< 在第二个通知按钮上显示的文字
+    char *button2_action;  //!< 在第二个通知按钮上执行的操作
+    char *button3;         //!< 在第三个通知按钮上显示的文字
+    char *button3_action;  //!< 在第三个通知按钮上执行的操作
+    char *group;           //!< 通知组(与同一组的通知一起显示)
+    unsigned int id;       //!< 通知ID(将覆盖以前所有具有相同ID的通知)
+    char *image_path;      //!< 通知中将显示的图像的绝对路径
+    char *led_color;       //!< 指示灯的闪烁颜色为RRGGBB(默认值: 无)
+    unsigned int led_off;  //!< 闪烁时LED熄灭的毫秒数(默认值: 800)
+    unsigned int led_on;   //!< 指示灯闪烁的毫秒数(默认值: 800)
+    char *on_delete;       //!< 清除通知时执行的操作
+    char *priority;        //!< 通知优先级(high/low/max/min/default)
+    char *title;           //!< 显示的通知标题
+    char *vibrate;         //!< 振动模式, 逗号分隔为500,1000,200
+    char *type;            //!< 使用的通知样式(default/media)
 } Termux_noti;
 
 /*!
@@ -182,8 +182,8 @@ extern int termux_brightness(int num);
  ]
 */
 extern int termux_call_log(char **out,
-                           int    l,
-                           int    o);
+                           int l,
+                           int o);
 
 /*!
  @brief          获取有关设备相机的信息.
@@ -255,7 +255,7 @@ extern int termux_camera_info(char **out);
   @retval        0  success
   @retval        -1 failure
 */
-extern int termux_camera_photo(const char * filename,
+extern int termux_camera_photo(const char *filename,
                                unsigned int c);
 
 /*!
@@ -301,7 +301,7 @@ extern int termux_contact_list(char **out);
       'text': '00:00'
   }
 */
-extern int termux_dialog_time(char **     out,
+extern int termux_dialog_time(char **out,
                               const char *t);
 
 /*!
@@ -323,7 +323,7 @@ extern int termux_dialog_time(char **     out,
       'text': 'text'
   }
 */
-extern int termux_dialog_text(char **     out,
+extern int termux_dialog_text(char **out,
                               const char *t,
                               const char *i,
                               const char *op);
@@ -337,7 +337,7 @@ extern int termux_dialog_text(char **     out,
   @retval        0  success
   @retval        -1 failure
 */
-extern int termux_dialog_speech(char **     out,
+extern int termux_dialog_speech(char **out,
                                 const char *t,
                                 const char *i);
 
@@ -356,7 +356,7 @@ extern int termux_dialog_speech(char **     out,
       'index': 0
   }
 */
-extern int termux_dialog_spinner(char **     out,
+extern int termux_dialog_spinner(char **out,
                                  const char *t,
                                  const char *v);
 
@@ -375,7 +375,7 @@ extern int termux_dialog_spinner(char **     out,
        'index': 0
   }
 */
-extern int termux_dialog_sheet(char **     out,
+extern int termux_dialog_sheet(char **out,
                                const char *t,
                                const char *v);
 
@@ -394,7 +394,7 @@ extern int termux_dialog_sheet(char **     out,
       'index': 0
   }
 */
-extern int termux_dialog_radio(char **     out,
+extern int termux_dialog_radio(char **out,
                                const char *t,
                                const char *v);
 
@@ -413,7 +413,7 @@ extern int termux_dialog_radio(char **     out,
       'index': 1
    }
 */
-extern int termux_dialog_date(char **     out,
+extern int termux_dialog_date(char **out,
                               const char *t,
                               const char *d);
 
@@ -432,7 +432,7 @@ extern int termux_dialog_date(char **     out,
       'index': 1
   }
 */
-extern int termux_dialog_counter(char **     out,
+extern int termux_dialog_counter(char **out,
                                  const char *t,
                                  const char *r);
 
@@ -455,7 +455,7 @@ extern int termux_dialog_counter(char **     out,
       ]
   }
 */
-extern int termux_dialog_checkbox(char **     out,
+extern int termux_dialog_checkbox(char **out,
                                   const char *t,
                                   const char *v);
 
@@ -474,7 +474,7 @@ extern int termux_dialog_checkbox(char **     out,
       'index': 1
   }
 */
-extern int termux_dialog_confirm(char **     out,
+extern int termux_dialog_confirm(char **out,
                                  const char *t,
                                  const char *i);
 
@@ -512,7 +512,7 @@ extern int termux_download(const char *url,
       'auth_result': 'AUTH_RESULT_FAILURE'
   }
 */
-extern int termux_fingerprint(char **     out,
+extern int termux_fingerprint(char **out,
                               const char *t,
                               const char *d,
                               const char *s,
@@ -539,8 +539,8 @@ extern int termux_infrared_frequencies(char **out);
   @retval        -1 failure
 */
 extern int termux_infrared_transmit(char **out,
-                                    int    f,
-                                    int    num);
+                                    int f,
+                                    int num);
 
 /*!
  @brief          获取设备位置.
@@ -562,7 +562,7 @@ extern int termux_infrared_transmit(char **out,
       "provider": "network"
   }
 */
-extern int termux_location(char **     out,
+extern int termux_location(char **out,
                            const char *p,
                            const char *r);
 
@@ -575,7 +575,7 @@ extern int termux_location(char **     out,
   @retval        0  success
   @retval        -1 failure
 */
-extern int termux_media_scan(char **     out,
+extern int termux_media_scan(char **out,
                              const char *filename,
                              const char *op);
 
@@ -592,7 +592,7 @@ extern int termux_media_scan(char **     out,
   @retval        0  success
   @retval        -1 failure
 */
-extern int termux_media_player(char **     out,
+extern int termux_media_player(char **out,
                                const char *op,
                                const char *filename);
 
@@ -608,9 +608,9 @@ extern int termux_media_player(char **     out,
   @retval        0  success
   @retval        -1 failure
 */
-extern int termux_microphone_record(char **              out,
+extern int termux_microphone_record(char **out,
                                     const Termux_record *struct_op,
-                                    const char *         op);
+                                    const char *op);
 
 /*!
  @brief          显示系统通知. 内容文本使用 -c/--content 指定或从stdin中读取.
@@ -665,7 +665,7 @@ extern int termux_notification_remove(int id);
   @retval        -1 failure
 */
 extern int termux_open(const char *path_url,
-                       int         select,
+                       int select,
                        const char *type);
 
 /*!
@@ -691,10 +691,10 @@ extern int termux_open_url(const char *url);
   @retval        0  success
   @retval        -1 failure
 */
-extern int termux_sensor(char **     out,
+extern int termux_sensor(char **out,
                          const char *s,
-                         int         ms,
-                         int         n,
+                         int ms,
+                         int n,
                          const char *op);
 
 /*!
@@ -708,10 +708,10 @@ extern int termux_sensor(char **     out,
   @retval        0  success
   @retval        -1 failure
 */
-extern int termux_sms_list(char **     out,
+extern int termux_sms_list(char **out,
                            const char *t,
-                           int         l,
-                           int         o,
+                           int l,
+                           int o,
                            const char *op);
 
 /*!
@@ -810,7 +810,7 @@ extern int termux_toast(const char *text,
                         const char *c,
                         const char *b,
                         const char *g,
-                        int         s);
+                        int s);
 
 /*!
  @brief          在设备上切换LED手电筒
@@ -855,7 +855,7 @@ extern int termux_tts_engines(char **out);
   @retval        -1 failure
 */
 extern int termux_tts_speak(const Termux_tts *op,
-                            const char *      text);
+                            const char *text);
 
 /*!
  @brief          列出或访问USB设备. 无法直接访问设备, 仅使用termux-usb.
@@ -867,7 +867,7 @@ extern int termux_tts_speak(const Termux_tts *op,
   @retval        0  success
   @retval        -1 failure
 */
-extern int termux_usb(char **     out,
+extern int termux_usb(char **out,
                       const char *path,
                       const char *e,
                       const char *op);
@@ -925,7 +925,7 @@ extern int termux_vibrate(int ms,
   ]
 */
 extern int termux_volume(const char *s,
-                         int         v);
+                         int v);
 
 /*!
  @brief          更改设备上的墙纸
@@ -936,7 +936,7 @@ extern int termux_volume(const char *s,
   @retval        -1 failure
 */
 extern int termux_wallpaper(const char *file_url,
-                            int         screen);
+                            int screen);
 
 /*!
  @brief          获取Termux唤醒锁,  以防止CPU休眠.

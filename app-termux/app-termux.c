@@ -432,7 +432,7 @@ static int app_termux_del(const char *filename,
         }
 
         char **s = NULL;
-        int    l = 0;
+        int l = 0;
 
         do
         {
@@ -599,9 +599,9 @@ void app_termux_search_key(const char *filename)
             continue;
         }
 
-        int   i  = 0;
+        int i = 0;
         char *vs = NULL;
-        ret      = k2vsn(&vs, k, n);
+        ret = k2vsn(&vs, k, n);
         if (ret)
         {
             break;
@@ -702,7 +702,7 @@ void app_termux_search_password(const char *filename)
             continue;
         }
 
-        int   i  = 0;
+        int i = 0;
         char *vs = NULL;
 
         ret = p2vsn(&vs, p, n);

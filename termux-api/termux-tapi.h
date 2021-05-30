@@ -72,9 +72,9 @@ extern int tapi_confirm(const char *title,
   @retval        -1 failure
   @retval        -2 error
 */
-extern int tapi_checkbox(char ***    text,
-                         int **      index,
-                         int *       n,
+extern int tapi_checkbox(char ***text,
+                         int **index,
+                         int *n,
                          const char *title,
                          const char *values);
 
@@ -88,7 +88,7 @@ extern int tapi_checkbox(char ***    text,
   @retval        -1 failure
   @retval        -2 error
 */
-extern int tapi_counter(long int *  pl,
+extern int tapi_counter(long int *pl,
                         const char *title,
                         const char *values);
 
@@ -103,8 +103,8 @@ extern int tapi_counter(long int *  pl,
   @retval        -1 failure
   @retval        -2 error
 */
-extern int tapi_radio(char **     text,
-                      int *       index,
+extern int tapi_radio(char **text,
+                      int *index,
                       const char *title,
                       const char *values);
 
@@ -119,8 +119,8 @@ extern int tapi_radio(char **     text,
   @retval        -1 failure
   @retval        -2 error
 */
-extern int tapi_sheet(char **     text,
-                      int *       index,
+extern int tapi_sheet(char **text,
+                      int *index,
                       const char *title,
                       const char *values);
 
@@ -135,8 +135,8 @@ extern int tapi_sheet(char **     text,
   @retval        -1 failure
   @retval        -2 error
 */
-extern int tapi_spinner(char **     text,
-                        int *       index,
+extern int tapi_spinner(char **text,
+                        int *index,
                         const char *title,
                         const char *values);
 
@@ -155,7 +155,7 @@ extern int tapi_spinner(char **     text,
   @retval        -1 failure
   @retval        -2 error
 */
-extern int tapi_text(char **     dst,
+extern int tapi_text(char **dst,
                      const char *title,
                      const char *hint,
                      const char *op);

@@ -30,9 +30,9 @@
 
 typedef int (*dialog_ci_t)(char **, const char *, const char *);
 
-static int tapi_dialog_ci(char **     text,
-                          int *       index,
-                          int         code,
+static int tapi_dialog_ci(char **text,
+                          int *index,
+                          int code,
                           const char *title,
                           const char *values,
                           dialog_ci_t func);
@@ -113,9 +113,9 @@ int tapi_confirm(const char *title, const char *hint)
     return ret;
 }
 
-int tapi_checkbox(char ***    text,
-                  int **      index,
-                  int *       n,
+int tapi_checkbox(char ***text,
+                  int **index,
+                  int *n,
                   const char *title,
                   const char *values)
 {
@@ -192,7 +192,7 @@ int tapi_checkbox(char ***    text,
     return ret;
 }
 
-int tapi_counter(long int *  pl,
+int tapi_counter(long int *pl,
                  const char *title,
                  const char *values)
 {
@@ -240,9 +240,9 @@ int tapi_counter(long int *  pl,
     return ret;
 }
 
-static int tapi_dialog_ci(char **     text,
-                          int *       index,
-                          int         code,
+static int tapi_dialog_ci(char **text,
+                          int *index,
+                          int code,
                           const char *title,
                           const char *values,
                           dialog_ci_t func)
@@ -302,8 +302,8 @@ static int tapi_dialog_ci(char **     text,
     return ret;
 }
 
-int tapi_radio(char **     text,
-               int *       index,
+int tapi_radio(char **text,
+               int *index,
                const char *title,
                const char *values)
 {
@@ -315,8 +315,8 @@ int tapi_radio(char **     text,
                           termux_dialog_radio);
 }
 
-int tapi_sheet(char **     text,
-               int *       index,
+int tapi_sheet(char **text,
+               int *index,
                const char *title,
                const char *values)
 {
@@ -328,8 +328,8 @@ int tapi_sheet(char **     text,
                           termux_dialog_sheet);
 }
 
-int tapi_spinner(char **     text,
-                 int *       index,
+int tapi_spinner(char **text,
+                 int *index,
                  const char *title,
                  const char *values)
 {
@@ -341,7 +341,7 @@ int tapi_spinner(char **     text,
                           termux_dialog_spinner);
 }
 
-int tapi_text(char **     dst,
+int tapi_text(char **dst,
               const char *title,
               const char *hint,
               const char *op)

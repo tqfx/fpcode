@@ -35,9 +35,9 @@
 #endif
 
 #ifdef __WINNT__
-int code_convert(char **      dst,
+int code_convert(char **dst,
                  unsigned int dst_charset,
-                 const char * src,
+                 const char *src,
                  unsigned int src_charset)
 {
     if (!dst || !src)
@@ -73,7 +73,7 @@ int code_convert(char **      dst,
     return n;
 }
 #else
-int code_convert(char **     dst,
+int code_convert(char **dst,
                  const char *dst_charset,
                  const char *src,
                  const char *src_charset)
