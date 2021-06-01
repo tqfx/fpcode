@@ -10,14 +10,14 @@ ifndef CMAKE_G
 CMAKE_G = -G "Unix Makefiles"
 endif
 
-all:$(BUILD)
-	@cd $(BUILD) && cmake .. $(CMAKE_G) -DCMAKE_BUILD_TYPE="Release" && $(MAKE) -j
+.PHONY: $(BUILD) format clean
 
 $(BUILD):
-	@-mkdir $@
+	@cmake -S . -B $@ $(CMAKE_G) -DCMAKE_BUILD_TYPE="Release" && cd $@ && make -j
 
-.PHONY: format clean
-format: fpcode fp app app-termux termux-api
-	@-find $^ -regex '.*\.\(cpp\|hpp\|cu\|c\|h\)' -exec clang-format --verbose -style=file -i {} \;
 clean:
 	@-git clean -f -d -X
+
+format: fpcode fp app app-termux termux-api main.c main.h main-termux.c
+	@-find $^ -regex '.*\.\(cpp\|hpp\|cu\|c\|h\)' -exec clang-format --verbose -style=file -i {} \;
+

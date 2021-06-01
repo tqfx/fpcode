@@ -1,0 +1,23 @@
+ninja_required_version = 1.3
+
+rule cmake
+    command = cmake -S $in -B $out -G Ninja -DCMAKE_BUILD_TYPE="Release" && cd $out && ninja
+    description = start build
+
+rule clean
+    command = git clean -f -d -X
+    description = start clean
+
+rule format
+    command = find $in -regex '.*\.\(cpp\|hpp\|cu\|c\|h\)' -exec clang-format --verbose -style=file -i {} \;
+    description = start format
+
+build build: cmake .
+    pool = console
+
+build clean: clean
+
+build format: format fpcode fp app app-termux termux-api main.c main.h main-termux.c
+
+default build
+
