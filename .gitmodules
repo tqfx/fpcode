@@ -1,19 +1,15 @@
 [submodule "klib"]
 	path = klib
-	branch = release
-	url = https://github.com/tqfx/klib.git
+	url = https://hub.fastgit.org/tqfx/klib.git
 [submodule "mxml"]
 	path = mxml
-	branch = release
-	url = https://github.com/tqfx/mxml.git
+	url = https://hub.fastgit.org/tqfx/mxml.git
 [submodule "cJSON"]
 	path = cJSON
-	branch = release
-	url = https://github.com/tqfx/cJSON.git
+	url = https://hub.fastgit.org/tqfx/cJSON.git
 [submodule "md5"]
 	path = md5
-	branch = release
-	url = https://github.com/tqfx/md5.git
+	url = https://hub.fastgit.org/tqfx/md5.git
 [submodule "cmake"]
 	path = cmake
-	url = https://github.com/tqfx/cmake.git
+	url = https://hub.fastgit.org/tqfx/cmake.git
