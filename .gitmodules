@@ -1,15 +1,15 @@
 [submodule "klib"]
 	path = klib
-	url = git@github.com:tqfx/klib.git
+	url = https://github.com/tqfx/klib.git
 [submodule "mxml"]
 	path = mxml
-	url = git@github.com:tqfx/mxml.git
+	url = https://github.com/tqfx/mxml.git
 [submodule "cJSON"]
 	path = cJSON
-	url = git@github.com:tqfx/cJSON.git
+	url = https://github.com/tqfx/cJSON.git
 [submodule "md5"]
 	path = md5
-	url = git@github.com:tqfx/md5.git
+	url = https://github.com/tqfx/md5.git
 [submodule "cmake"]
 	path = cmake
-	url = git@github.com:tqfx/cmake.git
+	url = https://github.com/tqfx/cmake.git
