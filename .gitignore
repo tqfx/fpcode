@@ -59,4 +59,4 @@ build
 
 # Ninja
 .ninja_log
-
+.ninja_deps
